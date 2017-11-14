@@ -1,11 +1,42 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/gotha</item>
+    </style>
+
+    <style name="AppTheme.Button.Dark" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/md_dark_primary_text</item>
+    </style>
+
+    <style name="AppTheme.Button.Light" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/md_light_primary_text</item>
+    </style>
+
+    <style name="AppTheme.Button.Dark.Bold" parent="AppTheme.TextView.Dark">
+        <item name="android:fontFamily">@font/gotha_bol</item>
+    </style>
+
+    <style name="AppTheme.Button.Light.Bold" parent="AppTheme.TextView.Light">
+        <item name="android:fontFamily">@font/gotha_bol</item>
+    </style>
+
+    <style name="AppTheme.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/gotha</item>
+    </style>
+
+    <style name="AppTheme.TextView.Dark" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/md_dark_primary_text</item>
+    </style>
+
+    <style name="AppTheme.TextView.Light" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/md_light_primary_text</item>
+    </style>
 </resources>
