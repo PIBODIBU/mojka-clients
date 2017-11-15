@@ -1,9 +1,16 @@
 package com.mojka.poisk.ui.contract;
 
+import android.support.annotation.StringRes;
+
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.mojka.poisk.ui.contract.base.BasePresenter;
 import com.mojka.poisk.ui.contract.base.BaseView;
+import com.mojka.poisk.ui.fragment.RegisterThirdStageFragment;
+import com.mojka.poisk.ui.presenter.RegisterFirstStagePresenterImpl;
 import com.mojka.poisk.ui.presenter.RegisterSecondStagePresenterImpl;
+import com.mojka.poisk.ui.presenter.RegisterThirdStagePresenterImpl;
+
+import java.util.List;
 
 public class RegisterContract {
     public interface View extends BaseView {
@@ -11,7 +18,7 @@ public class RegisterContract {
 
         void showSecondStage();
 
-        PhoneAuthProvider.OnVerificationStateChangedCallbacks getOnVerificationStateChangedCallbacks();
+        void showThirdStage();
     }
 
     public interface Presenter extends BasePresenter<View> {
@@ -23,9 +30,15 @@ public class RegisterContract {
 
             void showProgressBar();
 
+            void hideProgressBar();
+
+            void showButton();
+
             void hideButton();
 
             Presenter getPresenter();
+
+            void setErrorText(String text);
         }
 
         interface Presenter extends BasePresenter<RegisterContract.FirstStage.View> {
@@ -38,6 +51,10 @@ public class RegisterContract {
             PhoneAuthProvider.OnVerificationStateChangedCallbacks getOnVerificationStateChangedCallbacks();
 
             int getAuthTimeDuration();
+
+            void addAuthCallback(RegisterFirstStagePresenterImpl.AuthCallback authCallback);
+
+            List<RegisterFirstStagePresenterImpl.AuthCallback> getAuthCallbacks();
         }
     }
 
@@ -54,6 +71,10 @@ public class RegisterContract {
             void showButton();
 
             void hideButton();
+
+            void setErrorText(String text);
+
+            void showToast(@StringRes int text);
         }
 
         interface Presenter extends BasePresenter<RegisterContract.SecondStage.View> {
@@ -63,9 +84,31 @@ public class RegisterContract {
 
             String getVerificationId();
 
-            void setAuthCallback(RegisterSecondStagePresenterImpl.AuthCallback authCallback);
+            void addAuthCallback(RegisterSecondStagePresenterImpl.AuthCallback authCallback);
 
-            RegisterSecondStagePresenterImpl.AuthCallback getAuthCallback();
+            List<RegisterSecondStagePresenterImpl.AuthCallback> getAuthCallbacks();
+        }
+    }
+
+    public interface ThirdStage {
+        interface View extends BaseView {
+            Presenter getPresenter();
+
+            void showProgressBar();
+
+            void hideProgressBar();
+
+            void showButton();
+
+            void hideButton();
+
+            void setErrorText(String text);
+        }
+
+        interface Presenter extends BasePresenter<RegisterContract.ThirdStage.View> {
+            void addAuthCallback(RegisterThirdStagePresenterImpl.AuthCallback authCallback);
+
+            List<RegisterThirdStagePresenterImpl.AuthCallback> getAuthCallbacks();
         }
     }
 }

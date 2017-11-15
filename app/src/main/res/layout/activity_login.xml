@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -46,7 +47,7 @@
             android:paddingEnd="16dp"
             android:paddingStart="16dp" />
 
-        <Button
+        <com.rey.material.widget.Button
             style="@style/AppTheme.Button.Dark.Bold"
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -55,7 +56,8 @@
             android:fontFamily="@font/gotha_bol"
             android:text="@string/btn_login"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
 
         <TextView
             style="@style/AppTheme.TextView.Dark"
@@ -65,7 +67,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/forgot_password" />
 
-        <Button
+        <com.rey.material.widget.Button
             android:id="@+id/btn_register"
             style="@style/AppTheme.Button.Dark.Bold"
             android:layout_width="match_parent"
@@ -74,6 +76,7 @@
             android:background="@drawable/btn_accent"
             android:text="@string/btn_register"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
     </LinearLayout>
 </RelativeLayout>

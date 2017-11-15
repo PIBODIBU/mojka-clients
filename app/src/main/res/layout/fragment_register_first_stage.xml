@@ -31,7 +31,7 @@
             android:layout_marginTop="16dp"
             android:background="@color/white"
             android:hint="@string/hint_name_not_required"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:paddingEnd="16dp"
             android:paddingStart="16dp" />
 
@@ -46,7 +46,7 @@
             android:paddingEnd="16dp"
             android:paddingStart="16dp" />
 
-        <Button
+        <com.rey.material.widget.Button
             android:id="@+id/btn_next"
             style="@style/AppTheme.Button.Dark.Bold"
             android:layout_width="match_parent"
@@ -55,7 +55,8 @@
             android:background="@drawable/btn_accent"
             android:text="@string/btn_next"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
 
         <TextView
             android:id="@+id/tv_error"

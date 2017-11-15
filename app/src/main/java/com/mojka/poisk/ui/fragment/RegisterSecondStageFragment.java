@@ -40,36 +40,7 @@ public class RegisterSecondStageFragment extends BaseFragment implements Registe
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter.setView(this);
-        presenter.setAuthCallback(new RegisterSecondStagePresenterImpl.AuthCallback() {
-            @Override
-            public void onStart() {
-                tvError.setText("");
-                hideButton();
-                showProgressBar();
-            }
-
-            @Override
-            public void onSuccess() {
-                showButton();
-                hideProgressBar();
-
-                Toast.makeText(getViewActivity(), "Вы успешно зарегистрировались", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError() {
-                tvError.setText(getString(R.string.error_auth_phone));
-                showButton();
-                hideProgressBar();
-            }
-
-            @Override
-            public void onInvalidCode() {
-                tvError.setText(getString(R.string.error_invalid_code));
-                showButton();
-                hideProgressBar();
-            }
-        });
+        presenter.start();
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -90,6 +61,11 @@ public class RegisterSecondStageFragment extends BaseFragment implements Registe
     }
 
     @Override
+    public void showToast(int text) {
+        Toast.makeText(getViewActivity(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     int getLayoutId() {
         return R.layout.fragment_register_second_stage;
     }
@@ -97,14 +73,7 @@ public class RegisterSecondStageFragment extends BaseFragment implements Registe
     @Override
     @OnClick(R.id.btn_finish)
     public void finishRegistration() {
-        String code = etCode.getText().toString();
-
-        if (code.equals("")) {
-            Toast.makeText(getViewActivity(), R.string.toast_empty_code, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        presenter.signInWithCode(code);
+        presenter.signInWithCode(etCode.getText().toString());
     }
 
     @Override
@@ -130,5 +99,10 @@ public class RegisterSecondStageFragment extends BaseFragment implements Registe
     @Override
     public void hideButton() {
         btnFinish.setClickable(false);
+    }
+
+    @Override
+    public void setErrorText(String text) {
+        this.tvError.setText(text);
     }
 }

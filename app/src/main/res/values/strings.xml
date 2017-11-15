@@ -19,4 +19,8 @@
     <string name="error_auth_phone">Ошибка. Попробуйте снова.</string>
     <string name="toast_empty_phone">Введите номер телефона</string>
     <string name="error_invalid_code">Неправильный код подтверждения</string>
+    <string name="hint_city">Город</string>
+    <string name="hint_car">Авто</string>
+    <string name="btn_continue">Продолжить</string>
+    <string name="btn_skip">Пропустить</string>
 </resources>

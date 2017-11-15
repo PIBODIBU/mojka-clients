@@ -1,10 +1,8 @@
 package com.mojka.poisk.ui.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.activity.RegisterActivity;
 import com.mojka.poisk.ui.contract.RegisterContract;
@@ -46,23 +41,8 @@ public class RegisterFirstStageFragment extends BaseFragment implements Register
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        presenter.setOnVerificationStateChangedCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-                tvError.setText(getViewActivity().getString(R.string.error_auth_phone));
-            }
-
-            @Override
-            public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                getViewActivity().getOnVerificationStateChangedCallbacks().onCodeSent(verificationId, forceResendingToken);
-            }
-        });
         presenter.setView(this);
+        presenter.start();
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -108,9 +88,23 @@ public class RegisterFirstStageFragment extends BaseFragment implements Register
     }
 
     @Override
+    public void hideProgressBar() {
+        progressView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showButton() {
+        btnNext.setClickable(true);
+    }
+
+    @Override
     public void hideButton() {
         btnNext.setClickable(false);
-        btnNext.setText("");
+    }
+
+    @Override
+    public void setErrorText(String text) {
+        this.tvError.setText(text);
     }
 
     @Override
