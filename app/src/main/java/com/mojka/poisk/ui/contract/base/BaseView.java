@@ -1,12 +1,12 @@
 package com.mojka.poisk.ui.contract.base;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 
 public interface BaseView {
     Context getViewContext();
 
-    AppCompatActivity getActivity();
+    Activity getViewActivity();
 
     void setupUi();
 }

@@ -14,4 +14,9 @@
     <string name="btn_next">Далее</string>
 
     <string name="forgot_password"><u>Забыли пароль?</u></string>
+    <string name="hint_code">Код подтверждения</string>
+    <string name="toast_empty_code">Введите код из смс</string>
+    <string name="error_auth_phone">Ошибка. Попробуйте снова.</string>
+    <string name="toast_empty_phone">Введите номер телефона</string>
+    <string name="error_invalid_code">Неправильный код подтверждения</string>
 </resources>

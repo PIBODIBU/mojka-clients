@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public AppCompatActivity getActivity() {
+    public AppCompatActivity getViewActivity() {
         return this;
     }
 

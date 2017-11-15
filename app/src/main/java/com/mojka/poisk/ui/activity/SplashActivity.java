@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     }
 
     @Override
-    public AppCompatActivity getActivity() {
+    public AppCompatActivity getViewActivity() {
         return this;
     }
 

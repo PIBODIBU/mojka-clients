@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "769462303728",
+    "firebase_url": "https://mojka-client.firebaseio.com",
+    "project_id": "mojka-client",
+    "storage_bucket": "mojka-client.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769462303728:android:b075d9906544a10e",
+        "android_client_info": {
+          "package_name": "com.mojka.poisk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769462303728-tqh0qop524rmd8ijju68rtt6b7f88hdk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mojka.poisk",
+            "certificate_hash": "9d0fd96052497f09648c7e772b4ea5fda89a83f0"
+          }
+        },
+        {
+          "client_id": "769462303728-lrn39tslb9k033citt8tihgn9qn14h7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzGsN7lmby66kD3g4LJ5Q0pS_UJ1mHlsA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769462303728-lrn39tslb9k033citt8tihgn9qn14h7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
