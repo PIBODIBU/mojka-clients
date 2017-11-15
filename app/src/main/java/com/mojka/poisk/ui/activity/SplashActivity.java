@@ -3,6 +3,7 @@ package com.mojka.poisk.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.mojka.poisk.R;
@@ -35,6 +36,11 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     @Override
     public Context getViewContext() {
+        return this;
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
         return this;
     }
 
