@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mojka.poisk.ui.activity.ProfileActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/c_toolbar_secondary"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/toolbar_secondary"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ib_settings"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_your_city"
+                style="@style/AppTheme.TextView.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:text="@string/your_city"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tv_city"
+                style="@style/AppTheme.TextView.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New York"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <com.rey.material.widget.ImageButton
+            android:id="@+id/ib_settings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:padding="12dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_settings_accent" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@+id/c_toolbar_secondary"
+        android:background="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@+id/c_toolbar_secondary"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/img_profile_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@+id/c_toolbar_secondary"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_choose_service"
+            style="@style/AppTheme.Button.Dark.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/btn_accent"
+            android:text="@string/btn_choose_service"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Touch" />
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_my_car"
+            style="@style/AppTheme.Button.Dark.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/btn_accent"
+            android:text="@string/btn_my_car"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_order_history"
+            style="@style/AppTheme.Button.Dark.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/btn_accent"
+            android:text="@string/btn_order_history"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
+
+        <TextView
+            style="@style/AppTheme.TextView.Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="36dp"
+            android:text="@string/contact_us" />
+    </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@drawable/bottom_nav_item"
+        app:itemIconTint="@drawable/bottom_nav_item_icon"
+        app:itemTextColor="@drawable/bottom_nav_item_text"
+        app:menu="@menu/profile_bottom_nav" />
+</RelativeLayout>

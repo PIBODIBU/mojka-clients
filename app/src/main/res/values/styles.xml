@@ -40,14 +40,25 @@
         <item name="android:fontFamily">@font/gotha</item>
     </style>
 
-    <style name="AppTheme.TextView.Error">
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/gotha</item>
+    <style name="AppTheme.TextView.Secondary" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="AppTheme.TextView.Accent" parent="AppTheme.TextView">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.TextView.Error" parent="AppTheme.TextView">
         <item name="android:textColor">@color/md_red_500</item>
     </style>
 
     <style name="AppTheme.TextView.Dark" parent="AppTheme.TextView">
         <item name="android:textColor">@color/md_dark_primary_text</item>
+    </style>
+
+    <style name="AppTheme.TextView.Dark.Bold" parent="AppTheme.TextView.Dark">
+        <item name="android:textColor">@color/md_dark_primary_text</item>
+        <item name="android:fontFamily">@font/gotha_bol</item>
     </style>
 
     <style name="AppTheme.TextView.Light" parent="AppTheme.TextView">

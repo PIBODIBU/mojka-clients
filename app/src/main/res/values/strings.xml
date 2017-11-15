@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Поиск автомоек</string>
     <string name="activity_login_title">Авторизация</string>
+    <string name="activity_profile">Профиль</string>
 
     <string name="splash_loading"><u>Загрузка…</u></string>
 
@@ -8,19 +9,30 @@
     <string name="hint_password">Пароль</string>
     <string name="hint_phone">Номер телефона</string>
     <string name="hint_name_not_required">Имя, фамилия (необязательно)</string>
+    <string name="hint_city">Город</string>
+    <string name="hint_code">Код подтверждения</string>
+    <string name="hint_car">Авто</string>
 
     <string name="btn_login">Войти</string>
     <string name="btn_register">Зарегистрироваться</string>
     <string name="btn_next">Далее</string>
-
-    <string name="forgot_password"><u>Забыли пароль?</u></string>
-    <string name="hint_code">Код подтверждения</string>
-    <string name="toast_empty_code">Введите код из смс</string>
-    <string name="error_auth_phone">Ошибка. Попробуйте снова.</string>
-    <string name="toast_empty_phone">Введите номер телефона</string>
-    <string name="error_invalid_code">Неправильный код подтверждения</string>
-    <string name="hint_city">Город</string>
-    <string name="hint_car">Авто</string>
     <string name="btn_continue">Продолжить</string>
     <string name="btn_skip">Пропустить</string>
+
+    <string name="error_auth_phone">Ошибка. Попробуйте снова.</string>
+    <string name="error_invalid_code">Неправильный код подтверждения</string>
+
+    <string name="toast_empty_code">Введите код из смс</string>
+    <string name="toast_empty_phone">Введите номер телефона</string>
+
+    <string name="forgot_password"><u>Забыли пароль?</u></string>
+    <string name="your_city">Ваш город:</string>
+
+    <string name="contact_us"><u>Связаться с нами</u></string>
+    <string name="bottom_nav_list">Список</string>
+    <string name="bottom_nav_map">Карта</string>
+    <string name="bottom_nav_profile">Профиль</string>
+    <string name="btn_order_history">История заказов</string>
+    <string name="btn_my_car">Мое авто</string>
+    <string name="btn_choose_service">Выбрать услугу</string>
 </resources>
