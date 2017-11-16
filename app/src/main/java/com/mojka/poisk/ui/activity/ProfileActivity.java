@@ -60,6 +60,11 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     }
 
     @Override
+    protected Boolean attachBottomNavigation() {
+        return true;
+    }
+
+    @Override
     public void setupUi() {
         Picasso.with(this)
                 .load(R.drawable.img_profile_bg)

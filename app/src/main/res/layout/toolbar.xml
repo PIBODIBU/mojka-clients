@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_toStartOf="@+id/ib_close"
             android:gravity="center"
-            android:text="Lorep ipsum"
+            android:text="Lorem ipsum"
             android:textSize="24sp"
             android:textStyle="bold" />
 

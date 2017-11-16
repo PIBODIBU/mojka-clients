@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/img_info_window" />
+
+        <LinearLayout
+            android:id="@+id/c_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/iv_image"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/AppTheme.TextView.Dark.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Название\nавтомойки"
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/AppTheme.TextView.Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Часы работы:\nпн-сб 09:00 - 17:00" />
+
+            <TextView
+                style="@style/AppTheme.TextView.Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Ближайшая запись:"
+                android:textSize="12sp" />
+
+            <TextView
+                style="@style/AppTheme.TextView.Dark.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="08.08.2018"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/AppTheme.TextView.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_image"
+            android:layout_marginTop="8dp"
+            android:text="@string/create_route"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/info_window_arrow" />
+</LinearLayout>

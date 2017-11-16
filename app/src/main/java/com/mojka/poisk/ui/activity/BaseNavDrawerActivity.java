@@ -1,16 +1,17 @@
 package com.mojka.poisk.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mojka.poisk.R;
+import com.mojka.poisk.ui.support.drawer.DrawerDivider;
+import com.mojka.poisk.ui.support.drawer.DrawerItem;
 
 import java.util.HashMap;
 
@@ -51,38 +52,83 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 .withActionBarDrawerToggle(true)
                 .build();
 
-        drawer.addItems(
-                new PrimaryDrawerItem()
-                        .withName("Главное меню")
-                        .withTextColorRes(R.color.white)
-                        .withSelectedTextColorRes(R.color.colorAccent)
-                        .withIcon(R.drawable.ic_home)
-                        .withIconColorRes(R.color.white)
-                        .withSelectedIconColorRes(R.color.colorAccent),
-                new PrimaryDrawerItem()
-                        .withName("Карта")
-                        .withTextColorRes(R.color.white)
-                        .withSelectedTextColorRes(R.color.colorAccent)
-                        .withIcon(R.drawable.ic_home)
-                        .withIconColorRes(R.color.white)
-                        .withSelectedIconColorRes(R.color.colorAccent),
-                new PrimaryDrawerItem()
-                        .withName("Список")
-                        .withTextColorRes(R.color.white)
-                        .withSelectedTextColorRes(R.color.colorAccent)
-                        .withIcon(R.drawable.ic_home)
-                        .withIconColorRes(R.color.white)
-                        .withSelectedIconColorRes(R.color.colorAccent),
-                new PrimaryDrawerItem()
-                        .withName("Мои записи")
-                        .withTextColorRes(R.color.white)
-                        .withSelectedTextColorRes(R.color.colorAccent)
-                        .withIcon(R.drawable.ic_home)
-                        .withIconColorRes(R.color.white)
-                        .withSelectedIconColorRes(R.color.colorAccent)
-        );
-
+        addDrawerItems();
         setDrawerSelection();
+    }
+
+    private void addDrawerItems() {
+        IDrawerItem itemHome = new DrawerItem()
+                .withIconRes(R.drawable.ic_home_white)
+                .withIconSelectedRes(R.drawable.ic_home_white)
+                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseNavDrawerActivity.this, ProfileActivity.class));
+                        finish();
+                    }
+                })
+                .withTitle("Главное меню");
+        IDrawerItem itemMap = new DrawerItem()
+                .withIconRes(R.drawable.ic_map_white)
+                .withIconSelectedRes(R.drawable.ic_map_accent)
+                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseNavDrawerActivity.this, MapActivity.class));
+                        finish();
+                    }
+                })
+                .withTitle("Карта");
+
+        IDrawerItem itemList = new DrawerItem()
+                .withIconRes(R.drawable.ic_list_white)
+                .withIconSelectedRes(R.drawable.ic_list_accent)
+                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseNavDrawerActivity.this, ProfileActivity.class));
+                        finish();
+                    }
+                })
+                .withTitle("Список");
+
+        IDrawerItem itemOrders = new DrawerItem()
+                .withIconRes(R.drawable.ic_profile_white)
+                .withIconSelectedRes(R.drawable.ic_profile_accent)
+                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
+                    @Override
+                    public void onClick() {
+                        drawer.closeDrawer();
+                    }
+                })
+                .withTitle("Мои записи");
+
+        IDrawerItem itemClose = new DrawerItem()
+                .withIconRes(R.drawable.ic_close_white)
+                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
+                    @Override
+                    public void onClick() {
+                        drawer.closeDrawer();
+                    }
+                })
+                .withTitle("Выход");
+
+        drawer.addItem(itemHome);
+        drawerItems.put("1", itemHome);
+
+        drawer.addItem(itemMap);
+        drawerItems.put(MapActivity.class.getName(), itemMap);
+
+        drawer.addItem(itemList);
+        drawerItems.put("3", itemList);
+
+        drawer.addItem(itemOrders);
+        drawerItems.put(ProfileActivity.class.getName(), itemOrders);
+
+        drawer.addItem(new DrawerDivider());
+
+        drawer.addItem(itemClose);
+        drawerItems.put("Exit", itemClose);
     }
 
     private void setDrawerSelection() {

@@ -1,8 +1,12 @@
 package com.mojka.poisk.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,6 +18,8 @@ import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public abstract class BaseActivity extends AppCompatActivity {
+    protected Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +28,45 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         fetchToolbar();
+
+        if (attachBottomNavigation())
+            setupBottomNavigation();
+    }
+
+    private void setupBottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        if (bottomNavigationView == null)
+            return;
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_list:
+                        startActivity(new Intent(BaseActivity.this, ProfileActivity.class));
+                        finish();
+                        return true;
+
+                    case R.id.item_map:
+                        startActivity(new Intent(BaseActivity.this, MapActivity.class));
+                        finish();
+                        return true;
+
+                    case R.id.item_profile:
+                        startActivity(new Intent(BaseActivity.this, ProfileActivity.class));
+                        finish();
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     private void fetchToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         if (toolbar == null)
             return;
@@ -45,11 +86,23 @@ public abstract class BaseActivity extends AppCompatActivity {
                     getOnCloseButtonListener().onclick();
                 }
             });
+        if (!showCloseButton())
+            ibClose.setVisibility(View.GONE);
+        else
+            ibClose.setVisibility(View.VISIBLE);
     }
 
     abstract int getLayoutId();
 
     abstract String getActivityTitle();
+
+    protected Boolean showCloseButton() {
+        return true;
+    }
+
+    protected Boolean attachBottomNavigation() {
+        return false;
+    }
 
     abstract OnCloseButtonListener getOnCloseButtonListener();
 

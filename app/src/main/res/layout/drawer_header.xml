@@ -8,6 +8,7 @@
         style="@style/AppTheme.TextView.Dark.Bold"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="Дмитрий Иванов"
         android:textSize="18sp"

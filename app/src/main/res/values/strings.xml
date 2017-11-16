@@ -35,4 +35,5 @@
     <string name="btn_order_history">История заказов</string>
     <string name="btn_my_car">Мое авто</string>
     <string name="btn_choose_service">Выбрать услугу</string>
+    <string name="create_route"><u>Проложить маршрут</u></string>
 </resources>

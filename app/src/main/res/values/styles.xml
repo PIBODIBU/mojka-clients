@@ -4,6 +4,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="AppTheme.CircularProgress" parent="Material.Drawable.CircularProgress">
@@ -63,5 +65,10 @@
 
     <style name="AppTheme.TextView.Light" parent="AppTheme.TextView">
         <item name="android:textColor">@color/md_light_primary_text</item>
+    </style>
+
+    <style name="AppTheme.TextView.Light.Bold" parent="AppTheme.TextView.Light">
+        <item name="android:textColor">@color/md_light_primary_text</item>
+        <item name="android:fontFamily">@font/gotha_bol</item>
     </style>
 </resources>
