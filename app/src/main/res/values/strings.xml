@@ -40,4 +40,6 @@
     <string name="hint_password_repeat">Подтверждение пароля</string>
     <string name="error_empty_password">Введите пароль</string>
     <string name="error_passwords_not_match">Пароли не совпадают</string>
+    <string name="service">Услуга:</string>
+    <string name="another_service">Другое</string>
 </resources>

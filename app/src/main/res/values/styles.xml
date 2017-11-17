@@ -16,24 +16,29 @@
         <item name="lpd_strokeColor">@color/accent</item>
     </style>
 
-    <style name="AppTheme.Button">
+    <style name="AppTheme.Button" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/gotha</item>
     </style>
 
-    <style name="AppTheme.Button.Dark" parent="AppTheme.TextView">
+    <style name="AppTheme.Button.Dark" parent="AppTheme.Button">
         <item name="android:textColor">@color/md_dark_primary_text</item>
+        <item name="android:background">@color/btn_dark</item>
     </style>
 
-    <style name="AppTheme.Button.Light" parent="AppTheme.TextView">
+    <style name="AppTheme.Button.Dark.Accent" parent="AppTheme.Button.Dark">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Button.Light" parent="AppTheme.Button">
         <item name="android:textColor">@color/md_light_primary_text</item>
     </style>
 
-    <style name="AppTheme.Button.Dark.Bold" parent="AppTheme.TextView.Dark">
+    <style name="AppTheme.Button.Dark.Bold" parent="AppTheme.Button.Dark">
         <item name="android:fontFamily">@font/gotha_bol</item>
     </style>
 
-    <style name="AppTheme.Button.Light.Bold" parent="AppTheme.TextView.Light">
+    <style name="AppTheme.Button.Light.Bold" parent="AppTheme.Button.Light">
         <item name="android:fontFamily">@font/gotha_bol</item>
     </style>
 
