@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -15,6 +17,8 @@ import com.mojka.poisk.ui.support.drawer.DrawerItem;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
+
 public abstract class BaseNavDrawerActivity extends BaseActivity {
     private static final String TAG = "BaseNavDrawerActivity";
 
@@ -24,7 +28,6 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
 
     protected Drawer drawer;
 
-    private Toolbar toolbar;
     private HashMap<String, IDrawerItem> drawerItems = new HashMap<>();
 
     @Override
@@ -35,9 +38,20 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
     }
 
     private void setupToolbar() {
-        if (toolbar == null)
-            if (findViewById(R.id.toolbar) != null && findViewById(R.id.toolbar) instanceof Toolbar)
-                toolbar = findViewById(R.id.toolbar);
+        if (this.toolbar != null) {
+            ImageButton ibMenu = toolbar.findViewById(R.id.ib_menu);
+
+            if (ibMenu == null)
+                return;
+
+            ibMenu.setVisibility(View.VISIBLE);
+            ibMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawer.openDrawer();
+                }
+            });
+        }
     }
 
     protected void setupDrawer() {
@@ -45,7 +59,6 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
 
         drawer = new DrawerBuilder()
                 .withActivity(this)
-                .withToolbar(toolbar)
                 .withSliderBackgroundColorRes(R.color.colorPrimary)
                 .withHeader(R.layout.drawer_header)
                 .withTranslucentStatusBar(false)

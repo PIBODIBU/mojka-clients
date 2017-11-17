@@ -9,7 +9,7 @@ import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.MapContract;
 import com.mojka.poisk.ui.presenter.MapPresenterImpl;
 
-public class MapActivity extends BaseActivity implements MapContract.View {
+public class MapActivity extends BaseNavDrawerActivity implements MapContract.View {
     private MapContract.Presenter presenter = new MapPresenterImpl();
 
     @Override
@@ -54,11 +54,6 @@ public class MapActivity extends BaseActivity implements MapContract.View {
     @Override
     public Activity getViewActivity() {
         return this;
-    }
-
-    @Override
-    protected Boolean attachBottomNavigation() {
-        return true;
     }
 
     @Override

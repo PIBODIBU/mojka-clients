@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:background="@color/colorPrimary">
+    tools:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <com.rey.material.widget.ProgressView
         android:id="@+id/progress_view"
@@ -26,36 +25,49 @@
         android:padding="16dp">
 
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/et_city"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
             android:background="@color/white"
-            android:hint="@string/hint_name_not_required"
+            android:hint="@string/hint_city"
             android:inputType="text"
             android:paddingEnd="16dp"
             android:paddingStart="16dp" />
 
         <EditText
-            android:id="@+id/et_phone"
+            android:id="@+id/et_car"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
             android:background="@color/white"
-            android:hint="@string/hint_phone"
-            android:inputType="phone"
+            android:hint="@string/hint_car"
+            android:inputType="text"
             android:paddingEnd="16dp"
             android:paddingStart="16dp" />
 
         <com.rey.material.widget.Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_continue"
             style="@style/AppTheme.Button.Dark.Bold"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/btn_accent"
-            android:text="@string/btn_next"
+            android:text="@string/btn_continue"
             android:textSize="18sp"
+            android:textStyle="bold"
+            app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
+
+        <com.rey.material.widget.Button
+            android:id="@+id/btn_skip"
+            style="@style/AppTheme.Button.Light.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:text="@string/btn_skip"
+            android:textColor="@color/material_drawer_dark_hint_text"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
 

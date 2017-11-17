@@ -55,13 +55,13 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     }
 
     @Override
-    public Activity getViewActivity() {
-        return this;
+    protected Boolean showCloseButton() {
+        return false;
     }
 
     @Override
-    protected Boolean attachBottomNavigation() {
-        return true;
+    public Activity getViewActivity() {
+        return this;
     }
 
     @Override

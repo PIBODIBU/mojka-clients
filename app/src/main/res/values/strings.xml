@@ -2,6 +2,7 @@
     <string name="app_name">Поиск автомоек</string>
     <string name="activity_login_title">Авторизация</string>
     <string name="activity_profile">Профиль</string>
+    <string name="activity_register">Регистрация</string>
 
     <string name="splash_loading"><u>Загрузка…</u></string>
 
@@ -36,4 +37,7 @@
     <string name="btn_my_car">Мое авто</string>
     <string name="btn_choose_service">Выбрать услугу</string>
     <string name="create_route"><u>Проложить маршрут</u></string>
+    <string name="hint_password_repeat">Подтверждение пароля</string>
+    <string name="error_empty_password">Введите пароль</string>
+    <string name="error_passwords_not_match">Пароли не совпадают</string>
 </resources>

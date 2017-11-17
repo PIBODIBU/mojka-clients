@@ -5,9 +5,9 @@ import android.support.annotation.StringRes;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.mojka.poisk.ui.contract.base.BasePresenter;
 import com.mojka.poisk.ui.contract.base.BaseView;
-import com.mojka.poisk.ui.fragment.RegisterThirdStageFragment;
 import com.mojka.poisk.ui.presenter.RegisterFirstStagePresenterImpl;
 import com.mojka.poisk.ui.presenter.RegisterSecondStagePresenterImpl;
+import com.mojka.poisk.ui.presenter.RegisterFourthStagePresenterImpl;
 import com.mojka.poisk.ui.presenter.RegisterThirdStagePresenterImpl;
 
 import java.util.List;
@@ -19,6 +19,8 @@ public class RegisterContract {
         void showSecondStage();
 
         void showThirdStage();
+
+        void showFourthStage();
     }
 
     public interface Presenter extends BasePresenter<View> {
@@ -94,6 +96,8 @@ public class RegisterContract {
         interface View extends BaseView {
             Presenter getPresenter();
 
+            void register();
+
             void showProgressBar();
 
             void hideProgressBar();
@@ -105,10 +109,42 @@ public class RegisterContract {
             void setErrorText(String text);
         }
 
-        interface Presenter extends BasePresenter<RegisterContract.ThirdStage.View> {
+        interface Presenter extends BasePresenter<ThirdStage.View> {
+            void register(String password, String passwordRepeat);
+
             void addAuthCallback(RegisterThirdStagePresenterImpl.AuthCallback authCallback);
 
             List<RegisterThirdStagePresenterImpl.AuthCallback> getAuthCallbacks();
+        }
+    }
+
+    public interface FourthStage {
+        interface View extends BaseView {
+            Presenter getPresenter();
+
+            void register();
+
+            void skip();
+
+            void showProgressBar();
+
+            void hideProgressBar();
+
+            void showButton();
+
+            void hideButton();
+
+            void setErrorText(String text);
+        }
+
+        interface Presenter extends BasePresenter<FourthStage.View> {
+            void register();
+
+            void skip();
+
+            void addAuthCallback(RegisterFourthStagePresenterImpl.AuthCallback authCallback);
+
+            List<RegisterFourthStagePresenterImpl.AuthCallback> getAuthCallbacks();
         }
     }
 }

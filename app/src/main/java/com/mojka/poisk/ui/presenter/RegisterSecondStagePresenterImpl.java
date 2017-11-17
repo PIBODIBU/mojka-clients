@@ -37,8 +37,6 @@ public class RegisterSecondStagePresenterImpl implements RegisterContract.Second
             public void onSuccess() {
                 view.showButton();
                 view.hideProgressBar();
-
-                Toast.makeText(view.getViewActivity(), "Вы успешно зарегистрировались", Toast.LENGTH_SHORT).show();
             }
 
             @Override

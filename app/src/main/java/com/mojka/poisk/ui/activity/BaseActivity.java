@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,10 +15,14 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 import com.mojka.poisk.R;
 
+import java.util.HashMap;
+
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public abstract class BaseActivity extends AppCompatActivity {
+    private static final String TAG = "BaseActivity";
+
     protected Toolbar toolbar;
 
     @Override
@@ -38,6 +43,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (bottomNavigationView == null)
             return;
+
+        setupBottomNavigationSelection(bottomNavigationView);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -63,6 +70,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setupBottomNavigationSelection(BottomNavigationView bottomNavigationView) {
+        HashMap<String, Integer> items = new HashMap<>();
+
+//        items.put(ProfileActivity.class.getName(), R.id.item_list);
+        items.put(MapActivity.class.getName(), R.id.item_map);
+        items.put(ProfileActivity.class.getName(), R.id.item_profile);
+
+        bottomNavigationView.setSelectedItemId(items.get(BaseActivity.this.getClass().getName()));
     }
 
     private void fetchToolbar() {
