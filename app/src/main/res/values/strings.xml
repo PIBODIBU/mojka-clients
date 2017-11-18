@@ -42,4 +42,6 @@
     <string name="error_passwords_not_match">Пароли не совпадают</string>
     <string name="service">Услуга:</string>
     <string name="another_service">Другое</string>
+    <string name="error_login">Ошибка авторизации</string>
+    <string name="enter_phone_and_password">Введите номер телефона и пароль\\</string>
 </resources>

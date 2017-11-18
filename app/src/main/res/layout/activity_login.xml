@@ -17,7 +17,20 @@
         android:scaleType="centerCrop"
         tools:src="@drawable/img_bg_login" />
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <com.rey.material.widget.ProgressView
+        android:id="@+id/progress_view"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/toolbar"
+        android:visibility="invisible"
+        app:pv_autostart="true"
+        app:pv_circular="false"
+        app:pv_progressMode="indeterminate"
+        app:pv_progressStyle="@style/AppTheme.LinearProgress" />
 
     <com.rey.material.widget.Button
         android:id="@+id/skip"
@@ -45,7 +58,8 @@
             android:hint="@string/hint_phone"
             android:inputType="phone"
             android:paddingEnd="16dp"
-            android:paddingStart="16dp" />
+            android:paddingStart="16dp"
+            android:text="380930535204" />
 
         <EditText
             android:id="@+id/et_password"
@@ -56,9 +70,11 @@
             android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:paddingEnd="16dp"
-            android:paddingStart="16dp" />
+            android:paddingStart="16dp"
+            android:text="qwertyasdf" />
 
         <com.rey.material.widget.Button
+            android:id="@+id/btn_login"
             style="@style/AppTheme.Button.Dark.Bold"
             android:layout_width="match_parent"
             android:layout_height="56dp"
