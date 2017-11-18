@@ -79,7 +79,7 @@ public class RegisterFirstStageFragment extends BaseFragment implements Register
 
         hideButton();
         showProgressBar();
-        presenter.verifyPhoneNumber(phoneNumber);
+        presenter.verifyPhoneNumber(etName.getText().toString(), phoneNumber);
     }
 
     @Override

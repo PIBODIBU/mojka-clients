@@ -3,6 +3,7 @@ package com.mojka.poisk.ui.contract;
 import android.support.annotation.StringRes;
 
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.mojka.poisk.data.model.User;
 import com.mojka.poisk.ui.contract.base.BasePresenter;
 import com.mojka.poisk.ui.contract.base.BaseView;
 import com.mojka.poisk.ui.presenter.RegisterFirstStagePresenterImpl;
@@ -21,6 +22,8 @@ public class RegisterContract {
         void showThirdStage();
 
         void showFourthStage();
+
+        User getUser();
     }
 
     public interface Presenter extends BasePresenter<View> {
@@ -44,7 +47,7 @@ public class RegisterContract {
         }
 
         interface Presenter extends BasePresenter<RegisterContract.FirstStage.View> {
-            void verifyPhoneNumber(String phoneNumber);
+            void verifyPhoneNumber(String name, String phoneNumber);
 
             String getPhoneNumber();
 
@@ -135,10 +138,14 @@ public class RegisterContract {
             void hideButton();
 
             void setErrorText(String text);
+
+            void showToast(@StringRes int text);
+
+            void showToast(String text);
         }
 
         interface Presenter extends BasePresenter<FourthStage.View> {
-            void register();
+            void register(String city, String car);
 
             void skip();
 

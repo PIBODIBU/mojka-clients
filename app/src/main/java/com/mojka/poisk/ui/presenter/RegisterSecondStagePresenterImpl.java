@@ -25,7 +25,7 @@ public class RegisterSecondStagePresenterImpl implements RegisterContract.Second
 
     @Override
     public void start() {
-        addAuthCallback(new RegisterSecondStagePresenterImpl.AuthCallback() {
+        addAuthCallback(new AuthCallback() {
             @Override
             public void onStart() {
                 view.setErrorText("");

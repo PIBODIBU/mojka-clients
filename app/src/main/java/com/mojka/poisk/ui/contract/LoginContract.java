@@ -17,6 +17,8 @@ public interface LoginContract {
 
         void showToast(@StringRes int text);
 
+        void showToast(String text);
+
         void startProfileActivity();
 
         void login();

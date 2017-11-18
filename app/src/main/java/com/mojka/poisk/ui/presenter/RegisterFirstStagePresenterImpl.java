@@ -62,9 +62,9 @@ public class RegisterFirstStagePresenterImpl implements RegisterContract.FirstSt
     }
 
     @Override
-    public void verifyPhoneNumber(String phoneNumber) {
+    public void verifyPhoneNumber(String name, String phoneNumber) {
         for (AuthCallback authCallback : authCallbacks)
-            authCallback.onStart();
+            authCallback.onStart(name, phoneNumber);
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,    // Phone number to verify
@@ -101,7 +101,7 @@ public class RegisterFirstStagePresenterImpl implements RegisterContract.FirstSt
     }
 
     public static abstract class AuthCallback {
-        public void onStart() {
+        public void onStart(String name, String phoneNumber) {
         }
 
         public void onSuccess(String verificationId) {

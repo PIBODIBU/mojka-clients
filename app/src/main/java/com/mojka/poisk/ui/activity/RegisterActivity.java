@@ -1,11 +1,16 @@
 package com.mojka.poisk.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.api.APIGenerator;
+import com.mojka.poisk.data.api.inrerfaces.LoginAPI;
+import com.mojka.poisk.data.callback.Callback;
+import com.mojka.poisk.data.model.LoginResponse;
+import com.mojka.poisk.data.model.User;
 import com.mojka.poisk.ui.contract.RegisterContract;
 import com.mojka.poisk.ui.fragment.RegisterFirstStageFragment;
 import com.mojka.poisk.ui.fragment.RegisterFourthStageFragment;
@@ -17,6 +22,9 @@ import com.mojka.poisk.ui.presenter.RegisterPresenterImpl;
 import com.mojka.poisk.ui.presenter.RegisterSecondStagePresenterImpl;
 import com.mojka.poisk.ui.presenter.RegisterThirdStagePresenterImpl;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class RegisterActivity extends BaseActivity implements RegisterContract.View {
     private final String TAG = "RegisterActivity";
 
@@ -26,11 +34,19 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     private RegisterThirdStageFragment thirdStageFragment = new RegisterThirdStageFragment();
     private RegisterFourthStageFragment fourthStageFragment = new RegisterFourthStageFragment();
 
+    private User user = new User();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         firstStageFragment.getPresenter().addAuthCallback(new RegisterFirstStagePresenterImpl.AuthCallback() {
+            @Override
+            public void onStart(String name, String phoneNumber) {
+                user.setName(name);
+                user.setPhone(phoneNumber);
+            }
+
             @Override
             public void onSuccess(String verificationId) {
                 secondStageFragment.getPresenter().setVerificationId(verificationId);
@@ -47,27 +63,27 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
         thirdStageFragment.getPresenter().addAuthCallback(new RegisterThirdStagePresenterImpl.AuthCallback() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String password) {
+                user.setPassword(password);
                 showFourthStage();
             }
         });
 
         fourthStageFragment.getPresenter().addAuthCallback(new RegisterFourthStagePresenterImpl.AuthCallback() {
             @Override
-            public void onSuccess() {
-                startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
-                finish();
-            }
-
-            @Override
-            public void onSkip() {
-                startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
-                finish();
+            public void onStart(String city, String car) {
+                user.setCar(car);
+                user.setCity(city);
             }
         });
 
         presenter.setView(this);
         showFirstStage();
+    }
+
+    @Override
+    public User getUser() {
+        return user;
     }
 
     @Override

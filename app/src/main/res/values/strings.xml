@@ -44,4 +44,6 @@
     <string name="another_service">Другое</string>
     <string name="error_login">Ошибка авторизации</string>
     <string name="enter_phone_and_password">Введите номер телефона и пароль\\</string>
+    <string name="error_enter_city_and_car">Введите город и название автомобиля</string>
+    <string name="error_register">Ошибка регистрации</string>
 </resources>

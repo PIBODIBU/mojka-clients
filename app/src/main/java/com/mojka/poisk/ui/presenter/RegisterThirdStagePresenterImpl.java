@@ -34,6 +34,9 @@ public class RegisterThirdStagePresenterImpl implements RegisterContract.ThirdSt
 
     @Override
     public void register(String password, String passwordRepeat) {
+        for (AuthCallback authCallback : getAuthCallbacks())
+            authCallback.onStart();
+
         if (TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordRepeat)) {
             view.setErrorText(view.getViewActivity().getString(R.string.error_empty_password));
             return;
@@ -43,16 +46,17 @@ public class RegisterThirdStagePresenterImpl implements RegisterContract.ThirdSt
             view.setErrorText(view.getViewActivity().getString(R.string.error_passwords_not_match));
             return;
         }
+        ;
 
         for (AuthCallback authCallback : getAuthCallbacks())
-            authCallback.onSuccess();
+            authCallback.onSuccess(password);
     }
 
     public static abstract class AuthCallback {
         public void onStart() {
         }
 
-        public void onSuccess() {
+        public void onSuccess(String password) {
         }
 
         public void onError() {

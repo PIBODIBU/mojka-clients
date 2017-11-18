@@ -11,4 +11,12 @@ public interface LoginAPI {
     @FormUrlEncoded
     @POST("login")
     Call<LoginResponse> login(@Field("phone") String phone, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("register")
+    Call<LoginResponse> register(@Field("phone") String phone,
+                                 @Field("password") String password,
+                                 @Field("name") String name,
+                                 @Field("city") String city,
+                                 @Field("car") String car);
 }

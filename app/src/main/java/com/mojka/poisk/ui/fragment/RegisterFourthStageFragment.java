@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mojka.poisk.R;
+import com.mojka.poisk.ui.activity.RegisterActivity;
 import com.mojka.poisk.ui.contract.RegisterContract;
 import com.mojka.poisk.ui.presenter.RegisterFourthStagePresenterImpl;
 import com.rey.material.widget.Button;
@@ -49,8 +51,8 @@ public class RegisterFourthStageFragment extends BaseFragment implements Registe
     }
 
     @Override
-    public Activity getViewActivity() {
-        return getActivity();
+    public RegisterActivity getViewActivity() {
+        return ((RegisterActivity) getActivity());
     }
 
     @Override
@@ -59,9 +61,19 @@ public class RegisterFourthStageFragment extends BaseFragment implements Registe
     }
 
     @Override
+    public void showToast(int text) {
+        Toast.makeText(getViewContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showToast(String text) {
+        Toast.makeText(getViewContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     @OnClick(R.id.btn_continue)
     public void register() {
-        presenter.register();
+        presenter.register(etCity.getText().toString(), etCar.getText().toString());
     }
 
     @Override
