@@ -1,4 +1,4 @@
-package com.mojka.poisk.ui.fragment;
+package com.mojka.poisk.ui.presenter;
 
 import com.mojka.poisk.ui.contract.ProfileContract;
 
@@ -7,7 +7,7 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
 
     @Override
     public void start() {
-
+        view.setupUi();
     }
 
     @Override

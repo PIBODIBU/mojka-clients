@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
     tools:context="com.mojka.poisk.ui.activity.ProfileActivity">
 
@@ -127,4 +128,11 @@
             android:layout_marginTop="36dp"
             android:text="@string/contact_us" />
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="com.mojka.poisk.ui.fragment.FragmentSettingsCity"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/c_toolbar_secondary" />
 </RelativeLayout>

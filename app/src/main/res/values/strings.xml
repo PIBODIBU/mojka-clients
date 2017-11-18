@@ -3,6 +3,8 @@
     <string name="activity_login_title">Авторизация</string>
     <string name="activity_profile">Профиль</string>
     <string name="activity_register">Регистрация</string>
+    <string name="activity_map_filter">Выбор услуги</string>
+    <string name="activity_map">Карта</string>
 
     <string name="splash_loading"><u>Загрузка…</u></string>
 
@@ -13,41 +15,42 @@
     <string name="hint_city">Город</string>
     <string name="hint_code">Код подтверждения</string>
     <string name="hint_car">Авто</string>
+    <string name="hint_password_repeat">Подтверждение пароля</string>
+    <string name="hint_enter_city">Введите Ваш город</string>
 
     <string name="btn_login">Войти</string>
     <string name="btn_register">Зарегистрироваться</string>
     <string name="btn_next">Далее</string>
     <string name="btn_continue">Продолжить</string>
     <string name="btn_skip">Пропустить</string>
+    <string name="btn_order_history">История заказов</string>
+    <string name="btn_my_car">Мое авто</string>
+    <string name="btn_choose_service">Выбрать услугу</string>
 
     <string name="error_auth_phone">Ошибка. Попробуйте снова.</string>
     <string name="error_invalid_code">Неправильный код подтверждения</string>
+    <string name="error_empty_password">Введите пароль</string>
+    <string name="error_passwords_not_match">Пароли не совпадают</string>
+    <string name="error_enter_city_and_car">Введите город и название автомобиля</string>
+    <string name="error_register">Ошибка регистрации</string>
+    <string name="error_login">Ошибка авторизации</string>
+    <string name="enter_phone_and_password">Введите номер телефона и пароль</string>
 
     <string name="toast_empty_code">Введите код из смс</string>
     <string name="toast_empty_phone">Введите номер телефона</string>
 
     <string name="forgot_password"><u>Забыли пароль?</u></string>
     <string name="your_city">Ваш город:</string>
-
     <string name="contact_us"><u>Связаться с нами</u></string>
+    <string name="create_route"><u>Проложить маршрут</u></string>
+    <string name="service">Услуга:</string>
+    <string name="another_service">Другое</string>
+
+
     <string name="bottom_nav_list">Список</string>
     <string name="bottom_nav_map">Карта</string>
     <string name="bottom_nav_profile">Профиль</string>
-    <string name="btn_order_history">История заказов</string>
-    <string name="btn_my_car">Мое авто</string>
-    <string name="btn_choose_service">Выбрать услугу</string>
-    <string name="create_route"><u>Проложить маршрут</u></string>
-    <string name="hint_password_repeat">Подтверждение пароля</string>
-    <string name="error_empty_password">Введите пароль</string>
-    <string name="error_passwords_not_match">Пароли не совпадают</string>
-    <string name="service">Услуга:</string>
-    <string name="another_service">Другое</string>
-    <string name="error_login">Ошибка авторизации</string>
-    <string name="enter_phone_and_password">Введите номер телефона и пароль\\</string>
-    <string name="error_enter_city_and_car">Введите город и название автомобиля</string>
-    <string name="error_register">Ошибка регистрации</string>
-    <string name="activity_map_filter">Выбор услуги</string>
-    <string name="activity_map">\"Карта\"</string>
+
     <string name="tv_service_title_one">Услуга:</string>
     <string name="tv_service_title_many">Услуги:</string>
     <string name="btn_show">Показать</string>
