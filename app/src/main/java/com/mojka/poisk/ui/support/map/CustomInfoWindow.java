@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.mojka.poisk.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
@@ -27,11 +29,27 @@ public class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
         return null;
     }
 
-    private void render(Marker marker, View view) {
+    private void render(final Marker marker, View view) {
         ImageView imageView = view.findViewById(R.id.iv_image);
 
-        Picasso.with(activity)
-                .load(R.drawable.img_info_window)
-                .into(imageView);
+        if (imageView.getDrawable() == null)
+            Picasso.with(activity)
+                    .load(R.drawable.img_info_window)
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            marker.showInfoWindow();
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
+
+        else
+            Picasso.with(activity)
+                    .load(R.drawable.img_info_window)
+                    .into(imageView);
     }
 }
