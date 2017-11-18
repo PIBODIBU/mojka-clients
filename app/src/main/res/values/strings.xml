@@ -46,4 +46,9 @@
     <string name="enter_phone_and_password">Введите номер телефона и пароль\\</string>
     <string name="error_enter_city_and_car">Введите город и название автомобиля</string>
     <string name="error_register">Ошибка регистрации</string>
+    <string name="activity_map_filter">Выбор услуги</string>
+    <string name="activity_map">\"Карта\"</string>
+    <string name="tv_service_title_one">Услуга:</string>
+    <string name="tv_service_title_many">Услуги:</string>
+    <string name="btn_show">Показать</string>
 </resources>

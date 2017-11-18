@@ -2,15 +2,33 @@ package com.mojka.poisk.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.SupportMapFragment;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.MapContract;
 import com.mojka.poisk.ui.presenter.MapPresenterImpl;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class MapActivity extends BaseNavDrawerActivity implements MapContract.View {
+    public static final String INTENT_KEY_MAP_FILTER = "INTENT_KEY_MAP_FILTER";
+
     private MapContract.Presenter presenter = new MapPresenterImpl();
+
+    @BindView(R.id.tv_service_title)
+    public TextView tvServiceTitle;
+
+    @BindView(R.id.tv_service_name)
+    public TextView tvServiceName;
+
+    @BindView(R.id.c_services)
+    public View containerServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +45,40 @@ public class MapActivity extends BaseNavDrawerActivity implements MapContract.Vi
     }
 
     @Override
+    public void setBottomBarTitle(@StringRes int title) {
+        tvServiceTitle.setText(title);
+    }
+
+    @Override
+    public void setServiceName(String name) {
+        tvServiceName.setText(name);
+    }
+
+    @Override
+    public void showBottomBar() {
+        containerServices.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBottomBar() {
+        containerServices.setVisibility(View.GONE);
+    }
+
+    @Override
+    @OnClick(R.id.btn_choose_service)
+    public void chooseAnotherFilters() {
+        startActivity(new Intent(MapActivity.this, MapFilterActivity.class));
+        finish();
+    }
+
+    @Override
     int getLayoutId() {
         return R.layout.activity_map;
     }
 
     @Override
     String getActivityTitle() {
-        return "Карта";
+        return getString(R.string.activity_map);
     }
 
     @Override

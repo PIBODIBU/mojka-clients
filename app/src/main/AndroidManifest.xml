@@ -35,6 +35,7 @@
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.ProfileActivity" />
         <activity android:name=".ui.activity.MapActivity" />
+        <activity android:name=".ui.activity.MapFilterActivity" />
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@ import com.mojka.poisk.ui.contract.base.BaseView;
 
 public interface ProfileContract {
     interface View extends BaseView {
-
+        void chooseService();
     }
 
     interface Presenter extends BasePresenter<View> {

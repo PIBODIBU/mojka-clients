@@ -2,15 +2,18 @@ package com.mojka.poisk.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.model.MapFilter;
 import com.mojka.poisk.ui.contract.ProfileContract;
 import com.mojka.poisk.ui.fragment.ProfilePresenterImpl;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class ProfileActivity extends BaseNavDrawerActivity implements ProfileContract.View {
     private final String TAG = "ProfileActivity";
@@ -47,6 +50,13 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
                 finish();
             }
         };
+    }
+
+    @Override
+    @OnClick(R.id.btn_choose_service)
+    public void chooseService() {
+        startActivity(new Intent(ProfileActivity.this, MapFilterActivity.class));
+        finish();
     }
 
     @Override
