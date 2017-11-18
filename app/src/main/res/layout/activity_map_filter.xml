@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,17 +17,70 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <CheckBox
-            android:id="@+id/cb_wash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Мойка авто" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimary">
 
-        <CheckBox
-            android:id="@+id/cb_wheels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Шиномонтаж" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="48dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/check_box_wash" />
+
+            <TextView
+                style="@style/AppTheme.TextView.Dark.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="56dp"
+                android:gravity="center_vertical"
+                android:text="Мойка авто"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/cb_wash"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/checkbox"
+                android:button="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="48dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/check_box_wheel" />
+
+            <TextView
+                style="@style/AppTheme.TextView.Dark.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="56dp"
+                android:gravity="center_vertical"
+                android:text="Шиномонтаж"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/cb_wheels"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/checkbox"
+                android:button="@null" />
+        </RelativeLayout>
     </LinearLayout>
 
     <com.rey.material.widget.Button
