@@ -44,7 +44,7 @@
     <string name="contact_us"><u>Связаться с нами</u></string>
     <string name="create_route"><u>Проложить маршрут</u></string>
     <string name="service">Услуга:</string>
-    <string name="another_service">Другое</string>
+    <string name="btn_another_service">Другое</string>
 
 
     <string name="bottom_nav_list">Список</string>
@@ -54,4 +54,5 @@
     <string name="tv_service_title_one">Услуга:</string>
     <string name="tv_service_title_many">Услуги:</string>
     <string name="btn_show">Показать</string>
+    <string name="btn_filters">Фильтры</string>
 </resources>
