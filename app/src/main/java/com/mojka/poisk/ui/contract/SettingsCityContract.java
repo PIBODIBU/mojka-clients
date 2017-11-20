@@ -21,6 +21,8 @@ public interface SettingsCityContract {
         void hideProgressBar();
 
         void showToast(String text);
+
+        void setCity(String city);
     }
 
     interface Presenter extends BasePresenter<View> {

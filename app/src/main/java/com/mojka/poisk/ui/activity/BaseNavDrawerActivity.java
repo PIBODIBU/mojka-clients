@@ -12,6 +12,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.ui.support.drawer.DrawerDivider;
 import com.mojka.poisk.ui.support.drawer.DrawerItem;
 
@@ -126,6 +127,17 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 })
                 .withTitle("Выход");
 
+        IDrawerItem itemLogin = new DrawerItem()
+                .withIconRes(R.drawable.ic_profile_white)
+                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                })
+                .withTitle("Авторизация");
+
         drawer.addItem(itemHome);
         drawerItems.put("1", itemHome);
 
@@ -142,6 +154,11 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
 
         drawer.addItem(itemClose);
         drawerItems.put("Exit", itemClose);
+
+        if (!new AccountService(this).isLogged()) {
+            drawer.addItem(itemLogin);
+            drawerItems.put("Auth", itemLogin);
+        }
     }
 
     private void setDrawerSelection() {

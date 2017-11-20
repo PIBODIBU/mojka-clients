@@ -45,7 +45,6 @@ public class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
 
                         }
                     });
-
         else
             Picasso.with(activity)
                     .load(R.drawable.img_info_window)

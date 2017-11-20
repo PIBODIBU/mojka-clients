@@ -142,6 +142,8 @@ public class RegisterContract {
             void showToast(@StringRes int text);
 
             void showToast(String text);
+
+            void setUserCity(String city);
         }
 
         interface Presenter extends BasePresenter<FourthStage.View> {
@@ -152,6 +154,10 @@ public class RegisterContract {
             void addAuthCallback(RegisterFourthStagePresenterImpl.AuthCallback authCallback);
 
             List<RegisterFourthStagePresenterImpl.AuthCallback> getAuthCallbacks();
+
+            void getUserCity();
+
+            void setupGoogleApi();
         }
     }
 }

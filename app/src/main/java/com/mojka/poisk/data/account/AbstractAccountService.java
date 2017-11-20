@@ -24,7 +24,7 @@ public abstract class AbstractAccountService {
         sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-    public void addAccount(@NonNull User user) {
+    public void setAccount(@NonNull User user) {
         sharedPreferences.edit()
                 .putInt(KEY_ID, user.getId())
                 .putString(KEY_NAME, user.getName())
@@ -45,5 +45,9 @@ public abstract class AbstractAccountService {
                 sharedPreferences.getString(KEY_CITY, ""),
                 sharedPreferences.getString(KEY_TOKEN, "")
         );
+    }
+
+    public Boolean isLogged() {
+        return !sharedPreferences.getString(KEY_PHONE, "").equals("");
     }
 }

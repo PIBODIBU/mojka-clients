@@ -1,12 +1,25 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.annotation.SuppressLint;
+import android.location.Location;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.widget.Toast;
+import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.api.APIGenerator;
+import com.mojka.poisk.data.api.inrerfaces.GeocoderAPI;
 import com.mojka.poisk.data.api.inrerfaces.LoginAPI;
+import com.mojka.poisk.data.api.location.APIGeocoder;
 import com.mojka.poisk.data.callback.Callback;
+import com.mojka.poisk.data.model.GeocoderWrapper;
 import com.mojka.poisk.data.model.LoginResponse;
 import com.mojka.poisk.ui.activity.RegisterActivity;
 import com.mojka.poisk.ui.contract.RegisterContract;
@@ -18,8 +31,11 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class RegisterFourthStagePresenterImpl implements RegisterContract.FourthStage.Presenter {
+    private final String TAG="RegisterFourthStage";
     private RegisterContract.FourthStage.View view;
     private LinkedList<AuthCallback> authCallbacks = new LinkedList<>();
+    private GoogleApiClient googleApiClient;
+    private FusedLocationProviderClient locationProviderClient;
 
     @Override
     public void start() {
@@ -53,6 +69,80 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 view.hideProgressBar();
             }
         });
+
+        setupGoogleApi();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void getUserCity() {
+        locationProviderClient.getLastLocation()
+                .addOnSuccessListener(view.getViewActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        Log.d(TAG, "onSuccess: " + location.toString());
+
+                        if (location == null) {
+                            getUserCity();
+                        }
+
+                        String latLng = String.valueOf(location.getLatitude()).concat(",").concat(String.valueOf(location.getLongitude()));
+                        APIGeocoder.createService(GeocoderAPI.class).getFromLocation(
+                                latLng,
+                                true,
+                                "ru",
+                                view.getViewActivity().getString(R.string.key_geocoder))
+                                .enqueue(new retrofit2.Callback<GeocoderWrapper>() {
+                                    @Override
+                                    public void onResponse(Call<GeocoderWrapper> call, Response<GeocoderWrapper> response) {
+                                        if (response.body() == null)
+                                            return;
+
+                                        try {
+                                            view.setUserCity(response.body().getGeocoderResults().get(0).getAddressComponents().get(3).getShortName());
+                                            googleApiClient.disconnect();
+                                        } catch (Exception ex) {
+                                            Log.e(TAG, "onResponse: ", ex);
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<GeocoderWrapper> call, Throwable t) {
+
+                                    }
+                                });
+                    }
+                });
+    }
+
+    @Override
+    public void setupGoogleApi() {
+        googleApiClient = new GoogleApiClient.Builder(view.getViewActivity())
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @SuppressLint("MissingPermission")
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                        locationProviderClient = LocationServices.getFusedLocationProviderClient(view.getViewActivity());
+                        getUserCity();
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
+                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+                    }
+                })
+                .build();
+
+        googleApiClient.connect();
     }
 
     @Override
@@ -93,9 +183,6 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 }
 
                 view.showToast(response.body().getToken());
-
-                /*startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
-                finish();*/
 
                 for (AuthCallback authCallback : getAuthCallbacks())
                     authCallback.onSuccess();
@@ -138,9 +225,6 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 }
 
                 view.showToast(response.body().getToken());
-
-                /*startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
-                finish();*/
 
                 for (AuthCallback authCallback : getAuthCallbacks())
                     authCallback.onSuccess();

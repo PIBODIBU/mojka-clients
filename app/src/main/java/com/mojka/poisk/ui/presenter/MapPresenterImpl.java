@@ -102,8 +102,6 @@ public class MapPresenterImpl implements MapContract.Presenter {
                         .position(sydney)
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-                marker.setInfoWindowAnchor(10.4f, -.1f);
-
                 map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
         };

@@ -1,6 +1,7 @@
 package com.mojka.poisk.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -74,6 +75,12 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
             public void onStart(String city, String car) {
                 user.setCar(car);
                 user.setCity(city);
+            }
+
+            @Override
+            public void onSuccess() {
+                startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
+                finish();
             }
         });
 

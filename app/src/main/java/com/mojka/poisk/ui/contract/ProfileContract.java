@@ -8,9 +8,13 @@ public interface ProfileContract {
         void chooseService();
 
         void toggleSettingsWindow();
+
+        void setUserCity(String city);
     }
 
     interface Presenter extends BasePresenter<View> {
+        void getUserCity();
 
+        void setupGoogleApi();
     }
 }

@@ -1,7 +1,5 @@
 package com.mojka.poisk.ui.presenter;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.text.TextUtils;
 
 import com.mojka.poisk.R;
@@ -10,6 +8,7 @@ import com.mojka.poisk.data.api.APIGenerator;
 import com.mojka.poisk.data.api.inrerfaces.LoginAPI;
 import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.LoginResponse;
+import com.mojka.poisk.data.model.User;
 import com.mojka.poisk.ui.contract.LoginContract;
 
 import retrofit2.Call;
@@ -44,9 +43,9 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
                     return;
                 }
 
-                view.showToast(response.body().getToken());
+//                new AccountService(view.getViewContext()).setAccount());
             }
-
+            
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 super.onFailure(call, t);

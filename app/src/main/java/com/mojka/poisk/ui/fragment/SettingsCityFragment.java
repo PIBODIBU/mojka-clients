@@ -1,5 +1,6 @@
 package com.mojka.poisk.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mojka.poisk.R;
@@ -17,7 +19,9 @@ import com.mojka.poisk.ui.presenter.SettingsCityPresenterImpl;
 
 import butterknife.BindView;
 
-public class FragmentSettingsCity extends BaseFragment implements SettingsCityContract.View {
+public class SettingsCityFragment extends BaseFragment implements SettingsCityContract.View {
+    private final String TAG = "SettingsCityFragment";
+
     @BindView(R.id.root_view)
     public View rootView;
 
@@ -27,8 +31,12 @@ public class FragmentSettingsCity extends BaseFragment implements SettingsCityCo
     @BindView(R.id.c_progress)
     public View cProgressBar;
 
+    @BindView(R.id.et_city)
+    public EditText etCity;
+
     private SettingsCityContract.Presenter presenter = new SettingsCityPresenterImpl();
 
+    @SuppressLint("MissingPermission")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,6 +72,11 @@ public class FragmentSettingsCity extends BaseFragment implements SettingsCityCo
     @Override
     public void showToast(String text) {
         Toast.makeText(getViewActivity(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setCity(String city) {
+        etCity.setText(city);
     }
 
     @Override

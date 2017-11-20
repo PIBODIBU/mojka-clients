@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.ProfileContract;
 import com.mojka.poisk.ui.contract.SettingsCityContract;
-import com.mojka.poisk.ui.fragment.FragmentSettingsCity;
+import com.mojka.poisk.ui.fragment.SettingsCityFragment;
 import com.mojka.poisk.ui.presenter.ProfilePresenterImpl;
 import com.squareup.picasso.Picasso;
 
@@ -86,12 +86,17 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     }
 
     @Override
+    public void setUserCity(String city) {
+        settingsMVP.setCity(city);
+    }
+
+    @Override
     public void setupUi() {
         Picasso.with(this)
                 .load(R.drawable.img_profile_bg)
                 .into(ivBackground);
 
-        settingsMVP = ((FragmentSettingsCity) getSupportFragmentManager().findFragmentById(R.id.fragment_settings)).getMVPView();
+        settingsMVP = ((SettingsCityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_settings)).getMVPView();
         settingsMVP.hide();
     }
 }

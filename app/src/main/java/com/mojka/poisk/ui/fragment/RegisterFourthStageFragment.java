@@ -1,14 +1,21 @@
 package com.mojka.poisk.ui.fragment;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.activity.RegisterActivity;
 import com.mojka.poisk.ui.contract.RegisterContract;
@@ -16,10 +23,16 @@ import com.mojka.poisk.ui.presenter.RegisterFourthStagePresenterImpl;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.ProgressView;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class RegisterFourthStageFragment extends BaseFragment implements RegisterContract.FourthStage.View {
+    private final String TAG = "RegisterFourthStage";
+
     @BindView(R.id.progress_view)
     public ProgressView progressView;
 
@@ -38,11 +51,17 @@ public class RegisterFourthStageFragment extends BaseFragment implements Registe
     private RegisterContract.FourthStage.Presenter presenter = new RegisterFourthStagePresenterImpl();
 
     @Override
+    @SuppressLint("MissingPermission")
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         presenter.setView(this);
         presenter.start();
+    }
 
-        super.onCreate(savedInstanceState);
+    @Override
+    public void setUserCity(String city) {
+        etCity.setText(city);
     }
 
     @Override

@@ -131,7 +131,7 @@
 
     <fragment
         android:id="@+id/fragment_settings"
-        android:name="com.mojka.poisk.ui.fragment.FragmentSettingsCity"
+        android:name="com.mojka.poisk.ui.fragment.SettingsCityFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/c_toolbar_secondary" />
