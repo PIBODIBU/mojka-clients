@@ -75,10 +75,9 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
-                        Log.d(TAG, "onSuccess: " + location.toString());
-
                         if (location == null) {
                             getUserCity();
+                            return;
                         }
 
                         String latLng = String.valueOf(location.getLatitude()).concat(",").concat(String.valueOf(location.getLongitude()));

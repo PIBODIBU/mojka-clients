@@ -149,9 +149,4 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             }
         };
     }
-
-    @OnClick(R.id.skip)
-    public void skip() {
-        startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-    }
 }

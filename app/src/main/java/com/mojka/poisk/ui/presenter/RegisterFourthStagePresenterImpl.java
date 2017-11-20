@@ -3,6 +3,7 @@ package com.mojka.poisk.ui.presenter;
 import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -11,6 +12,9 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.mojka.poisk.R;
@@ -31,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class RegisterFourthStagePresenterImpl implements RegisterContract.FourthStage.Presenter {
-    private final String TAG="RegisterFourthStage";
+    private final String TAG = "RegisterFourthStage";
     private RegisterContract.FourthStage.View view;
     private LinkedList<AuthCallback> authCallbacks = new LinkedList<>();
     private GoogleApiClient googleApiClient;
@@ -81,10 +85,9 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
-                        Log.d(TAG, "onSuccess: " + location.toString());
-
                         if (location == null) {
                             getUserCity();
+                            return;
                         }
 
                         String latLng = String.valueOf(location.getLatitude()).concat(",").concat(String.valueOf(location.getLongitude()));
@@ -178,6 +181,8 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 super.onResponse(call, response);
 
                 if (response.body().getError()) {
+                    for (AuthCallback authCallback : getAuthCallbacks())
+                        authCallback.onError();
                     view.showToast(response.body().getMessage());
                     return;
                 }
@@ -220,6 +225,8 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 super.onResponse(call, response);
 
                 if (response.body().getError()) {
+                    for (AuthCallback authCallback : getAuthCallbacks())
+                        authCallback.onError();
                     view.showToast(response.body().getMessage());
                     return;
                 }

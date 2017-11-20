@@ -31,5 +31,9 @@ public interface MapContract {
         Boolean hasManyServicesInFilter();
 
         void setupBottomBar();
+
+        void setupUserLocationUpdates();
+
+        void setupGoogleApi();
     }
 }
