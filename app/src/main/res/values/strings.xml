@@ -57,4 +57,5 @@
     <string name="tv_service_title_many">Услуги:</string>
     <string name="btn_show">Показать</string>
     <string name="btn_filters">Фильтры</string>
+    <string name="btn_save">Сохранить</string>
 </resources>

@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.MapContract;
+import com.mojka.poisk.ui.contract.MapFilterWindowContract;
+import com.mojka.poisk.ui.fragment.MapFilterFragment;
+import com.mojka.poisk.ui.fragment.SettingsCityFragment;
 import com.mojka.poisk.ui.presenter.MapPresenterImpl;
 
 import butterknife.BindView;
@@ -20,6 +23,7 @@ public class MapActivity extends BaseNavDrawerActivity implements MapContract.Vi
     public static final String INTENT_KEY_MAP_FILTER = "INTENT_KEY_MAP_FILTER";
 
     private MapContract.Presenter presenter = new MapPresenterImpl();
+    private MapFilterWindowContract.View filterMVP;
 
     @BindView(R.id.tv_service_title)
     public TextView tvServiceTitle;
@@ -42,6 +46,22 @@ public class MapActivity extends BaseNavDrawerActivity implements MapContract.Vi
     public void setupMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(presenter.getOnMapReadyCallback());
+    }
+
+    @Override
+    public void setupFilterWindow() {
+        filterMVP = ((MapFilterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_filter)).getMVPView();
+        filterMVP.hide();
+    }
+
+    @Override
+    @OnClick(R.id.btn_filters)
+    public void toggleFilterWindow() {
+        if (filterMVP.isShowing()) {
+            filterMVP.hide();
+        } else {
+            filterMVP.show();
+        }
     }
 
     @Override
@@ -103,6 +123,6 @@ public class MapActivity extends BaseNavDrawerActivity implements MapContract.Vi
 
     @Override
     public void setupUi() {
-
+        setupFilterWindow();
     }
 }

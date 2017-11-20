@@ -19,6 +19,10 @@ public interface MapContract {
         void hideBottomBar();
 
         void chooseAnotherFilters();
+
+        void toggleFilterWindow();
+
+        void setupFilterWindow();
     }
 
     interface Presenter extends BasePresenter<View> {

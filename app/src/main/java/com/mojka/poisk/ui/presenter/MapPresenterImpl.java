@@ -43,6 +43,7 @@ public class MapPresenterImpl implements MapContract.Presenter {
 
     @Override
     public void start() {
+        view.setupUi();
         view.setupMap();
         fetchFilter();
         setupBottomBar();
