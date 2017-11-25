@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIGenerator {
     private static final String TAG = "APIGenerator";
-    private static final String API_HOST = "http://automoykionl.1gb.ru";
+    public static final String API_HOST = "http://automoykionl.1gb.ru";
     private static final String API_BASE_URL = "http://automoykionl.1gb.ru/api/v1/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

@@ -3,7 +3,7 @@ package com.mojka.poisk.ui.presenter;
 import android.content.Intent;
 
 import com.mojka.poisk.data.model.MapFilter;
-import com.mojka.poisk.data.model.Service;
+import com.mojka.poisk.data.model.ServiceType;
 import com.mojka.poisk.ui.activity.MapActivity;
 import com.mojka.poisk.ui.contract.MapFilterContract;
 
@@ -24,13 +24,13 @@ public class MapFilterPresenterImpl implements MapFilterContract.Presenter {
     }
 
     @Override
-    public void addServiceToFilter(Service service) {
-        mapFilter.addService(service);
+    public void addServiceToFilter(ServiceType serviceType) {
+        mapFilter.addService(serviceType);
     }
 
     @Override
-    public void removeServiceFromFilter(Service service) {
-        mapFilter.removeService(service);
+    public void removeServiceFromFilter(ServiceType serviceType) {
+        mapFilter.removeService(serviceType);
     }
 
     @Override

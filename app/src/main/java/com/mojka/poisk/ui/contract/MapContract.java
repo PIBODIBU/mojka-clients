@@ -3,8 +3,13 @@ package com.mojka.poisk.ui.contract;
 import android.support.annotation.StringRes;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.mojka.poisk.data.callback.Callback;
+import com.mojka.poisk.data.model.BaseDataWrapper;
+import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.ui.contract.base.BasePresenter;
 import com.mojka.poisk.ui.contract.base.BaseView;
+
+import java.util.List;
 
 public interface MapContract {
     interface View extends BaseView {
@@ -39,5 +44,11 @@ public interface MapContract {
         void setupUserLocationUpdates();
 
         void setupGoogleApi();
+
+        void fetchServices(Callback<BaseDataWrapper<List<Service>>> callback);
+
+        Service getSelectedService();
+
+        void setSelectedService(Service service);
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -28,13 +29,14 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
     }
 
     protected Drawer drawer;
-
     private HashMap<String, IDrawerItem> drawerItems = new HashMap<>();
+    private AccountService accountService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        accountService = new AccountService(this);
         setupDrawer();
     }
 
@@ -65,6 +67,9 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 .withTranslucentStatusBar(false)
                 .withActionBarDrawerToggle(true)
                 .build();
+
+        if (accountService.isLogged())
+            ((TextView) drawer.getHeader().findViewById(R.id.tv_name)).setText(accountService.getAccount().getName());
 
         addDrawerItems();
         setDrawerSelection();
@@ -117,12 +122,14 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 })
                 .withTitle("Мои записи");
 
-        IDrawerItem itemClose = new DrawerItem()
+        IDrawerItem itemExit = new DrawerItem()
                 .withIconRes(R.drawable.ic_close_white)
                 .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
                     @Override
                     public void onClick() {
-                        drawer.closeDrawer();
+                        accountService.logout();
+                        startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
+                        finish();
                     }
                 })
                 .withTitle("Выход");
@@ -152,10 +159,12 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
 
         drawer.addItem(new DrawerDivider());
 
-        drawer.addItem(itemClose);
-        drawerItems.put("Exit", itemClose);
+        if (accountService.isLogged()) {
+            drawer.addItem(itemExit);
+            drawerItems.put("Exit", itemExit);
+        }
 
-        if (!new AccountService(this).isLogged()) {
+        if (!accountService.isLogged()) {
             drawer.addItem(itemLogin);
             drawerItems.put("Auth", itemLogin);
         }

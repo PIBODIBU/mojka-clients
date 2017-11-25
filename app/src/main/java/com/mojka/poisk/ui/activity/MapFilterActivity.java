@@ -3,11 +3,10 @@ package com.mojka.poisk.ui.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.mojka.poisk.R;
-import com.mojka.poisk.data.model.Service;
+import com.mojka.poisk.data.model.ServiceType;
 import com.mojka.poisk.ui.contract.MapFilterContract;
 import com.mojka.poisk.ui.presenter.MapFilterPresenterImpl;
 
@@ -17,8 +16,8 @@ import butterknife.OnClick;
 public class MapFilterActivity extends BaseNavDrawerActivity implements MapFilterContract.View {
     private MapFilterContract.Presenter presenter = new MapFilterPresenterImpl();
 
-    private Service serviceWash = Service.CarWash.get();
-    private Service serviceWheel = Service.WheelRepair.get();
+    private ServiceType serviceTypeWash = ServiceType.CarWash.get();
+    private ServiceType serviceTypeWheel = ServiceType.WheelRepair.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +39,16 @@ public class MapFilterActivity extends BaseNavDrawerActivity implements MapFilte
         switch (checkBox.getId()) {
             case R.id.cb_wash:
                 if (checked)
-                    presenter.addServiceToFilter(serviceWash);
+                    presenter.addServiceToFilter(serviceTypeWash);
                 else
-                    presenter.removeServiceFromFilter(serviceWash);
+                    presenter.removeServiceFromFilter(serviceTypeWash);
 
                 return;
             case R.id.cb_wheels:
                 if (checked)
-                    presenter.addServiceToFilter(serviceWheel);
+                    presenter.addServiceToFilter(serviceTypeWheel);
                 else
-                    presenter.removeServiceFromFilter(serviceWheel);
+                    presenter.removeServiceFromFilter(serviceTypeWheel);
 
                 return;
         }

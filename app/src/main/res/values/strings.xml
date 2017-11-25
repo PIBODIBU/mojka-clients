@@ -58,4 +58,6 @@
     <string name="btn_show">Показать</string>
     <string name="btn_filters">Фильтры</string>
     <string name="btn_save">Сохранить</string>
+    <string name="tv_working_hours">Часы работы:</string>
+    <string name="tv_nearest_order">Ближайшая запись:</string>
 </resources>

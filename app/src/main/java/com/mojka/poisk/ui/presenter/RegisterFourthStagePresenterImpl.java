@@ -18,13 +18,17 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
 import com.mojka.poisk.data.api.inrerfaces.GeocoderAPI;
 import com.mojka.poisk.data.api.inrerfaces.LoginAPI;
+import com.mojka.poisk.data.api.inrerfaces.UserAPI;
 import com.mojka.poisk.data.api.location.APIGeocoder;
 import com.mojka.poisk.data.callback.Callback;
+import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.GeocoderWrapper;
 import com.mojka.poisk.data.model.LoginResponse;
+import com.mojka.poisk.data.model.User;
 import com.mojka.poisk.ui.activity.RegisterActivity;
 import com.mojka.poisk.ui.contract.RegisterContract;
 
@@ -177,23 +181,6 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 ((RegisterActivity) view.getViewActivity()).getUser().getCar()
         ).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                super.onResponse(call, response);
-
-                if (response.body().getError()) {
-                    for (AuthCallback authCallback : getAuthCallbacks())
-                        authCallback.onError();
-                    view.showToast(response.body().getMessage());
-                    return;
-                }
-
-                view.showToast(response.body().getToken());
-
-                for (AuthCallback authCallback : getAuthCallbacks())
-                    authCallback.onSuccess();
-            }
-
-            @Override
             public void onError() {
                 view.showToast(R.string.error_register);
 
@@ -202,8 +189,36 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
             }
 
             @Override
-            public void onDone() {
+            public void onSuccess(LoginResponse response) {
+                if (response.getError()) {
+                    for (AuthCallback authCallback : getAuthCallbacks())
+                        authCallback.onError();
+                    view.showToast(response.getMessage());
+                    return;
+                }
 
+                final String token = response.getToken();
+
+                APIGenerator.createService(UserAPI.class).getInfo(token).enqueue(new Callback<BaseDataWrapper<User>>() {
+                    @Override
+                    public void onSuccess(BaseDataWrapper<User> response) {
+                        User user = response.getResponseObj();
+                        user.setToken(token);
+
+                        new AccountService(view.getViewContext()).setAccount(response.getResponseObj());
+
+                        for (AuthCallback authCallback : getAuthCallbacks())
+                            authCallback.onSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+                        view.showToast(R.string.error_register);
+
+                        for (AuthCallback authCallback : getAuthCallbacks())
+                            authCallback.onError();
+                    }
+                });
             }
         });
     }

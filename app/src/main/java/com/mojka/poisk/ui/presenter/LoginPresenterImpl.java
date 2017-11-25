@@ -1,12 +1,15 @@
 package com.mojka.poisk.ui.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
 import com.mojka.poisk.data.api.inrerfaces.LoginAPI;
+import com.mojka.poisk.data.api.inrerfaces.UserAPI;
 import com.mojka.poisk.data.callback.Callback;
+import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.LoginResponse;
 import com.mojka.poisk.data.model.User;
 import com.mojka.poisk.ui.contract.LoginContract;
@@ -15,6 +18,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class LoginPresenterImpl implements LoginContract.Presenter {
+    private static final String TAG = "LoginPresenterImpl";
+
     private LoginContract.View view;
 
     @Override
@@ -34,18 +39,42 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
 
         APIGenerator.createService(LoginAPI.class).login(view.getPhoneNumber(), view.getPassword()).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                super.onResponse(call, response);
-
-                if (response.body().getToken() == null) {
+            public void onSuccess(LoginResponse response) {
+                if (response.getToken() == null) {
                     onDone();
                     onError();
                     return;
                 }
 
-//                new AccountService(view.getViewContext()).setAccount());
+                final String token = response.getToken();
+
+                APIGenerator.createService(UserAPI.class).getInfo(token).enqueue(new Callback<BaseDataWrapper<User>>() {
+                    @Override
+                    public void onError() {
+                        Log.d(TAG, "onError: ");
+                    }
+
+                    @Override
+                    public void onDone() {
+                        Log.d(TAG, "onDone: ");
+                    }
+
+                    @Override
+                    public void onResponse(Call<BaseDataWrapper<User>> call, Response<BaseDataWrapper<User>> response) {
+                        super.onResponse(call, response);
+                    }
+
+                    @Override
+                    public void onSuccess(BaseDataWrapper<User> response) {
+                        User user = response.getResponseObj();
+                        user.setToken(token);
+
+                        new AccountService(view.getViewContext()).setAccount(response.getResponseObj());
+                        view.startProfileActivity();
+                    }
+                });
             }
-            
+
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 super.onFailure(call, t);

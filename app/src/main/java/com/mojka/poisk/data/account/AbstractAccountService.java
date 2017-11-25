@@ -26,7 +26,6 @@ public abstract class AbstractAccountService {
 
     public void setAccount(@NonNull User user) {
         sharedPreferences.edit()
-                .putInt(KEY_ID, user.getId())
                 .putString(KEY_NAME, user.getName())
                 .putString(KEY_PHONE, user.getPhone())
                 .putString(KEY_CAR, user.getCar())
@@ -39,15 +38,27 @@ public abstract class AbstractAccountService {
     public User getAccount() {
         return new User(
                 sharedPreferences.getInt(KEY_ID, -1),
-                sharedPreferences.getString(KEY_NAME, ""),
                 sharedPreferences.getString(KEY_PHONE, ""),
-                sharedPreferences.getString(KEY_CAR, ""),
+                sharedPreferences.getString(KEY_NAME, ""),
                 sharedPreferences.getString(KEY_CITY, ""),
+                sharedPreferences.getString(KEY_CAR, ""),
                 sharedPreferences.getString(KEY_TOKEN, "")
         );
     }
 
+    @NonNull
+    public String getToken() {
+        if (!isLogged())
+            return "";
+
+        return getAccount().getToken();
+    }
+
     public Boolean isLogged() {
         return !sharedPreferences.getString(KEY_PHONE, "").equals("");
+    }
+
+    public void logout() {
+        sharedPreferences.edit().clear().apply();
     }
 }

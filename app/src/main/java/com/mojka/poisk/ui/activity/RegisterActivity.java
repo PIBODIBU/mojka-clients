@@ -79,7 +79,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
             @Override
             public void onSuccess() {
-                startActivity(new Intent(RegisterActivity.this, ProfileActivity.class));
+                startActivity(new Intent(RegisterActivity.this, ProfileActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
             }
         });

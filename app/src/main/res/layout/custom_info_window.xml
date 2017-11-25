@@ -28,35 +28,43 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_name"
                 style="@style/AppTheme.TextView.Dark.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Название\nавтомойки"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="Название\nавтомойки" />
 
             <TextView
                 style="@style/AppTheme.TextView.Dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Часы работы:\nпн-сб 09:00 - 17:00" />
+                android:text="@string/tv_working_hours" />
+
+            <TextView
+                android:id="@+id/tv_working_hours"
+                style="@style/AppTheme.TextView.Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="пн-сб 09:00 - 17:00" />
 
             <TextView
                 style="@style/AppTheme.TextView.Dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Ближайшая запись:"
+                android:text="@string/tv_nearest_order"
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_nearest_order"
                 style="@style/AppTheme.TextView.Dark.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="08.08.2018"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="08.08.2018" />
         </LinearLayout>
-
 
         <TextView
             style="@style/AppTheme.TextView.Accent"
