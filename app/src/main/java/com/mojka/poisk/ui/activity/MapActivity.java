@@ -14,6 +14,7 @@ import com.mojka.poisk.ui.contract.MapContract;
 import com.mojka.poisk.ui.contract.MapFilterWindowContract;
 import com.mojka.poisk.ui.fragment.MapFilterFragment;
 import com.mojka.poisk.ui.fragment.SettingsCityFragment;
+import com.mojka.poisk.ui.presenter.MapFilterWindowPresenterImpl;
 import com.mojka.poisk.ui.presenter.MapPresenterImpl;
 
 import butterknife.BindView;
@@ -62,6 +63,11 @@ public class MapActivity extends BaseNavDrawerActivity implements MapContract.Vi
         } else {
             filterMVP.show();
         }
+    }
+
+    @Override
+    public MapFilterWindowContract.View getFilterMVP() {
+        return filterMVP;
     }
 
     @Override

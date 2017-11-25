@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="8dp">
@@ -13,26 +13,28 @@
         android:id="@+id/range_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title_price_range"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         app:absoluteMaxValue="5000"
         app:absoluteMinValue="0"
         app:activateOnDefaultValues="true"
-        app:activeColor="@color/colorPrimaryLight"
+        app:activeColor="@color/colorAccent"
         app:barHeight="10dp"
-        app:defaultColor="@color/colorPrimaryLight"
+        app:defaultColor="@color/colorPrimaryDarkFull"
         app:showLabels="false"
-        app:textAboveThumbsColor="#000"
+        app:step="100"
+        app:textAboveThumbsColor="#fff"
         app:thumbNormal="@drawable/seek_bar_thumb"
         app:thumbPressed="@drawable/seek_bar_thumb"
         app:valuesAboveThumbs="true" />
 
-    <Button
+    <com.rey.material.widget.Button
+        android:id="@+id/btn_save"
         style="@style/AppTheme.Button.Dark"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/btn_dark"
         android:text="@string/btn_save" />

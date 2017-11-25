@@ -118,11 +118,10 @@
             android:text="@string/btn_another_service" />
     </RelativeLayout>
 
-
     <fragment
         android:id="@+id/fragment_filter"
         android:name="com.mojka.poisk.ui.fragment.MapFilterFragment"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar" />
 </RelativeLayout>

@@ -28,6 +28,8 @@ public interface MapContract {
         void toggleFilterWindow();
 
         void setupFilterWindow();
+
+        MapFilterWindowContract.View getFilterMVP();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -50,5 +52,7 @@ public interface MapContract {
         Service getSelectedService();
 
         void setSelectedService(Service service);
+
+        void setupFilterWindow();
     }
 }

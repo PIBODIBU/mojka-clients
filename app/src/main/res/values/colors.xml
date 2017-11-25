@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#27304f</color>
     <color name="colorPrimaryDark">#27304f</color>
+    <color name="colorPrimaryDarkFull">#1a2138</color>
     <color name="colorAccent">#009cca</color>
 
     <color name="toolbar_secondary">#fbf9f8</color>

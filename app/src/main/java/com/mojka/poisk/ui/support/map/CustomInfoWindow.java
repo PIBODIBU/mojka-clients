@@ -41,6 +41,9 @@ public class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
     private void render(final Marker marker, View view) {
         final Service service = mapPresenter.getSelectedService();
 
+        if (service == null)
+            return;
+
         final ImageView imageView = view.findViewById(R.id.iv_image);
         TextView tvName = view.findViewById(R.id.tv_name);
         TextView tvWorkingHours = view.findViewById(R.id.tv_working_hours);

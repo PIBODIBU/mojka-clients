@@ -35,9 +35,13 @@ import com.mojka.poisk.ui.activity.MapActivity;
 import com.mojka.poisk.ui.contract.MapContract;
 import com.mojka.poisk.ui.support.map.CustomInfoWindow;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import retrofit2.Call;
 
@@ -50,7 +54,7 @@ public class MapPresenterImpl implements MapContract.Presenter {
     private FusedLocationProviderClient locationProviderClient;
     private GoogleApiClient googleApiClient;
     private Marker userPositionMarker;
-    private HashMap<Marker, Service> services = new HashMap<>();
+    private LinkedList<Service> services = new LinkedList<>();
     private Service selectedService;
 
     @Override
@@ -60,6 +64,46 @@ public class MapPresenterImpl implements MapContract.Presenter {
         fetchFilter();
         setupBottomBar();
         setupGoogleApi();
+    }
+
+    @Override
+    public void setupFilterWindow() {
+        Integer min = 0;
+        Integer max = 0;
+
+        for (Service service : services) {
+            if (service.getPriceStart() < min)
+                min = service.getPriceStart();
+        }
+
+        for (Service service : services) {
+            if (service.getPriceEnd() > max)
+                max = service.getPriceEnd();
+        }
+
+        view.getFilterMVP().setAbsoluteMin(min);
+        view.getFilterMVP().setAbsoluteMax(max);
+
+        view.getFilterMVP().getPresenter().setFilterListener(new MapFilterWindowPresenterImpl.FilterListener() {
+            @Override
+            public void onSave(Integer min, Integer max) {
+                for (Service service : services)
+                    if (service.getPriceEnd() > max || service.getPriceStart() < min)
+                        service.setVisible(false);
+                    else
+                        service.setVisible(true);
+
+                map.clear();
+
+                for (Service service : services)
+                    if (service.getVisible()) {
+                        Marker marker = map.addMarker(service.getMarkerOptions());
+                        service.setMarker(marker);
+                    }
+
+                view.getFilterMVP().hide();
+            }
+        });
     }
 
     @Override
@@ -218,7 +262,10 @@ public class MapPresenterImpl implements MapContract.Presenter {
                         if (marker.equals(userPositionMarker))
                             return true;
                         else {
-                            setSelectedService(services.get(marker));
+                            for (Service service : services)
+                                if (service.getMarker().equals(marker))
+                                    setSelectedService(service);
+
                             return false;
                         }
                     }
@@ -229,12 +276,18 @@ public class MapPresenterImpl implements MapContract.Presenter {
                     public void onSuccess(BaseDataWrapper<List<Service>> response) {
                         if (!response.getError()) {
                             for (Service service : response.getResponseObj()) {
-                                Marker marker = map.addMarker(new MarkerOptions()
+                                MarkerOptions markerOptions = new MarkerOptions()
                                         .position(new LatLng(service.getLat(), service.getLng()))
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                                Marker marker = map.addMarker(markerOptions);
 
-                                services.put(marker, service);
+                                service.setMarker(marker);
+                                service.setMarkerOptions(markerOptions);
+
+                                services.add(service);
                             }
+
+                            setupFilterWindow();
                         }
                     }
                 });

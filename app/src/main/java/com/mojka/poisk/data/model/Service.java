@@ -1,5 +1,7 @@
 package com.mojka.poisk.data.model;
 
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -40,6 +42,10 @@ public class Service {
 
     @SerializedName("lng")
     private Double lng;
+
+    transient Marker marker;
+    transient MarkerOptions markerOptions;
+    transient Boolean isVisible = true;
 
     public Integer getId() {
         return id;
@@ -127,5 +133,29 @@ public class Service {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
+
+    public MarkerOptions getMarkerOptions() {
+        return markerOptions;
+    }
+
+    public void setMarkerOptions(MarkerOptions markerOptions) {
+        this.markerOptions = markerOptions;
+    }
+
+    public Boolean getVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(Boolean visible) {
+        isVisible = visible;
     }
 }

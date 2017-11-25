@@ -11,12 +11,19 @@ import android.view.ViewGroup;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.MapFilterWindowContract;
 import com.mojka.poisk.ui.presenter.MapFilterWindowPresenterImpl;
+import com.rey.material.widget.Button;
+
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MapFilterFragment extends BaseFragment implements MapFilterWindowContract.View {
     @BindView(R.id.root_view)
     public View rootView;
+
+    @BindView(R.id.range_bar)
+    public RangeSeekBar<Integer> rangeSeekBar;
 
     private MapFilterWindowContract.Presenter presenter = new MapFilterWindowPresenterImpl();
 
@@ -29,6 +36,37 @@ public class MapFilterFragment extends BaseFragment implements MapFilterWindowCo
         presenter.start();
 
         return view;
+    }
+
+    @Override
+    public MapFilterWindowContract.Presenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    public void setAbsoluteMin(Integer min) {
+        rangeSeekBar.setRangeValues(min, rangeSeekBar.getAbsoluteMaxValue());
+    }
+
+    @Override
+    public void setAbsoluteMax(Integer max) {
+        rangeSeekBar.setRangeValues(rangeSeekBar.getAbsoluteMinValue(), max);
+    }
+
+    @Override
+    public Integer getMin() {
+        return rangeSeekBar.getSelectedMinValue();
+    }
+
+    @Override
+    public Integer getMax() {
+        return rangeSeekBar.getSelectedMaxValue();
+    }
+
+    @Override
+    @OnClick(R.id.btn_save)
+    public void save() {
+        presenter.save();
     }
 
     @Override
