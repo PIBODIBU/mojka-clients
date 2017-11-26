@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -62,6 +63,11 @@ public class RegisterFourthStageFragment extends BaseFragment implements Registe
 
         presenter.setView(this);
         presenter.start();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            checkPermission();
+        else
+            onPermissionsGranted();
     }
 
     @Override

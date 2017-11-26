@@ -38,6 +38,8 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             checkPermission();
+        else
+            onPermissionsGranted();
     }
 
     @Override

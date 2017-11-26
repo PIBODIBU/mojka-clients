@@ -37,6 +37,7 @@
         <activity android:name=".ui.activity.ProfileActivity" />
         <activity android:name=".ui.activity.MapActivity" />
         <activity android:name=".ui.activity.MapFilterActivity" />
+        <activity android:name=".ui.activity.ServiceListActivity" />
     </application>
 
 </manifest>

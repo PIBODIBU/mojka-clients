@@ -106,7 +106,7 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
                     @Override
                     public void onClick() {
-                        startActivity(new Intent(BaseNavDrawerActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(BaseNavDrawerActivity.this, ServiceListActivity.class));
                         finish();
                     }
                 })
@@ -153,7 +153,7 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
         drawerItems.put(MapActivity.class.getName(), itemMap);
 
         drawer.addItem(itemList);
-        drawerItems.put("3", itemList);
+        drawerItems.put(ServiceListActivity.class.getName(), itemList);
 
         drawer.addItem(itemOrders);
         drawerItems.put(ProfileActivity.class.getName(), itemOrders);

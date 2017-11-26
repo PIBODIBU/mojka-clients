@@ -1,7 +1,5 @@
 package com.mojka.poisk.data.callback;
 
-import android.util.Log;
-
 import retrofit2.Call;
 import retrofit2.Response;
 

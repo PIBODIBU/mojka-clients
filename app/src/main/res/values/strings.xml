@@ -60,4 +60,6 @@
     <string name="btn_save">Сохранить</string>
     <string name="tv_working_hours">Часы работы:</string>
     <string name="tv_nearest_order">Ближайшая запись:</string>
+    <string name="activity_service_list">Список</string>
+    <string name="error_fetching_services">Ошибка при загрузке списка</string>
 </resources>
