@@ -35,6 +35,8 @@ public class MapFilterFragment extends BaseFragment implements MapFilterWindowCo
         presenter.setView(this);
         presenter.start();
 
+        hide();
+
         return view;
     }
 

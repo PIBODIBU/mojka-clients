@@ -30,6 +30,10 @@ public interface MapContract {
         void setupFilterWindow();
 
         MapFilterWindowContract.View getFilterMVP();
+
+        void checkPermission();
+
+        void onPermissionsGranted();
     }
 
     interface Presenter extends BasePresenter<View> {

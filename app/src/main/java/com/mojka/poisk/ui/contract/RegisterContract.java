@@ -49,8 +49,6 @@ public class RegisterContract {
         interface Presenter extends BasePresenter<RegisterContract.FirstStage.View> {
             void verifyPhoneNumber(String name, String phoneNumber);
 
-            String getPhoneNumber();
-
             void setOnVerificationStateChangedCallbacks(PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks);
 
             PhoneAuthProvider.OnVerificationStateChangedCallbacks getOnVerificationStateChangedCallbacks();
@@ -144,6 +142,10 @@ public class RegisterContract {
             void showToast(String text);
 
             void setUserCity(String city);
+
+            void checkPermission();
+
+            void onPermissionsGranted();
         }
 
         interface Presenter extends BasePresenter<FourthStage.View> {

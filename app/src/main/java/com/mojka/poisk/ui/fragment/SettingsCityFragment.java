@@ -45,6 +45,8 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
         presenter.setView(this);
         presenter.start();
 
+        hide();
+
         return view;
     }
 

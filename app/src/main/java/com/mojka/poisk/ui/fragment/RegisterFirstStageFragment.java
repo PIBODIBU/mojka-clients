@@ -64,7 +64,6 @@ public class RegisterFirstStageFragment extends BaseFragment implements Register
 
     @Override
     public void setupUi() {
-        etPhone.setText(presenter.getPhoneNumber());
     }
 
     @Override

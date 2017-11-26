@@ -10,6 +10,10 @@ public interface ProfileContract {
         void toggleSettingsWindow();
 
         void setUserCity(String city);
+
+        void checkPermission();
+
+        void onPermissionsGranted();
     }
 
     interface Presenter extends BasePresenter<View> {

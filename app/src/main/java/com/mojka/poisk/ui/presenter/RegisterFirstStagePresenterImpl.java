@@ -1,9 +1,5 @@
 package com.mojka.poisk.ui.presenter;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.telephony.TelephonyManager;
-
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -52,13 +48,6 @@ public class RegisterFirstStagePresenterImpl implements RegisterContract.FirstSt
     @Override
     public void setView(RegisterContract.FirstStage.View view) {
         this.view = view;
-    }
-
-    @SuppressLint("MissingPermission")
-    @Override
-    public String getPhoneNumber() {
-        TelephonyManager tMgr = (TelephonyManager) view.getViewContext().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        return tMgr.getLine1Number();
     }
 
     @Override

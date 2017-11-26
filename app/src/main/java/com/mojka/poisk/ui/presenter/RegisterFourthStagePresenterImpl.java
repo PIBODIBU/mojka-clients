@@ -77,8 +77,6 @@ public class RegisterFourthStagePresenterImpl implements RegisterContract.Fourth
                 view.hideProgressBar();
             }
         });
-
-        setupGoogleApi();
     }
 
     @SuppressLint("MissingPermission")
