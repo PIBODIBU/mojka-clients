@@ -48,6 +48,8 @@ public class MapActivity extends BaseNavDrawerActivity implements MapContract.Vi
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             checkPermission();
+        else
+            onPermissionsGranted();
     }
 
     @Override

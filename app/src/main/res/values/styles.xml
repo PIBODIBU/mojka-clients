@@ -24,6 +24,11 @@
         <item name="android:background">@color/btn_dark</item>
     </style>
 
+    <style name="AppTheme.Button.Default" parent="AppTheme.Button">
+        <item name="android:textColor">@color/md_dark_primary_text</item>
+        <item name="android:background">@drawable/btn_default</item>
+    </style>
+
     <style name="AppTheme.Button.Dark.Accent" parent="AppTheme.Button.Dark">
         <item name="android:textColor">@color/colorAccent</item>
     </style>

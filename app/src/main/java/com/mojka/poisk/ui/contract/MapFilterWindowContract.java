@@ -4,8 +4,8 @@ import com.mojka.poisk.ui.contract.base.BasePresenter;
 import com.mojka.poisk.ui.contract.base.BaseView;
 import com.mojka.poisk.ui.presenter.MapFilterWindowPresenterImpl;
 
-public class MapFilterWindowContract {
-    public interface View extends BaseView {
+public interface MapFilterWindowContract {
+    interface View extends BaseView {
         void show();
 
         void hide();
@@ -27,7 +27,7 @@ public class MapFilterWindowContract {
         void setAbsoluteMax(Integer max);
     }
 
-    public interface Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter<View> {
         void save();
 
         void setFilterListener(MapFilterWindowPresenterImpl.FilterListener filterListener);

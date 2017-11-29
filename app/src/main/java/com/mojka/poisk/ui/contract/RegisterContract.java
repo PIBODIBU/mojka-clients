@@ -13,8 +13,8 @@ import com.mojka.poisk.ui.presenter.RegisterThirdStagePresenterImpl;
 
 import java.util.List;
 
-public class RegisterContract {
-    public interface View extends BaseView {
+public interface RegisterContract {
+    interface View extends BaseView {
         void showFirstStage();
 
         void showSecondStage();
@@ -26,10 +26,10 @@ public class RegisterContract {
         User getUser();
     }
 
-    public interface Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter<View> {
     }
 
-    public interface FirstStage {
+    interface FirstStage {
         interface View extends BaseView {
             void next();
 
@@ -61,7 +61,7 @@ public class RegisterContract {
         }
     }
 
-    public interface SecondStage {
+    interface SecondStage {
         interface View extends BaseView {
             void finishRegistration();
 
@@ -93,7 +93,7 @@ public class RegisterContract {
         }
     }
 
-    public interface ThirdStage {
+    interface ThirdStage {
         interface View extends BaseView {
             Presenter getPresenter();
 
@@ -119,7 +119,7 @@ public class RegisterContract {
         }
     }
 
-    public interface FourthStage {
+    interface FourthStage {
         interface View extends BaseView {
             Presenter getPresenter();
 

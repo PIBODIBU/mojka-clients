@@ -7,6 +7,10 @@
     <string name="activity_register">Регистрация</string>
     <string name="activity_map_filter">Выбор услуги</string>
     <string name="activity_map">Карта</string>
+    <string name="activity_service_details">Сервис</string>
+    <string name="activity_service_list">Список</string>
+    <string name="activity_service_details_wash">Автомойка</string>
+    <string name="activity_service_details_repair">Шиномонтаж</string>
 
     <string name="splash_loading"><u>Загрузка…</u></string>
 
@@ -60,6 +64,10 @@
     <string name="btn_save">Сохранить</string>
     <string name="tv_working_hours">Часы работы:</string>
     <string name="tv_nearest_order">Ближайшая запись:</string>
-    <string name="activity_service_list">Список</string>
     <string name="error_fetching_services">Ошибка при загрузке списка</string>
+    <string name="error_loading_service_details">Ошибка при загрузке данных</string>
+    <string name="tv_prices">Цены:</string>
+    <string name="btn_create_route">Проложить маршрут</string>
+    <string name="btn_create_order"><u>Записаться</u></string>
+    <string name="btn_try_again">Попробовать снова</string>
 </resources>

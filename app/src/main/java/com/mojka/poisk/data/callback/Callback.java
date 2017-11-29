@@ -1,5 +1,7 @@
 package com.mojka.poisk.data.callback;
 
+import android.util.Log;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -20,10 +22,11 @@ public abstract class Callback<T> implements retrofit2.Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
+        Log.e(TAG, "onFailure: ", t);
+
         onError();
         onDone();
     }
-
 
     public void onSuccess(T response) {
     }

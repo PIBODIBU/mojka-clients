@@ -1,6 +1,8 @@
 package com.mojka.poisk.ui.activity;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -23,19 +25,32 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = "BaseActivity";
 
     protected Toolbar toolbar;
+    private ViewDataBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Fabric.with(this, new Crashlytics());
-        setContentView(getLayoutId());
-        ButterKnife.bind(this);
 
+        if (useDataBinding())
+            binding = DataBindingUtil.setContentView(this, getLayoutId());
+        else
+            setContentView(getLayoutId());
+
+        ButterKnife.bind(this);
         fetchToolbar();
 
         if (attachBottomNavigation())
             setupBottomNavigation();
+    }
+
+    protected Boolean useDataBinding() {
+        return false;
+    }
+
+    protected ViewDataBinding getBinding() {
+        return binding;
     }
 
     private void setupBottomNavigation() {

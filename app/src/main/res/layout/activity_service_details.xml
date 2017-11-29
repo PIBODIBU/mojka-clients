@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.mojka.poisk.utils.DateUtils" />
+
+        <variable
+            name="service"
+            type="com.mojka.poisk.data.model.Service" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/c_slider"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:background="@color/colorPrimary">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider_images"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.daimajia.slider.library.Indicators.PagerIndicator
+                android:id="@+id/slider_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+            <ImageView
+                android:id="@+id/iv_prev_slide"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="24dp"
+                app:srcCompat="@drawable/ic_arrow_left_rounded" />
+
+            <ImageView
+                android:id="@+id/iv_next_slide"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                app:srcCompat="@drawable/ic_arrow_right_rounded" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/c_bottom_bar"
+            android:layout_below="@+id/c_slider">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/AppTheme.TextView.Light.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@{service.name}"
+                    android:textSize="16sp"
+                    tools:text="Service name" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    style="@style/AppTheme.TextView.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@{service.description}"
+                    tools:text="Service description" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/AppTheme.TextView.Light.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_prices"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        style="@style/AppTheme.TextView.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@{`от `+service.priceStart +` руб. до `+ service.priceEnd +` руб.`}"
+                        android:textSize="16sp"
+                        tools:text="От 125 руб. до 1200 руб." />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/AppTheme.TextView.Light.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_nearest_order"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_nearest_order"
+                        style="@style/AppTheme.TextView.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@{DateUtils.millisToPattern(service.nearestEntry, DateUtils.PATTERN_DATE)}"
+                        android:textSize="16sp"
+                        tools:text="08.08.2018" />
+                </LinearLayout>
+
+                <com.rey.material.widget.Button
+                    android:id="@+id/btn_create_route"
+                    style="@style/AppTheme.Button.Dark.Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/btn_accent"
+                    android:text="@string/btn_create_route"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/c_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary">
+
+            <com.rey.material.widget.Button
+                style="@style/AppTheme.Button.Default"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/btn_create_order" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/c_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="invisible">
+
+            <com.rey.material.widget.ProgressView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                app:pv_autostart="true"
+                app:pv_circular="true"
+                app:rd_style="@style/AppTheme.CircularProgress" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/c_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tv_error"
+                style="@style/AppTheme.TextView.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="08.08.2018" />
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btn_reload"
+                style="@style/AppTheme.Button.Dark.Accent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@android:color/transparent"
+                android:text="@string/btn_try_again"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

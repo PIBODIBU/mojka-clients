@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -38,6 +39,7 @@
         <activity android:name=".ui.activity.MapActivity" />
         <activity android:name=".ui.activity.MapFilterActivity" />
         <activity android:name=".ui.activity.ServiceListActivity" />
+        <activity android:name=".ui.activity.ServiceDetailsActivity" />
     </application>
 
 </manifest>

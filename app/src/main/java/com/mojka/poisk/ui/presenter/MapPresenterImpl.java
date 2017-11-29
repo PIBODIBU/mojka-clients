@@ -32,6 +32,7 @@ import com.mojka.poisk.data.model.MapFilter;
 import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.data.model.ServiceType;
 import com.mojka.poisk.ui.activity.MapActivity;
+import com.mojka.poisk.ui.activity.ServiceDetailsActivity;
 import com.mojka.poisk.ui.contract.MapContract;
 import com.mojka.poisk.ui.support.map.CustomInfoWindow;
 
@@ -256,6 +257,20 @@ public class MapPresenterImpl implements MapContract.Presenter {
 
                 map = googleMap;
                 map.setInfoWindowAdapter(new CustomInfoWindow(view.getViewActivity(), MapPresenterImpl.this));
+                map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Service model = null;
+
+                        for (Service service : services)
+                            if (service.getMarker().equals(marker))
+                                model = service;
+
+                        if (model != null)
+                            view.getViewActivity().startActivity(new Intent(view.getViewActivity(), ServiceDetailsActivity.class)
+                                    .putExtra(ServiceDetailsActivity.INTENT_KEY_SERVICE_ID, model.getId()));
+                    }
+                });
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {

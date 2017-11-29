@@ -1,5 +1,6 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import com.mojka.poisk.data.api.inrerfaces.ServiceAPI;
 import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.Service;
+import com.mojka.poisk.ui.activity.ServiceDetailsActivity;
 import com.mojka.poisk.ui.adapter.ServiceListAdapter;
 import com.mojka.poisk.ui.contract.ServiceListContract;
 import com.mojka.poisk.ui.support.AbstractClickListener;
@@ -50,7 +52,8 @@ public class ServiceListPresenterImpl implements ServiceListContract.Presenter, 
 
     @Override
     public void onClick(Service model) {
-        Toast.makeText(view.getViewActivity(), model.getName(), Toast.LENGTH_SHORT).show();
+        view.getViewActivity().startActivity(new Intent(view.getViewActivity(), ServiceDetailsActivity.class)
+                .putExtra(ServiceDetailsActivity.INTENT_KEY_SERVICE_ID, model.getId()));
     }
 
     @Override
