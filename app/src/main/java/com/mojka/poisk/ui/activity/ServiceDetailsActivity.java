@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.model.Image;
@@ -17,6 +20,12 @@ import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.databinding.ActivityServiceDetailsBinding;
 import com.mojka.poisk.ui.contract.ServiceDetailsContract;
 import com.mojka.poisk.ui.presenter.ServiceDetailsPresenterImpl;
+import com.takisoft.datetimepicker.DatePickerDialog;
+import com.takisoft.datetimepicker.TimePickerDialog;
+import com.takisoft.datetimepicker.widget.DatePicker;
+import com.takisoft.datetimepicker.widget.TimePicker;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +35,7 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     public static final String INTENT_KEY_SERVICE_ID = "INTENT_KEY_SERVICE_ID";
 
     private ServiceDetailsContract.Presenter presenter = new ServiceDetailsPresenterImpl();
+    private Calendar newOrderDate = Calendar.getInstance();
 
     @BindView(R.id.slider_images)
     public SliderLayout sliderLayout;
@@ -115,9 +125,12 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
 
         // Images slider
         for (Image image : service.getImages())
-            sliderLayout.addSlider(
-                    new DefaultSliderView(this)
-                            .image(image.getUrl()));
+            if (image != null && image.getUrl() != null && image.getUrl() != "")
+                sliderLayout.addSlider(
+                        new DefaultSliderView(this)
+                                .image(image.getUrl()).setScaleType(BaseSliderView.ScaleType.CenterCrop));
+
+        //Slider indicator
         sliderLayout.setCustomIndicator(sliderIndicator);
     }
 
@@ -155,13 +168,44 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     }
 
     @Override
+    public void showToast(int stringId) {
+        Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public Intent getIntentFromView() {
         return getIntent();
     }
 
     @Override
+    @OnClick(R.id.btn_create_order)
     public void createOrder() {
-        presenter.createOrder();
+        Calendar now = Calendar.getInstance();
+
+        final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                newOrderDate.set(Calendar.HOUR_OF_DAY, view.getHour());
+                newOrderDate.set(Calendar.MINUTE, view.getMinute());
+
+                presenter.createOrder(newOrderDate.getTimeInMillis());
+            }
+        }, 0, 0, true);
+
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                newOrderDate = Calendar.getInstance();
+
+                newOrderDate.set(Calendar.DAY_OF_MONTH, view.getDayOfMonth());
+                newOrderDate.set(Calendar.MONTH, view.getMonth());
+                newOrderDate.set(Calendar.YEAR, view.getYear());
+
+                timePickerDialog.show();
+            }
+        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.show();
     }
 
     @Override

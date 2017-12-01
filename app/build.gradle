@@ -69,18 +69,17 @@ dependencies {
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.4.0'
     implementation 'com.github.rey5137:material:1.2.4'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
-
-    // Images
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-
-    // Drawer
+    implementation 'com.takisoft.fix:datetimepicker:1.0.5'
     implementation('com.mikepenz:materialdrawer:5.9.5@aar') {
         transitive = true
     }
 
+    // Images
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Support logic libraries
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.nineoldandroids:library:2.4.0'
-
     implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true
     }

@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
+import com.mojka.poisk.data.api.inrerfaces.OrderAPI;
 import com.mojka.poisk.data.api.inrerfaces.ServiceAPI;
 import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
+import com.mojka.poisk.data.model.BaseErrorResponse;
 import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.ui.contract.ServiceDetailsContract;
 
@@ -80,8 +83,28 @@ public class ServiceDetailsPresenterImpl implements ServiceDetailsContract.Prese
     }
 
     @Override
-    public void createOrder() {
+    public void createOrder(Long time) {
+        APIGenerator.createService(OrderAPI.class).createOrder(
+                service.getId(),
+                time,
+                new AccountService(view.getViewContext()).getToken()
+        ).enqueue(new Callback<BaseErrorResponse>() {
+            @Override
+            public void onSuccess(BaseErrorResponse response) {
+                if (response.getError()) {
+                    onError();
+                    onDone();
+                    return;
+                }
 
+                view.showToast(R.string.toast_order_added);
+            }
+
+            @Override
+            public void onError() {
+                view.showToast(R.string.toast_order_adding_error);
+            }
+        });
     }
 
     @Override

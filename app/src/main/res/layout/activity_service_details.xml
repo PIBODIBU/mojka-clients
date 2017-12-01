@@ -160,6 +160,7 @@
             android:background="@color/colorPrimary">
 
             <com.rey.material.widget.Button
+                android:id="@+id/btn_create_order"
                 style="@style/AppTheme.Button.Default"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -180,7 +181,7 @@
                 android:layout_centerInParent="true"
                 app:pv_autostart="true"
                 app:pv_circular="true"
-                app:rd_style="@style/AppTheme.CircularProgress" />
+                style="@style/AppTheme.CircularProgress" />
         </RelativeLayout>
 
         <RelativeLayout

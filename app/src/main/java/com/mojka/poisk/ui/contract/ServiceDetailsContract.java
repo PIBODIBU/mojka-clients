@@ -26,6 +26,8 @@ public interface ServiceDetailsContract {
         void showPreviousImage();
 
         void reload();
+
+        void showToast(@StringRes int stringId);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -33,7 +35,7 @@ public interface ServiceDetailsContract {
 
         void fetchService();
 
-        void createOrder();
+        void createOrder(Long time);
 
         Integer getServiceIdFromIntent(Intent intent);
 
