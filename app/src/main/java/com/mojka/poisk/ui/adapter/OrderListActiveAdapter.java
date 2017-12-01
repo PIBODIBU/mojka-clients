@@ -34,9 +34,10 @@ public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActive
         if (order == null)
             return;
 
-        Picasso.with(context)
-                .load(order.getService().getImages().get(0).getUrl())
-                .into(holder.ivCover);
+        if (order.getService().getImages() != null && order.getService().getImages().get(0) != null && order.getService().getImages().get(0).getUrl() != "")
+            Picasso.with(context)
+                    .load(order.getService().getImages().get(0).getUrl())
+                    .into(holder.ivCover);
 
         holder.tvName.setText(order.getService().getName());
         holder.tvDate.setText(DateUtils.millisToPattern(order.getDate(), DateUtils.PATTERN_DATE_TIME_WITH_BRACKETS));

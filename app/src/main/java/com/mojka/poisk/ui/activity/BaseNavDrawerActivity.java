@@ -118,7 +118,8 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
                     @Override
                     public void onClick() {
-                        drawer.closeDrawer();
+                        startActivity(new Intent(BaseNavDrawerActivity.this, OrderListActivity.class));
+                        finish();
                     }
                 })
                 .withTitle("Мои записи");
@@ -156,7 +157,7 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
         drawerItems.put(ServiceListActivity.class.getName(), itemList);
 
         drawer.addItem(itemOrders);
-        drawerItems.put(ProfileActivity.class.getName(), itemOrders);
+        drawerItems.put(OrderListActivity.class.getName(), itemOrders);
 
         drawer.addItem(new DrawerDivider());
 

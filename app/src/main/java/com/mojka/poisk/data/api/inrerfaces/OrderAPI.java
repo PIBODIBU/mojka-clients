@@ -8,6 +8,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -16,6 +17,7 @@ public interface OrderAPI {
     @GET("service/order")
     Call<BaseDataWrapper<List<Order>>> getOrders(@Query("token") String token);
 
+    @FormUrlEncoded
     @POST("service/addorder")
     Call<BaseErrorResponse> createOrder(@Field("service_id") Integer serviceId,
                                         @Field("date") Long date,

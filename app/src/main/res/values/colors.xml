@@ -22,4 +22,7 @@
     <color name="edit_text_bg">#dee3e5</color>
 
     <color name="white">#ffffff</color>
+
+    <color name="tab_selected">#dfe4e6</color>
+    <color name="tab_text">#6e6e6e</color>
 </resources>

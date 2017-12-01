@@ -2,10 +2,10 @@ package com.mojka.poisk.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,9 +40,6 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     @BindView(R.id.slider_images)
     public SliderLayout sliderLayout;
 
-    @BindView(R.id.slider_indicator)
-    public PagerIndicator sliderIndicator;
-
     @BindView(R.id.c_progress_bar)
     public View cProgressBar;
 
@@ -75,7 +72,6 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     String getActivityTitle() {
         return getString(R.string.activity_service_details);
     }
-
 
     @Override
     protected ActivityServiceDetailsBinding getBinding() {
@@ -119,9 +115,9 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
 
         // Activity title
         if (service.getType() == Service.TYPE_WASH)
-            setTitle(R.string.activity_service_details_wash);
+            setToolbarTitle(R.string.activity_service_details_wash);
         else if (service.getType() == Service.TYPE_REPAIR)
-            setTitle(R.string.activity_service_details_repair);
+            setToolbarTitle(R.string.activity_service_details_repair);
 
         // Images slider
         for (Image image : service.getImages())
@@ -129,9 +125,6 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
                 sliderLayout.addSlider(
                         new DefaultSliderView(this)
                                 .image(image.getUrl()).setScaleType(BaseSliderView.ScaleType.CenterCrop));
-
-        //Slider indicator
-        sliderLayout.setCustomIndicator(sliderIndicator);
     }
 
     @Override

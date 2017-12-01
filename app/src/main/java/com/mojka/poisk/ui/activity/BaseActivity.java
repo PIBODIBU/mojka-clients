@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -122,6 +123,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             ibClose.setVisibility(View.GONE);
         else
             ibClose.setVisibility(View.VISIBLE);
+    }
+
+    protected void setToolbarTitle(@StringRes int stringId) {
+        TextView tvTitle = toolbar.findViewById(R.id.tv_title);
+        tvTitle.setText(stringId);
     }
 
     abstract int getLayoutId();

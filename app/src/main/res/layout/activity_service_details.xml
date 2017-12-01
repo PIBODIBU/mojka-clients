@@ -16,22 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
         <RelativeLayout
             android:id="@+id/c_slider"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_below="@+id/toolbar"
             tools:background="@color/colorPrimary">
 
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider_images"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
-            <com.daimajia.slider.library.Indicators.PagerIndicator
-                android:id="@+id/slider_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/iv_prev_slide"
@@ -176,12 +175,12 @@
             android:visibility="invisible">
 
             <com.rey.material.widget.ProgressView
+                style="@style/AppTheme.CircularProgress"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerInParent="true"
                 app:pv_autostart="true"
-                app:pv_circular="true"
-                style="@style/AppTheme.CircularProgress" />
+                app:pv_circular="true" />
         </RelativeLayout>
 
         <RelativeLayout

@@ -2,8 +2,10 @@ package com.mojka.poisk.ui.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.mojka.poisk.R;
@@ -12,6 +14,7 @@ import com.mojka.poisk.ui.contract.OrderListContract;
 import com.mojka.poisk.ui.fragment.OrderListActiveFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class OrderListActivity extends BaseNavDrawerActivity implements OrderListContract.View {
     private static final String TAG = "OrderListActivity";
@@ -21,6 +24,9 @@ public class OrderListActivity extends BaseNavDrawerActivity implements OrderLis
 
     @BindView(R.id.view_pager)
     public ViewPager viewPager;
+
+    @BindView(R.id.tab_layout)
+    public TabLayout tabLayout;
 
     private OrderListPagerAdapter pagerAdapter = new OrderListPagerAdapter(getSupportFragmentManager());
     private OrderListActiveFragment orderListActiveFragment = new OrderListActiveFragment();
@@ -62,9 +68,16 @@ public class OrderListActivity extends BaseNavDrawerActivity implements OrderLis
         return this;
     }
 
+    @OnClick(R.id.btn_to_main_screen)
+    public void toMainScreen() {
+        startActivity(new Intent(OrderListActivity.this, ProfileActivity.class));
+        finish();
+    }
+
     @Override
     public void setupUi() {
-        pagerAdapter.addFragment(orderListActiveFragment);
+        pagerAdapter.addFragment(orderListActiveFragment, getString(R.string.fragment_order_active));
+        pagerAdapter.addFragment(new OrderListActiveFragment(),getString(R.string.fragment_order_history));
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -83,5 +96,7 @@ public class OrderListActivity extends BaseNavDrawerActivity implements OrderLis
 
             }
         });
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

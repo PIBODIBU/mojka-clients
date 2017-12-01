@@ -76,4 +76,7 @@
     <string name="toast_order_active_fetch_error">Произошла ошибка</string>
     <string name="btn_move_order">Перенести</string>
     <string name="btn_cancel_order">Отменить</string>
+    <string name="btn_to_main_screen"><u>На главный экран</u></string>
+    <string name="fragment_order_active">Активные</string>
+    <string name="fragment_order_history">История</string>
 </resources>
