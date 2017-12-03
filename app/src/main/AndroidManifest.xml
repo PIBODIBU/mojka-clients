@@ -41,6 +41,8 @@
         <activity android:name=".ui.activity.ServiceListActivity" />
         <activity android:name=".ui.activity.ServiceDetailsActivity" />
         <activity android:name=".ui.activity.OrderListActivity" />
+        <activity android:name=".ui.activity.CarListActivity" />
+        <activity android:name=".ui.activity.CarAddActivity" />
     </application>
 
 </manifest>

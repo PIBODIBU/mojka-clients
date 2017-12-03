@@ -156,17 +156,17 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
         drawer.addItem(itemList);
         drawerItems.put(ServiceListActivity.class.getName(), itemList);
 
-        drawer.addItem(itemOrders);
-        drawerItems.put(OrderListActivity.class.getName(), itemOrders);
-
-        drawer.addItem(new DrawerDivider());
-
         if (accountService.isLogged()) {
+            drawer.addItem(itemOrders);
+            drawerItems.put(OrderListActivity.class.getName(), itemOrders);
+
+            drawer.addItem(new DrawerDivider());
+
             drawer.addItem(itemExit);
             drawerItems.put("Exit", itemExit);
-        }
+        } else {
+            drawer.addItem(new DrawerDivider());
 
-        if (!accountService.isLogged()) {
             drawer.addItem(itemLogin);
             drawerItems.put("Auth", itemLogin);
         }

@@ -15,6 +15,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.model.Image;
 import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.databinding.ActivityServiceDetailsBinding;
@@ -36,6 +37,7 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
 
     private ServiceDetailsContract.Presenter presenter = new ServiceDetailsPresenterImpl();
     private Calendar newOrderDate = Calendar.getInstance();
+    private AccountService accountService;
 
     @BindView(R.id.slider_images)
     public SliderLayout sliderLayout;
@@ -52,6 +54,8 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        accountService = new AccountService(this);
 
         presenter.setView(this);
         presenter.start();
@@ -173,6 +177,11 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     @Override
     @OnClick(R.id.btn_create_order)
     public void createOrder() {
+        if (!accountService.isLogged()) {
+            startActivity(new Intent(ServiceDetailsActivity.this, LoginActivity.class));
+            return;
+        }
+
         Calendar now = Calendar.getInstance();
 
         final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {

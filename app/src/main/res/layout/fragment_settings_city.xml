@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text"
+        android:background="@drawable/edit_text_grey_cornered"
         android:hint="@string/hint_enter_city"
         android:lines="1"
         android:maxLines="1"

@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:gravity="center"
-        android:text="@string/tv_no_orders_active"
+        android:text="@string/tv_no_orders_history"
         android:textSize="18sp"
         android:visibility="invisible" />
 </RelativeLayout>

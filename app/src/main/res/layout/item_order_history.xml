@@ -12,7 +12,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
-        tools:src="@drawable/ic_no_picture" />
+        tools:src="@drawable/img_profile_bg" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -37,37 +37,6 @@
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         tools:text="08.08.2018 (16:30)" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_cover"
-        android:layout_toEndOf="@+id/iv_cover"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <com.rey.material.widget.Button
-            android:id="@+id/btn_move_order"
-            style="@style/AppTheme.Button.Dark"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_accent"
-            android:text="@string/btn_move_order"
-            android:textSize="11sp" />
-
-        <com.rey.material.widget.Button
-            android:id="@+id/btn_cancel_order"
-            style="@style/AppTheme.Button.Secondary"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_secondary"
-            android:text="@string/btn_cancel_order"
-            android:textSize="11sp" />
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

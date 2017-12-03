@@ -138,6 +138,22 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
         settingsMVP.setCity(city);
     }
 
+
+    @Override
+    @OnClick(R.id.btn_order_history)
+    public void showOrderHistory() {
+        startActivity(new Intent(ProfileActivity.this, OrderListActivity.class)
+                .putExtra(OrderListActivity.INTENT_KEY_PAGE, OrderListActivity.PAGE_ORDER_HISTORY));
+        finish();
+    }
+
+    @Override
+    @OnClick(R.id.btn_my_car)
+    public void showMyCar() {
+        startActivity(new Intent(ProfileActivity.this, CarListActivity.class));
+        finish();
+    }
+
     @Override
     public void setupUi() {
         Picasso.with(this)

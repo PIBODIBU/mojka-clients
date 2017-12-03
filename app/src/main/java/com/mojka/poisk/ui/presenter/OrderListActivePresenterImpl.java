@@ -10,9 +10,10 @@ import com.mojka.poisk.data.model.Order;
 import com.mojka.poisk.ui.adapter.OrderListActiveAdapter;
 import com.mojka.poisk.ui.contract.OrderListContract;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class OrderListActivePresenter implements OrderListContract.Active.Presenter {
+public class OrderListActivePresenterImpl implements OrderListContract.Active.Presenter {
     private OrderListContract.Active.View view;
     private OrderListActiveAdapter adapter;
 
@@ -34,6 +35,11 @@ public class OrderListActivePresenter implements OrderListContract.Active.Presen
     @Override
     public void setupAdapter(List<Order> orders) {
         adapter = new OrderListActiveAdapter(view.getViewContext(), orders);
+
+        if (orders.size() == 0)
+            view.showEmptyListAlert();
+        else
+            view.hideEmptyListAlert();
     }
 
     @Override
@@ -49,7 +55,13 @@ public class OrderListActivePresenter implements OrderListContract.Active.Presen
                             return;
                         }
 
-                        setupAdapter(response.getResponseObj());
+                        List<Order> orders = new LinkedList<>();
+
+                        for (Order order : response.getResponseObj())
+                            if (!order.getDone())
+                                orders.add(order);
+
+                        setupAdapter(orders);
                         view.setupUi();
                     }
 

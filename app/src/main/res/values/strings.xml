@@ -79,4 +79,16 @@
     <string name="btn_to_main_screen"><u>На главный экран</u></string>
     <string name="fragment_order_active">Активные</string>
     <string name="fragment_order_history">История</string>
+    <string name="tv_no_orders_history">История записей пуста</string>
+    <string name="tv_no_orders_active">Список активных записей пуст</string>
+    <string name="activity_car_list">Мое авто</string>
+    <string name="hint_car_name">Название авто</string>
+    <string name="hint_car_numbers">Номера авто</string>
+    <string name="btn_add">Добавить</string>
+    <string name="btn_add_car">Добавить авто</string>
+    <string name="activity_car_add">Добавление авто</string>
+    <string name="toast_car_added">Авто успешно добавлено</string>
+    <string name="toast_car_adding_error">Ошибка при добавлении авто</string>
+    <string name="btn_add_photo">Добавить фото</string>
+    <string name="intent_select_photo">Выберите фото</string>
 </resources>

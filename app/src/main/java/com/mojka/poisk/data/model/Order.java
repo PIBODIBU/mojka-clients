@@ -9,6 +9,9 @@ public class Order {
     @SerializedName("date")
     private Long date;
 
+    @SerializedName("is_done")
+    private Boolean isDone;
+
     @SerializedName("service")
     private Service service;
 
@@ -26,6 +29,14 @@ public class Order {
 
     public void setDate(Long date) {
         this.date = date;
+    }
+
+    public Boolean getDone() {
+        return isDone;
+    }
+
+    public void setDone(Boolean done) {
+        isDone = done;
     }
 
     public Service getService() {

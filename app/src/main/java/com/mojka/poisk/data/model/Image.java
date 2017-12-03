@@ -7,6 +7,10 @@ public class Image {
     @SerializedName("url")
     private String url;
 
+    public Image(String url) {
+        this.url = url;
+    }
+
     public String getUrl() {
         if (url != null && url != "")
             if (!url.startsWith("http://") && !url.startsWith("https://"))

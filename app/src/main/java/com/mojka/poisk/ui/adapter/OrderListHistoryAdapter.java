@@ -9,27 +9,28 @@ import android.widget.ImageView;
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.model.Order;
 import com.mojka.poisk.ui.holder.OrderListActiveViewHolder;
+import com.mojka.poisk.ui.holder.OrderListHistoryViewHolder;
 import com.mojka.poisk.utils.DateUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActiveViewHolder> {
+public class OrderListHistoryAdapter extends RecyclerView.Adapter<OrderListHistoryViewHolder> {
     private Context context;
     private List<Order> orders;
 
-    public OrderListActiveAdapter(Context context, List<Order> orders) {
+    public OrderListHistoryAdapter(Context context, List<Order> orders) {
         this.context = context;
         this.orders = orders;
     }
 
     @Override
-    public OrderListActiveViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new OrderListActiveViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_active, null, false));
+    public OrderListHistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new OrderListHistoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_history, null, false));
     }
 
     @Override
-    public void onBindViewHolder(OrderListActiveViewHolder holder, int position) {
+    public void onBindViewHolder(OrderListHistoryViewHolder holder, int position) {
         Order order = orders.get(position);
 
         if (order == null)

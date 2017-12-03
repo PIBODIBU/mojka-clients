@@ -12,6 +12,7 @@ import com.mojka.poisk.R;
 import com.mojka.poisk.ui.adapter.OrderListPagerAdapter;
 import com.mojka.poisk.ui.contract.OrderListContract;
 import com.mojka.poisk.ui.fragment.OrderListActiveFragment;
+import com.mojka.poisk.ui.fragment.OrderListHistoryFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,8 +20,10 @@ import butterknife.OnClick;
 public class OrderListActivity extends BaseNavDrawerActivity implements OrderListContract.View {
     private static final String TAG = "OrderListActivity";
 
-    private static final int PAGE_ORDER_ACTIVE = 0;
-    private static final int PAGE_ORDER_HISTORY = 1;
+    public static final int PAGE_ORDER_ACTIVE = 0;
+    public static final int PAGE_ORDER_HISTORY = 1;
+
+    public static final String INTENT_KEY_PAGE = "INTENT_KEY_PAGE";
 
     @BindView(R.id.view_pager)
     public ViewPager viewPager;
@@ -29,13 +32,32 @@ public class OrderListActivity extends BaseNavDrawerActivity implements OrderLis
     public TabLayout tabLayout;
 
     private OrderListPagerAdapter pagerAdapter = new OrderListPagerAdapter(getSupportFragmentManager());
-    private OrderListActiveFragment orderListActiveFragment = new OrderListActiveFragment();
+    private OrderListActiveFragment activeFragment = new OrderListActiveFragment();
+    private OrderListHistoryFragment historyFragment = new OrderListHistoryFragment();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setupUi();
+        checkIntent(getIntent());
+    }
+
+    @Override
+    public void checkIntent(Intent intent) {
+        if (intent == null || intent.getExtras() == null || !intent.getExtras().containsKey(INTENT_KEY_PAGE))
+            return;
+
+        switch (intent.getExtras().getInt(INTENT_KEY_PAGE)) {
+            case PAGE_ORDER_ACTIVE:
+                viewPager.setCurrentItem(PAGE_ORDER_ACTIVE);
+                return;
+            case PAGE_ORDER_HISTORY:
+                viewPager.setCurrentItem(PAGE_ORDER_HISTORY);
+                return;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -76,8 +98,8 @@ public class OrderListActivity extends BaseNavDrawerActivity implements OrderLis
 
     @Override
     public void setupUi() {
-        pagerAdapter.addFragment(orderListActiveFragment, getString(R.string.fragment_order_active));
-        pagerAdapter.addFragment(new OrderListActiveFragment(),getString(R.string.fragment_order_history));
+        pagerAdapter.addFragment(activeFragment, getString(R.string.fragment_order_active));
+        pagerAdapter.addFragment(historyFragment, getString(R.string.fragment_order_history));
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

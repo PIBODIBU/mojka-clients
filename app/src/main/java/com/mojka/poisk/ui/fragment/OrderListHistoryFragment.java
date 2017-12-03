@@ -14,11 +14,11 @@ import android.widget.Toast;
 
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.OrderListContract;
-import com.mojka.poisk.ui.presenter.OrderListActivePresenterImpl;
+import com.mojka.poisk.ui.presenter.OrderListHistoryPresenterImpl;
 
 import butterknife.BindView;
 
-public class OrderListActiveFragment extends BaseFragment implements OrderListContract.Active.View {
+public class OrderListHistoryFragment extends BaseFragment implements OrderListContract.History.View {
     @BindView(R.id.recycler_view)
     public RecyclerView recyclerView;
 
@@ -28,7 +28,7 @@ public class OrderListActiveFragment extends BaseFragment implements OrderListCo
     @BindView(R.id.tv_empty_list)
     public TextView tvEmptyListAlert;
 
-    private OrderListContract.Active.Presenter presenter = new OrderListActivePresenterImpl();
+    private OrderListContract.History.Presenter presenter = new OrderListHistoryPresenterImpl();
 
     @Nullable
     @Override
@@ -43,7 +43,17 @@ public class OrderListActiveFragment extends BaseFragment implements OrderListCo
 
     @Override
     int getLayoutId() {
-        return R.layout.fragment_order_list_active;
+        return R.layout.fragment_order_list_history;
+    }
+
+    @Override
+    public void showEmptyListAlert() {
+        tvEmptyListAlert.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmptyListAlert() {
+        tvEmptyListAlert.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -60,16 +70,6 @@ public class OrderListActiveFragment extends BaseFragment implements OrderListCo
     public void setupUi() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getViewActivity()));
         recyclerView.setAdapter(presenter.getAdapter());
-    }
-
-    @Override
-    public void showEmptyListAlert() {
-        tvEmptyListAlert.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideEmptyListAlert() {
-        tvEmptyListAlert.setVisibility(View.INVISIBLE);
     }
 
     @Override

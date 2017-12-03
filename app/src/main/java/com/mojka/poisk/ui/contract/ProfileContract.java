@@ -14,6 +14,10 @@ public interface ProfileContract {
         void checkPermission();
 
         void onPermissionsGranted();
+
+        void showOrderHistory();
+
+        void showMyCar();
     }
 
     interface Presenter extends BasePresenter<View> {
