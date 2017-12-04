@@ -22,4 +22,10 @@ public interface OrderAPI {
     Call<BaseErrorResponse> createOrder(@Field("service_id") Integer serviceId,
                                         @Field("date") Long date,
                                         @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("service/moveorder")
+    Call<BaseErrorResponse> moveOrder(@Field("order_id") Integer orderId,
+                                      @Field("new_date") Long newDate,
+                                      @Field("token") String token);
 }

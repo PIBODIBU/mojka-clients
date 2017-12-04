@@ -4,9 +4,23 @@ import android.app.Activity;
 import android.net.Uri;
 import android.util.Log;
 
+import com.mojka.poisk.data.account.AccountService;
+import com.mojka.poisk.data.api.APIGenerator;
+import com.mojka.poisk.data.api.inrerfaces.CarAPI;
+import com.mojka.poisk.data.callback.Callback;
+import com.mojka.poisk.data.model.BaseErrorResponse;
 import com.mojka.poisk.data.model.Car;
 import com.mojka.poisk.ui.adapter.CarAddAdapter;
 import com.mojka.poisk.ui.contract.CarAddContract;
+import com.mojka.poisk.utils.FileUtils;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CarAddPresenterImpl implements CarAddContract.Presenter {
     private static final String TAG = "CarAddPresenterImpl";
@@ -45,14 +59,52 @@ public class CarAddPresenterImpl implements CarAddContract.Presenter {
 
     @Override
     public void addCar() {
-        view.getViewActivity().setResult(Activity.RESULT_OK);
-        view.getViewActivity().finish();
+        List<MultipartBody.Part> imageParts = new LinkedList<>();
+
+        for (Uri image : adapter.getImages()) {
+            File file = FileUtils.getFile(view.getViewActivity(), image);
+
+            RequestBody requestFile =
+                    RequestBody.create(
+                            MediaType.parse(view.getViewActivity().getContentResolver().getType(image)),
+                            file);
+
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("images", file.getName(), requestFile);
+
+            imageParts.add(body);
+        }
+
+        try {
+            APIGenerator.createService(CarAPI.class).addCar(
+                    new AccountService(view.getViewActivity()).getToken(),
+                    car.getName(),
+                    car.getNumbers(),
+                    imageParts
+            ).enqueue(new Callback<BaseErrorResponse>() {
+                @Override
+                public void onSuccess(BaseErrorResponse response) {
+                    if (response.getError()) {
+                        return;
+                    }
+
+                    view.getViewActivity().setResult(Activity.RESULT_OK);
+                    view.getViewActivity().finish();
+                }
+
+                @Override
+                public void onError() {
+                    super.onError();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e(TAG, "addCar: ", ex);
+        }
     }
 
     @Override
     public void onSelectImage(Uri uri) {
         adapter.addImage(uri);
-        Log.d(TAG, "c: " + uri.toString());
     }
 
     @Override

@@ -6,9 +6,11 @@ import com.mojka.poisk.data.api.APIGenerator;
 import com.mojka.poisk.data.api.inrerfaces.OrderAPI;
 import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
+import com.mojka.poisk.data.model.BaseErrorResponse;
 import com.mojka.poisk.data.model.Order;
 import com.mojka.poisk.ui.adapter.OrderListActiveAdapter;
 import com.mojka.poisk.ui.contract.OrderListContract;
+import com.mojka.poisk.ui.fragment.OrderListActiveFragment;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +37,42 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
     @Override
     public void setupAdapter(List<Order> orders) {
         adapter = new OrderListActiveAdapter(view.getViewContext(), orders);
+
+        adapter.setActionListener(new OrderListActiveAdapter.ActionListener() {
+            @Override
+            public void onMoveOrder(final Order order) {
+                view.showDateTimeChooser(new OrderListActiveFragment.OnDateTimeChooseListener() {
+                    @Override
+                    public void onChoose(Long dateTime) {
+                        APIGenerator.createService(OrderAPI.class).moveOrder(
+                                order.getId(),
+                                dateTime,
+                                new AccountService(view.getViewContext()).getToken()).enqueue(new Callback<BaseErrorResponse>() {
+                            @Override
+                            public void onSuccess(BaseErrorResponse response) {
+                                if (response.getError()) {
+                                    onError();
+                                    return;
+                                }
+
+                                view.showToast(R.string.order_move_success);
+                                fetchOrders();
+                            }
+
+                            @Override
+                            public void onError() {
+                                view.showToast(R.string.order_move_error);
+                            }
+                        });
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelOrder(Order order) {
+
+            }
+        });
 
         if (orders.size() == 0)
             view.showEmptyListAlert();

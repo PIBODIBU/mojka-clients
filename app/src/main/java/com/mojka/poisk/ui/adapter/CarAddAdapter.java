@@ -59,6 +59,10 @@ public class CarAddAdapter extends RecyclerView.Adapter<CarAddViewHolder> {
         notifyItemRemoved(position);
     }
 
+    public List<Uri> getImages() {
+        return images;
+    }
+
     @Override
     public int getItemCount() {
         return images.size();

@@ -52,7 +52,7 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/edit_text_white_shadowed"
                     android:hint="@string/hint_car_numbers"
-                    android:inputType="text|number"
+                    android:inputType="text"
                     android:text="@={car.numbers}" />
 
                 <com.rey.material.widget.Button

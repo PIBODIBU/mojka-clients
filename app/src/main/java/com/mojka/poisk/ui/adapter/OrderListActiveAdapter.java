@@ -3,6 +3,7 @@ package com.mojka.poisk.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActiveViewHolder> {
     private Context context;
     private List<Order> orders;
+    private ActionListener actionListener;
 
     public OrderListActiveAdapter(Context context, List<Order> orders) {
         this.context = context;
@@ -30,7 +32,7 @@ public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActive
 
     @Override
     public void onBindViewHolder(OrderListActiveViewHolder holder, int position) {
-        Order order = orders.get(position);
+        final Order order = orders.get(position);
 
         if (order == null)
             return;
@@ -51,10 +53,35 @@ public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActive
 
         holder.tvName.setText(order.getService().getName());
         holder.tvDate.setText(DateUtils.millisToPattern(order.getDate(), DateUtils.PATTERN_DATE_TIME_WITH_BRACKETS));
+
+        if (actionListener != null) {
+            holder.btnCancelOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    actionListener.onCancelOrder(order);
+                }
+            });
+            holder.btnModeOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    actionListener.onMoveOrder(order);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return orders.size();
+    }
+
+    public void setActionListener(ActionListener actionListener) {
+        this.actionListener = actionListener;
+    }
+
+    public interface ActionListener {
+        void onMoveOrder(Order order);
+
+        void onCancelOrder(Order order);
     }
 }

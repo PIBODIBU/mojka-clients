@@ -15,6 +15,12 @@ import android.widget.Toast;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.OrderListContract;
 import com.mojka.poisk.ui.presenter.OrderListActivePresenterImpl;
+import com.takisoft.datetimepicker.DatePickerDialog;
+import com.takisoft.datetimepicker.TimePickerDialog;
+import com.takisoft.datetimepicker.widget.DatePicker;
+import com.takisoft.datetimepicker.widget.TimePicker;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 
@@ -29,6 +35,7 @@ public class OrderListActiveFragment extends BaseFragment implements OrderListCo
     public TextView tvEmptyListAlert;
 
     private OrderListContract.Active.Presenter presenter = new OrderListActivePresenterImpl();
+    private Calendar newOrderDate = Calendar.getInstance();
 
     @Nullable
     @Override
@@ -63,6 +70,36 @@ public class OrderListActiveFragment extends BaseFragment implements OrderListCo
     }
 
     @Override
+    public void showDateTimeChooser(final OnDateTimeChooseListener onDateTimeChooseListener) {
+        Calendar now = Calendar.getInstance();
+
+        final TimePickerDialog timePickerDialog = new TimePickerDialog(getViewActivity(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                newOrderDate.set(Calendar.HOUR_OF_DAY, view.getHour());
+                newOrderDate.set(Calendar.MINUTE, view.getMinute());
+
+                onDateTimeChooseListener.onChoose(newOrderDate.getTimeInMillis());
+            }
+        }, 0, 0, true);
+
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(getViewActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                newOrderDate = Calendar.getInstance();
+
+                newOrderDate.set(Calendar.DAY_OF_MONTH, view.getDayOfMonth());
+                newOrderDate.set(Calendar.MONTH, view.getMonth());
+                newOrderDate.set(Calendar.YEAR, view.getYear());
+
+                timePickerDialog.show();
+            }
+        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.show();
+    }
+
+    @Override
     public void showEmptyListAlert() {
         tvEmptyListAlert.setVisibility(View.VISIBLE);
     }
@@ -85,5 +122,9 @@ public class OrderListActiveFragment extends BaseFragment implements OrderListCo
     @Override
     public void hideLoadingScreen() {
         cProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public interface OnDateTimeChooseListener {
+        void onChoose(Long dateTime);
     }
 }

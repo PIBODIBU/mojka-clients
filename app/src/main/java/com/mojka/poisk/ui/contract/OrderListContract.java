@@ -8,6 +8,7 @@ import com.mojka.poisk.ui.adapter.OrderListActiveAdapter;
 import com.mojka.poisk.ui.adapter.OrderListHistoryAdapter;
 import com.mojka.poisk.ui.contract.base.BasePresenter;
 import com.mojka.poisk.ui.contract.base.BaseView;
+import com.mojka.poisk.ui.fragment.OrderListActiveFragment;
 
 import java.util.List;
 
@@ -31,6 +32,8 @@ public interface OrderListContract {
             void showEmptyListAlert();
 
             void hideEmptyListAlert();
+
+            void showDateTimeChooser(OrderListActiveFragment.OnDateTimeChooseListener onDateTimeChooseListener);
         }
 
         interface Presenter extends BasePresenter<View> {

@@ -91,4 +91,7 @@
     <string name="toast_car_adding_error">Ошибка при добавлении авто</string>
     <string name="btn_add_photo">Добавить фото</string>
     <string name="intent_select_photo">Выберите фото</string>
+    <string name="loading_error">Ошибка при загрузке</string>
+    <string name="order_move_error">Ошибка переноса записи</string>
+    <string name="order_move_success">Запись перенесена</string>
 </resources>

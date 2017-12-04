@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.mojka.poisk.R;
@@ -26,6 +27,9 @@ public class CarListActivity extends BaseNavDrawerActivity implements CarListCon
     @BindView(R.id.recycler_view)
     public RecyclerView recyclerView;
 
+    @BindView(R.id.c_progress_bar)
+    public View cProgressBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +46,6 @@ public class CarListActivity extends BaseNavDrawerActivity implements CarListCon
             case REQUEST_CAR_ADD:
                 if (resultCode == RESULT_OK)
                     showToast(R.string.toast_car_added);
-                else
-                    showToast(R.string.toast_car_adding_error);
 
                 presenter.fetchCarList();
                 return;
@@ -97,12 +99,12 @@ public class CarListActivity extends BaseNavDrawerActivity implements CarListCon
 
     @Override
     public void showProgressBar() {
-
+        cProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
-
+        cProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
