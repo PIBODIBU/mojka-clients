@@ -94,4 +94,5 @@
     <string name="loading_error">Ошибка при загрузке</string>
     <string name="order_move_error">Ошибка переноса записи</string>
     <string name="order_move_success">Запись перенесена</string>
+    <string name="error">Ошибка</string>
 </resources>

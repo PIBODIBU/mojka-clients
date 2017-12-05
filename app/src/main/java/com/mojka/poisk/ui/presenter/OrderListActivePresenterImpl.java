@@ -70,7 +70,25 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
 
             @Override
             public void onCancelOrder(Order order) {
+                APIGenerator.createService(OrderAPI.class).cancelOrder(
+                        order.getId(),
+                        new AccountService(view.getViewContext()).getToken()
+                ).enqueue(new Callback<BaseErrorResponse>() {
+                    @Override
+                    public void onSuccess(BaseErrorResponse response) {
+                        if (response.getError()) {
+                            onError();
+                            return;
+                        }
 
+                        fetchOrders();
+                    }
+
+                    @Override
+                    public void onError() {
+                        view.showToast(R.string.error);
+                    }
+                });
             }
         });
 

@@ -28,4 +28,9 @@ public interface OrderAPI {
     Call<BaseErrorResponse> moveOrder(@Field("order_id") Integer orderId,
                                       @Field("new_date") Long newDate,
                                       @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("service/cancelorder")
+    Call<BaseErrorResponse> cancelOrder(@Field("order_id") Integer orderId,
+                                        @Field("token") String token);
 }

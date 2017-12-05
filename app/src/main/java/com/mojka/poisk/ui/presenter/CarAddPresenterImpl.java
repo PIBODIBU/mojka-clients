@@ -77,9 +77,9 @@ public class CarAddPresenterImpl implements CarAddContract.Presenter {
 
         try {
             APIGenerator.createService(CarAPI.class).addCar(
-                    new AccountService(view.getViewActivity()).getToken(),
-                    car.getName(),
-                    car.getNumbers(),
+                    RequestBody.create(MediaType.parse("x-www-form-urlencoded"), new AccountService(view.getViewActivity()).getToken()),
+                    RequestBody.create(MediaType.parse("x-www-form-urlencoded"), car.getName()),
+                    RequestBody.create(MediaType.parse("x-www-form-urlencoded"), car.getNumbers()),
                     imageParts
             ).enqueue(new Callback<BaseErrorResponse>() {
                 @Override
