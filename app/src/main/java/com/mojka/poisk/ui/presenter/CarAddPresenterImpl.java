@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.util.Log;
 
+import com.mojka.poisk.R;
 import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
 import com.mojka.poisk.data.api.inrerfaces.CarAPI;
@@ -75,31 +76,28 @@ public class CarAddPresenterImpl implements CarAddContract.Presenter {
             imageParts.add(body);
         }
 
-        try {
-            APIGenerator.createService(CarAPI.class).addCar(
-                    RequestBody.create(MediaType.parse("x-www-form-urlencoded"), new AccountService(view.getViewActivity()).getToken()),
-                    RequestBody.create(MediaType.parse("x-www-form-urlencoded"), car.getName()),
-                    RequestBody.create(MediaType.parse("x-www-form-urlencoded"), car.getNumbers()),
-                    imageParts
-            ).enqueue(new Callback<BaseErrorResponse>() {
-                @Override
-                public void onSuccess(BaseErrorResponse response) {
-                    if (response.getError()) {
-                        return;
-                    }
-
-                    view.getViewActivity().setResult(Activity.RESULT_OK);
-                    view.getViewActivity().finish();
+        APIGenerator.createService(CarAPI.class).addCar(
+                RequestBody.create(MediaType.parse("x-www-form-urlencoded"), new AccountService(view.getViewActivity()).getToken()),
+                RequestBody.create(MediaType.parse("x-www-form-urlencoded"), car.getName()),
+                RequestBody.create(MediaType.parse("x-www-form-urlencoded"), car.getNumbers()),
+                imageParts
+        ).enqueue(new Callback<BaseErrorResponse>() {
+            @Override
+            public void onSuccess(BaseErrorResponse response) {
+                if (response.getError()) {
+                    onError();
+                    return;
                 }
 
-                @Override
-                public void onError() {
-                    super.onError();
-                }
-            });
-        } catch (Exception ex) {
-            Log.e(TAG, "addCar: ", ex);
-        }
+                view.getViewActivity().setResult(Activity.RESULT_OK);
+                view.getViewActivity().finish();
+            }
+
+            @Override
+            public void onError() {
+                view.showToast(R.string.error);
+            }
+        });
     }
 
     @Override

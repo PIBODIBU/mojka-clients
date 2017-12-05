@@ -9,12 +9,12 @@ import com.mojka.poisk.data.model.User;
 public abstract class AbstractAccountService {
     private final String SHARED_PREFERENCES_NAME = "com.mojka.poisk.account";
 
-    private final String KEY_ID = "KEY_ID";
-    private final String KEY_NAME = "KEY_NAME";
-    private final String KEY_PHONE = "KEY_PHONE";
-    private final String KEY_CAR = "KEY_CAR";
-    private final String KEY_CITY = "KEY_CITY";
-    private final String KEY_TOKEN = "KEY_TOKEN";
+    public static final String KEY_ID = "KEY_ID";
+    public static final String KEY_NAME = "KEY_NAME";
+    public static final String KEY_PHONE = "KEY_PHONE";
+    public static final String KEY_CAR = "KEY_CAR";
+    public static final String KEY_CITY = "KEY_CITY";
+    public static final String KEY_TOKEN = "KEY_TOKEN";
 
     private Context context;
     private SharedPreferences sharedPreferences;
@@ -52,6 +52,14 @@ public abstract class AbstractAccountService {
             return "";
 
         return getAccount().getToken();
+    }
+
+    public void setParam(String key, String value) {
+        sharedPreferences.edit().putString(key, value).apply();
+    }
+
+    public void setParam(String key, Integer value) {
+        sharedPreferences.edit().putInt(key, value).apply();
     }
 
     public Boolean isLogged() {

@@ -11,9 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.ui.contract.ProfileContract;
 import com.mojka.poisk.ui.contract.SettingsCityContract;
 import com.mojka.poisk.ui.fragment.SettingsCityFragment;
@@ -29,8 +31,12 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     @BindView(R.id.iv_background)
     public ImageView ivBackground;
 
+    @BindView(R.id.tv_city)
+    public TextView tvCity;
+
     private ProfileContract.Presenter presenter = new ProfilePresenterImpl();
     private SettingsCityContract.View settingsMVP;
+    private AccountService accountService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,9 +162,14 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
 
     @Override
     public void setupUi() {
+        accountService = new AccountService(this);
+
         Picasso.with(this)
                 .load(R.drawable.img_profile_bg)
                 .into(ivBackground);
+
+        if (accountService.getAccount().getCity() != null)
+            tvCity.setText(accountService.getAccount().getCity());
 
         settingsMVP = ((SettingsCityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_settings)).getMVPView();
         settingsMVP.hide();

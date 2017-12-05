@@ -23,6 +23,8 @@ public interface SettingsCityContract {
         void showToast(String text);
 
         void setCity(String city);
+
+        void save();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -31,5 +33,7 @@ public interface SettingsCityContract {
         void setupAdapter();
 
         void fetchCities();
+
+        void save(String city);
     }
 }

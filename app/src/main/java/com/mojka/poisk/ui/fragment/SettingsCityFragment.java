@@ -16,8 +16,10 @@ import android.widget.Toast;
 import com.mojka.poisk.R;
 import com.mojka.poisk.ui.contract.SettingsCityContract;
 import com.mojka.poisk.ui.presenter.SettingsCityPresenterImpl;
+import com.rey.material.widget.Button;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SettingsCityFragment extends BaseFragment implements SettingsCityContract.View {
     private final String TAG = "SettingsCityFragment";
@@ -114,5 +116,11 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
     @Override
     public Boolean isShowing() {
         return rootView.getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    @OnClick(R.id.btn_save)
+    public void save() {
+        presenter.save(etCity.getText().toString());
     }
 }
