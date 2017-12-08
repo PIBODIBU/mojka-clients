@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -19,6 +20,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListViewHolder> {
 
     private List<Car> cars;
     private Context context;
+    private ActionListener actionListener;
 
     public CarListAdapter(List<Car> cars, Context context) {
         this.cars = cars;
@@ -54,10 +56,24 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListViewHolder> {
         holder.tvName.setText(car.getName());
         holder.tvCarNumbers.setText(car.getNumbers());
 
+        if (actionListener != null) {
+            holder.btnDelete.setOnClickListener(view -> actionListener.onItemDelete(car));
+            holder.btnEdit.setOnClickListener(view -> actionListener.onItemEdit(car));
+        }
     }
 
     @Override
     public int getItemCount() {
         return cars.size();
+    }
+
+    public void setActionListener(ActionListener actionListener) {
+        this.actionListener = actionListener;
+    }
+
+    public interface ActionListener {
+        void onItemEdit(Car car);
+
+        void onItemDelete(Car car);
     }
 }

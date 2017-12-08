@@ -9,6 +9,8 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -25,4 +27,9 @@ public interface CarAPI {
                                    @Part("name") RequestBody name,
                                    @Part("car_numbers") RequestBody carNumbers,
                                    @Part List<MultipartBody.Part> images);
+
+    @FormUrlEncoded
+    @POST("account/deletecar")
+    Call<BaseErrorResponse> deleteCar(@Field("token") String token,
+                                      @Field("car_id") Integer carId);
 }

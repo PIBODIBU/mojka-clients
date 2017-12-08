@@ -102,4 +102,8 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="activity_route">Маршрут</string>
+    <string name="btn_edit">Редактировать</string>
+    <string name="btn_delete">Удалить</string>
+    <string name="dialog_car_delete_title">Удалить авто?</string>
+    <string name="dialog_car_delete_message">Это действие нельзя отменить. Вы уверены, что хотите удалить авто?</string>
 </resources>

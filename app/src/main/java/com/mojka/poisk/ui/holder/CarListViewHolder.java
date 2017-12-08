@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mojka.poisk.R;
+import com.rey.material.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,12 @@ public class CarListViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tv_car_numbers)
     public TextView tvCarNumbers;
+
+    @BindView(R.id.ib_edit)
+    public Button btnEdit;
+
+    @BindView(R.id.ib_delete)
+    public Button btnDelete;
 
     public CarListViewHolder(View itemView) {
         super(itemView);
