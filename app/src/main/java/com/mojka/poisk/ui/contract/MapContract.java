@@ -58,5 +58,7 @@ public interface MapContract {
         void setSelectedService(Service service);
 
         void setupFilterWindow();
+
+        void fetchLocationFromCity();
     }
 }

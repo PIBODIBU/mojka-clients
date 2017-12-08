@@ -17,17 +17,24 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
+import com.mojka.poisk.data.api.inrerfaces.GeocoderAPI;
 import com.mojka.poisk.data.api.inrerfaces.ServiceAPI;
+import com.mojka.poisk.data.api.location.APIGeocoder;
 import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
+import com.mojka.poisk.data.model.GeocoderWrapper;
 import com.mojka.poisk.data.model.MapFilter;
 import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.data.model.ServiceType;
@@ -179,6 +186,34 @@ public class MapPresenterImpl implements MapContract.Presenter {
     }
 
     @Override
+    public void fetchLocationFromCity() {
+        AccountService accountService = new AccountService(view.getViewContext());
+
+        if (!accountService.isLogged())
+            return;
+
+        APIGeocoder.createService(GeocoderAPI.class).getLatLngFromCityName(
+                accountService.getAccount().getCity(),
+                true,
+                "ru",
+                view.getViewActivity().getString(R.string.key_geocoder)
+        ).enqueue(new Callback<GeocoderWrapper>() {
+            @Override
+            public void onSuccess(GeocoderWrapper response) {
+                Double lat = Double.valueOf(response.getGeocoderResults().get(0).getGeometry().getLocation().getLat());
+                Double lng = Double.valueOf(response.getGeocoderResults().get(0).getGeometry().getLocation().getLng());
+
+                map.animateCamera(CameraUpdateFactory.newCameraPosition(
+                        new CameraPosition.Builder()
+                                .target(new LatLng(lat, lng))
+                                .zoom(10f)
+                                .build()
+                ));
+            }
+        });
+    }
+
+    @Override
     public void setupGoogleApi() {
         googleApiClient = new GoogleApiClient.Builder(view.getViewActivity())
                 .addApi(LocationServices.API)
@@ -306,6 +341,8 @@ public class MapPresenterImpl implements MapContract.Presenter {
                         }
                     }
                 });
+
+                fetchLocationFromCity();
             }
         };
     }
