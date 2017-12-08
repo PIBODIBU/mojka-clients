@@ -34,5 +34,7 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter<View> {
         void login();
+
+        void checkIntent();
     }
 }

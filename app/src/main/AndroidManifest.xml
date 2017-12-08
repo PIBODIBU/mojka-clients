@@ -43,6 +43,7 @@
         <activity android:name=".ui.activity.OrderListActivity" />
         <activity android:name=".ui.activity.CarListActivity" />
         <activity android:name=".ui.activity.CarAddActivity" />
+        <activity android:name=".ui.activity.RouteActivity" />
     </application>
 
 </manifest>

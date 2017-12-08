@@ -15,12 +15,14 @@ public class DateUtils {
     public static final String PATTERN_HOUR_MIN_SEC = "HH:mm:ss";
     public static final Long HOUR = 60 * 60 * 1000L;
 
+    @SuppressLint("SimpleDateFormat")
     public static String millisToPattern(Long millis, String pattern) {
         if (millis == null)
             return "Дата не указана";
 
         Date date = new Date(millis);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         return simpleDateFormat.format(date);
     }
 

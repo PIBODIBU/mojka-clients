@@ -28,6 +28,8 @@ public interface ServiceDetailsContract {
         void reload();
 
         void showToast(@StringRes int stringId);
+
+        void openCreateRouteActivity();
     }
 
     interface Presenter extends BasePresenter<View> {

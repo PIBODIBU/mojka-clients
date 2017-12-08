@@ -1,5 +1,9 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
+
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
@@ -69,26 +73,40 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
             }
 
             @Override
-            public void onCancelOrder(Order order) {
-                APIGenerator.createService(OrderAPI.class).cancelOrder(
-                        order.getId(),
-                        new AccountService(view.getViewContext()).getToken()
-                ).enqueue(new Callback<BaseErrorResponse>() {
-                    @Override
-                    public void onSuccess(BaseErrorResponse response) {
-                        if (response.getError()) {
-                            onError();
-                            return;
-                        }
+            public void onCancelOrder(final Order order) {
+                new AlertDialog.Builder(view.getViewContext())
+                        .setCancelable(false)
+                        .setTitle(view.getViewActivity().getString(R.string.dialog_title_cancel_order))
+                        .setMessage(view.getViewActivity().getString(R.string.dialog_message_cancel_order))
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                APIGenerator.createService(OrderAPI.class).cancelOrder(
+                                        order.getId(),
+                                        new AccountService(view.getViewContext()).getToken()
+                                ).enqueue(new Callback<BaseErrorResponse>() {
+                                    @Override
+                                    public void onSuccess(BaseErrorResponse response) {
+                                        if (response.getError()) {
+                                            onError();
+                                            return;
+                                        }
 
-                        fetchOrders();
-                    }
+                                        fetchOrders();
+                                    }
 
+                                    @Override
+                                    public void onError() {
+                                        view.showToast(R.string.error);
+                                    }
+                                });
+                            }
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onError() {
-                        view.showToast(R.string.error);
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
                     }
-                });
+                }).create().show();
             }
         });
 

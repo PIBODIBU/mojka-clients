@@ -1,5 +1,6 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,6 +13,7 @@ import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.LoginResponse;
 import com.mojka.poisk.data.model.User;
+import com.mojka.poisk.ui.activity.LoginActivity;
 import com.mojka.poisk.ui.contract.LoginContract;
 
 import retrofit2.Call;
@@ -21,10 +23,20 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
     private static final String TAG = "LoginPresenterImpl";
 
     private LoginContract.View view;
+    private Boolean finishAfterSuccess = false;
 
     @Override
     public void start() {
         view.setupUi();
+        checkIntent();
+    }
+
+    @Override
+    public void checkIntent() {
+        Intent intent = view.getViewActivity().getIntent();
+
+        if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey(LoginActivity.KEY_FINISH_AFTER_SUCCESS))
+            finishAfterSuccess = intent.getExtras().getBoolean(LoginActivity.KEY_FINISH_AFTER_SUCCESS, false);
     }
 
     @Override
@@ -70,7 +82,11 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
                         user.setToken(token);
 
                         new AccountService(view.getViewContext()).setAccount(response.getResponseObj());
-                        view.startProfileActivity();
+
+                        if (finishAfterSuccess)
+                            view.getViewActivity().finish();
+                        else
+                            view.startProfileActivity();
                     }
                 });
             }

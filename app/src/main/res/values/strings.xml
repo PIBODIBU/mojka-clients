@@ -1,5 +1,6 @@
 <resources>
     <string name="key_geocoder">AIzaSyB5arKTYeMmuGE2YghHGfmnS1OeWPvPI0Q</string>
+    <string name="maps_api_key">AIzaSyClQgsoSydzUdhQ-7MK4Pk3iFEieQFrLbs</string>
 
     <string name="app_name">МойкАвто</string>
     <string name="activity_login_title">Авторизация</string>
@@ -96,4 +97,9 @@
     <string name="order_move_success">Запись перенесена</string>
     <string name="error">Ошибка</string>
     <string name="saved">Сохранено</string>
+    <string name="dialog_title_cancel_order">Отменить запись?</string>
+    <string name="dialog_message_cancel_order">Вы уверены, что хотите отменить запись?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="activity_route">Маршрут</string>
 </resources>

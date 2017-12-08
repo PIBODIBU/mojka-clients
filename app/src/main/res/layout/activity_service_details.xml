@@ -20,46 +20,45 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <RelativeLayout
-            android:id="@+id/c_slider"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/toolbar"
-            tools:background="@color/colorPrimary">
-
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider_images"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <ImageView
-                android:id="@+id/iv_prev_slide"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="24dp"
-                app:srcCompat="@drawable/ic_arrow_left_rounded" />
-
-            <ImageView
-                android:id="@+id/iv_next_slide"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="24dp"
-                app:srcCompat="@drawable/ic_arrow_right_rounded" />
-        </RelativeLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/c_bottom_bar"
-            android:layout_below="@+id/c_slider">
+            android:layout_below="@+id/toolbar">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/c_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    tools:background="@color/colorPrimary">
+
+                    <com.daimajia.slider.library.SliderLayout
+                        android:id="@+id/slider_images"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_prev_slide"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="24dp"
+                        app:srcCompat="@drawable/ic_arrow_left_rounded" />
+
+                    <ImageView
+                        android:id="@+id/iv_next_slide"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="24dp"
+                        app:srcCompat="@drawable/ic_arrow_right_rounded" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -82,6 +81,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:text="@{service.description}"
+                    android:textSize="160sp"
                     tools:text="Service description" />
 
                 <LinearLayout
@@ -142,6 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"

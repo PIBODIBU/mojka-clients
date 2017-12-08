@@ -92,25 +92,22 @@ public class MapPresenterImpl implements MapContract.Presenter {
         view.getFilterMVP().setAbsoluteMin(min);
         view.getFilterMVP().setAbsoluteMax(max);
 
-        view.getFilterMVP().getPresenter().setFilterListener(new MapFilterWindowPresenterImpl.FilterListener() {
-            @Override
-            public void onSave(Integer min, Integer max) {
-                for (Service service : services)
-                    if (service.getPriceEnd() > max || service.getPriceStart() < min)
-                        service.setVisible(false);
-                    else
-                        service.setVisible(true);
+        view.getFilterMVP().getPresenter().setFilterListener((min1, max1) -> {
+            for (Service service : services)
+                if (service.getPriceEnd() > max1 || service.getPriceStart() < min1)
+                    service.setVisible(false);
+                else
+                    service.setVisible(true);
 
-                map.clear();
+            map.clear();
 
-                for (Service service : services)
-                    if (service.getVisible()) {
-                        Marker marker = map.addMarker(service.getMarkerOptions());
-                        service.setMarker(marker);
-                    }
+            for (Service service : services)
+                if (service.getVisible()) {
+                    Marker marker = map.addMarker(service.getMarkerOptions());
+                    service.setMarker(marker);
+                }
 
-                view.getFilterMVP().hide();
-            }
+            view.getFilterMVP().hide();
         });
     }
 
@@ -200,15 +197,19 @@ public class MapPresenterImpl implements MapContract.Presenter {
         ).enqueue(new Callback<GeocoderWrapper>() {
             @Override
             public void onSuccess(GeocoderWrapper response) {
-                Double lat = Double.valueOf(response.getGeocoderResults().get(0).getGeometry().getLocation().getLat());
-                Double lng = Double.valueOf(response.getGeocoderResults().get(0).getGeometry().getLocation().getLng());
+                try {
+                    Double lat = Double.valueOf(response.getGeocoderResults().get(0).getGeometry().getLocation().getLat());
+                    Double lng = Double.valueOf(response.getGeocoderResults().get(0).getGeometry().getLocation().getLng());
 
-                map.animateCamera(CameraUpdateFactory.newCameraPosition(
-                        new CameraPosition.Builder()
-                                .target(new LatLng(lat, lng))
-                                .zoom(10f)
-                                .build()
-                ));
+                    map.animateCamera(CameraUpdateFactory.newCameraPosition(
+                            new CameraPosition.Builder()
+                                    .target(new LatLng(lat, lng))
+                                    .zoom(10f)
+                                    .build()
+                    ));
+                } catch (Exception ex) {
+                    Log.e(TAG, "onSuccess: ", ex);
+                }
             }
         });
     }
@@ -230,11 +231,8 @@ public class MapPresenterImpl implements MapContract.Presenter {
 
                     }
                 })
-                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                .addOnConnectionFailedListener(connectionResult -> {
 
-                    }
                 })
                 .build();
 
@@ -281,69 +279,60 @@ public class MapPresenterImpl implements MapContract.Presenter {
 
     @Override
     public OnMapReadyCallback getOnMapReadyCallback() {
-        return new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                int markerHeight = 61;
-                int markerWidth = 36;
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker);
-                Bitmap b = bitmapDrawable.getBitmap();
-                final Bitmap smallMarker = Bitmap.createScaledBitmap(b, markerWidth, markerHeight, false);
+        return googleMap -> {
+            int markerHeight = 61;
+            int markerWidth = 36;
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker);
+            Bitmap b = bitmapDrawable.getBitmap();
+            final Bitmap smallMarker = Bitmap.createScaledBitmap(b, markerWidth, markerHeight, false);
 
-                map = googleMap;
-                map.setInfoWindowAdapter(new CustomInfoWindow(view.getViewActivity(), MapPresenterImpl.this));
-                map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                    @Override
-                    public void onInfoWindowClick(Marker marker) {
-                        Service model = null;
+            map = googleMap;
+            map.setInfoWindowAdapter(new CustomInfoWindow(view.getViewActivity(), MapPresenterImpl.this));
+            map.setOnInfoWindowClickListener(marker -> {
+                Service model = null;
 
-                        for (Service service : services)
-                            if (service.getMarker().equals(marker))
-                                model = service;
+                for (Service service : services)
+                    if (service.getMarker().equals(marker))
+                        model = service;
 
-                        if (model != null)
-                            view.getViewActivity().startActivity(new Intent(view.getViewActivity(), ServiceDetailsActivity.class)
-                                    .putExtra(ServiceDetailsActivity.INTENT_KEY_SERVICE_ID, model.getId()));
-                    }
-                });
-                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        if (marker.equals(userPositionMarker))
-                            return true;
-                        else {
-                            for (Service service : services)
-                                if (service.getMarker().equals(marker))
-                                    setSelectedService(service);
+                if (model != null)
+                    view.getViewActivity().startActivity(new Intent(view.getViewActivity(), ServiceDetailsActivity.class)
+                            .putExtra(ServiceDetailsActivity.INTENT_KEY_SERVICE_ID, model.getId()));
+            });
+            map.setOnMarkerClickListener(marker -> {
+                if (marker.equals(userPositionMarker))
+                    return true;
+                else {
+                    for (Service service : services)
+                        if (service.getMarker().equals(marker))
+                            setSelectedService(service);
 
-                            return false;
+                    return false;
+                }
+            });
+
+            fetchServices(new Callback<BaseDataWrapper<List<Service>>>() {
+                @Override
+                public void onSuccess(BaseDataWrapper<List<Service>> response) {
+                    if (!response.getError()) {
+                        for (Service service : response.getResponseObj()) {
+                            MarkerOptions markerOptions = new MarkerOptions()
+                                    .position(new LatLng(service.getLat(), service.getLng()))
+                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                            Marker marker = map.addMarker(markerOptions);
+
+                            service.setMarker(marker);
+                            service.setMarkerOptions(markerOptions);
+
+                            services.add(service);
                         }
+
+                        setupFilterWindow();
                     }
-                });
+                }
+            });
 
-                fetchServices(new Callback<BaseDataWrapper<List<Service>>>() {
-                    @Override
-                    public void onSuccess(BaseDataWrapper<List<Service>> response) {
-                        if (!response.getError()) {
-                            for (Service service : response.getResponseObj()) {
-                                MarkerOptions markerOptions = new MarkerOptions()
-                                        .position(new LatLng(service.getLat(), service.getLng()))
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-                                Marker marker = map.addMarker(markerOptions);
-
-                                service.setMarker(marker);
-                                service.setMarkerOptions(markerOptions);
-
-                                services.add(service);
-                            }
-
-                            setupFilterWindow();
-                        }
-                    }
-                });
-
-                fetchLocationFromCity();
-            }
+            fetchLocationFromCity();
         };
     }
 

@@ -20,6 +20,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
+    public static final String KEY_FINISH_AFTER_SUCCESS = "KEY_FINISH_AFTER_SUCCESS";
+
     @BindView(R.id.ivBackground)
     public ImageView ivBackground;
 

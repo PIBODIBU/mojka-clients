@@ -20,6 +20,7 @@ import com.mojka.poisk.data.model.Image;
 import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.databinding.ActivityServiceDetailsBinding;
 import com.mojka.poisk.ui.contract.ServiceDetailsContract;
+import com.mojka.poisk.ui.dialog.DialogServiceDetailsPhoto;
 import com.mojka.poisk.ui.presenter.ServiceDetailsPresenterImpl;
 import com.takisoft.datetimepicker.DatePickerDialog;
 import com.takisoft.datetimepicker.TimePickerDialog;
@@ -34,6 +35,7 @@ import butterknife.OnClick;
 public class ServiceDetailsActivity extends BaseNavDrawerActivity implements ServiceDetailsContract.View {
     public static final String TAG = "ServiceDetailsActivity";
     public static final String INTENT_KEY_SERVICE_ID = "INTENT_KEY_SERVICE_ID";
+    private static final int CODE_LOGIN_ACTIVITY = 0;
 
     private ServiceDetailsContract.Presenter presenter = new ServiceDetailsPresenterImpl();
     private Calendar newOrderDate = Calendar.getInstance();
@@ -62,6 +64,14 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CODE_LOGIN_ACTIVITY)
+            recreate();
+    }
+
+    @Override
     protected void onStop() {
         sliderLayout.stopAutoCycle();
         super.onStop();
@@ -80,6 +90,14 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     @Override
     protected ActivityServiceDetailsBinding getBinding() {
         return ((ActivityServiceDetailsBinding) super.getBinding());
+    }
+
+    @Override
+    @OnClick(R.id.btn_create_route)
+    public void openCreateRouteActivity() {
+        startActivity(new Intent(ServiceDetailsActivity.this, RouteActivity.class)
+                .putExtra(RouteActivity.KEY_LATITUDE, presenter.getService().getLat())
+                .putExtra(RouteActivity.KEY_LONGITUDE, presenter.getService().getLng()));
     }
 
     @Override
@@ -114,6 +132,8 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
 
     @Override
     public void setupUi(Service service) {
+        DialogServiceDetailsPhoto dialogServiceDetailsPhoto = new DialogServiceDetailsPhoto();
+
         // Refresh binding
         getBinding().setService(service);
 
@@ -128,7 +148,12 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
             if (image != null && image.getUrl() != null && image.getUrl() != "")
                 sliderLayout.addSlider(
                         new DefaultSliderView(this)
-                                .image(image.getUrl()).setScaleType(BaseSliderView.ScaleType.CenterCrop));
+                                .image(image.getUrl())
+                                .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                                .setOnSliderClickListener(slider -> {
+                                    dialogServiceDetailsPhoto.setPhotoUrl(slider.getUrl());
+                                    dialogServiceDetailsPhoto.show(getSupportFragmentManager(), "dialogServiceDetailsPhoto");
+                                }));
     }
 
     @Override
@@ -178,7 +203,9 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     @OnClick(R.id.btn_create_order)
     public void createOrder() {
         if (!accountService.isLogged()) {
-            startActivity(new Intent(ServiceDetailsActivity.this, LoginActivity.class));
+            startActivityForResult(new Intent(ServiceDetailsActivity.this, LoginActivity.class)
+                            .putExtra(LoginActivity.KEY_FINISH_AFTER_SUCCESS, true),
+                    CODE_LOGIN_ACTIVITY);
             return;
         }
 
