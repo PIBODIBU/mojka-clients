@@ -40,12 +40,7 @@ public class CarAddPresenterImpl implements CarAddContract.Presenter {
     public void setupAdapter() {
         adapter = new CarAddAdapter(view.getViewContext());
 
-        adapter.setOnDeleteClickListener(new CarAddAdapter.OnDeleteClickListener() {
-            @Override
-            public void onDelete(Uri uri) {
-                adapter.removeImage(uri);
-            }
-        });
+        adapter.setOnDeleteClickListener(uri -> adapter.removeImage(uri));
     }
 
     @Override

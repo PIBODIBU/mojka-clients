@@ -111,6 +111,9 @@ public class RoutePresenterImpl implements RouteContract.Presenter {
     public void getUserLocation() {
         locationProviderClient.getLastLocation()
                 .addOnSuccessListener(view.getViewActivity(), location -> {
+                            if (location == null)
+                                return;
+
                             userLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
                             int height = 50;

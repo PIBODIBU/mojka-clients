@@ -42,6 +42,8 @@ public interface OrderListContract {
             OrderListActiveAdapter getAdapter();
 
             void setupAdapter(List<Order> orders);
+
+            void sortOrders(List<Order> orders);
         }
     }
 
@@ -64,6 +66,8 @@ public interface OrderListContract {
             OrderListHistoryAdapter getAdapter();
 
             void setupAdapter(List<Order> orders);
+
+            void sortOrders(List<Order> orders);
         }
     }
 }

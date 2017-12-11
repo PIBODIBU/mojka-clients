@@ -21,7 +21,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dccc6249b9f5f22c1094455248b274bbfc5781cc" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAXWOe7bpsr28UMnM21hhrXZtLujtn9LKk" />
@@ -44,6 +43,8 @@
         <activity android:name=".ui.activity.CarListActivity" />
         <activity android:name=".ui.activity.CarAddActivity" />
         <activity android:name=".ui.activity.RouteActivity" />
+        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".ui.activity.CarEditActivity" />
     </application>
 
 </manifest>

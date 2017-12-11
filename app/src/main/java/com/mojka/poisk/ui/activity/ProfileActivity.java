@@ -109,12 +109,7 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
 
     @Override
     OnCloseButtonListener getOnCloseButtonListener() {
-        return new OnCloseButtonListener() {
-            @Override
-            public void onclick() {
-                finish();
-            }
-        };
+        return this::finish;
     }
 
     @Override
@@ -144,7 +139,6 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
         settingsMVP.setCity(city);
     }
 
-
     @Override
     @OnClick(R.id.btn_order_history)
     public void showOrderHistory() {
@@ -173,5 +167,6 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
 
         settingsMVP = ((SettingsCityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_settings)).getMVPView();
         settingsMVP.hide();
+        settingsMVP.getPresenter().setOnCityChangeListener(city -> tvCity.setText(city.getName()));
     }
 }

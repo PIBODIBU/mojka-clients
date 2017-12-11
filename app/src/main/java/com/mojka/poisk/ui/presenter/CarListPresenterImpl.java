@@ -1,5 +1,6 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
 import com.mojka.poisk.R;
@@ -11,6 +12,9 @@ import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.BaseErrorResponse;
 import com.mojka.poisk.data.model.Car;
+import com.mojka.poisk.ui.activity.CarAddActivity;
+import com.mojka.poisk.ui.activity.CarEditActivity;
+import com.mojka.poisk.ui.activity.CarListActivity;
 import com.mojka.poisk.ui.adapter.CarListAdapter;
 import com.mojka.poisk.ui.contract.CarListContract;
 
@@ -68,7 +72,8 @@ public class CarListPresenterImpl implements CarListContract.Presenter, CarListA
 
     @Override
     public void onItemEdit(Car car) {
-
+        view.getViewActivity().startActivityForResult(new Intent(view.getViewContext(), CarEditActivity.class)
+                .putExtra(CarEditActivity.KEY_CAR_ID, car.getId()), CarListActivity.REQUEST_CAR_ADD);
     }
 
     @Override

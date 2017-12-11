@@ -28,6 +28,14 @@ public interface CarAPI {
                                    @Part("car_numbers") RequestBody carNumbers,
                                    @Part List<MultipartBody.Part> images);
 
+    @Multipart
+    @POST("account/updatecar")
+    Call<BaseErrorResponse> updateCar(@Part("car_id") RequestBody carId,
+                                   @Part("token") RequestBody token,
+                                   @Part("name") RequestBody name,
+                                   @Part("car_numbers") RequestBody carNumbers,
+                                   @Part List<MultipartBody.Part> images);
+
     @FormUrlEncoded
     @POST("account/deletecar")
     Call<BaseErrorResponse> deleteCar(@Field("token") String token,

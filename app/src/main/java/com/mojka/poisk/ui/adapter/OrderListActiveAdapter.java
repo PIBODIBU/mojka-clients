@@ -55,18 +55,9 @@ public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActive
         holder.tvDate.setText(DateUtils.millisToPattern(order.getDate(), DateUtils.PATTERN_DATE_TIME_WITH_BRACKETS));
 
         if (actionListener != null) {
-            holder.btnCancelOrder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    actionListener.onCancelOrder(order);
-                }
-            });
-            holder.btnModeOrder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    actionListener.onMoveOrder(order);
-                }
-            });
+            holder.btnCancelOrder.setOnClickListener(v -> actionListener.onCancelOrder(order));
+            holder.btnModeOrder.setOnClickListener(v -> actionListener.onMoveOrder(order));
+            holder.rootView.setOnClickListener(view -> actionListener.onClick(order));
         }
     }
 
@@ -83,5 +74,7 @@ public class OrderListActiveAdapter extends RecyclerView.Adapter<OrderListActive
         void onMoveOrder(Order order);
 
         void onCancelOrder(Order order);
+
+        void onClick(Order order);
     }
 }

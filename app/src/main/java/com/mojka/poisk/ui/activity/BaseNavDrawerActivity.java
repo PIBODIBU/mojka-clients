@@ -49,12 +49,7 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
                 return;
 
             ibMenu.setVisibility(View.VISIBLE);
-            ibMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    drawer.openDrawer();
-                }
-            });
+            ibMenu.setOnClickListener(v -> drawer.openDrawer());
         }
     }
 
@@ -80,70 +75,52 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
         IDrawerItem itemHome = new DrawerItem()
                 .withIconRes(R.drawable.ic_home_white)
                 .withIconSelectedRes(R.drawable.ic_home_white)
-                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
-                    @Override
-                    public void onClick() {
-                        startActivity(new Intent(BaseNavDrawerActivity.this, ProfileActivity.class));
-                        finish();
-                    }
+                .withOnDrawerItemClickListener(() -> {
+                    startActivity(new Intent(BaseNavDrawerActivity.this, ProfileActivity.class));
+                    finish();
                 })
                 .withTitle("Главное меню");
         IDrawerItem itemMap = new DrawerItem()
                 .withIconRes(R.drawable.ic_map_white)
                 .withIconSelectedRes(R.drawable.ic_map_accent)
-                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
-                    @Override
-                    public void onClick() {
-                        startActivity(new Intent(BaseNavDrawerActivity.this, MapActivity.class));
-                        finish();
-                    }
+                .withOnDrawerItemClickListener(() -> {
+                    startActivity(new Intent(BaseNavDrawerActivity.this, MapActivity.class));
+                    finish();
                 })
                 .withTitle("Карта");
 
         IDrawerItem itemList = new DrawerItem()
                 .withIconRes(R.drawable.ic_list_white)
                 .withIconSelectedRes(R.drawable.ic_list_accent)
-                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
-                    @Override
-                    public void onClick() {
-                        startActivity(new Intent(BaseNavDrawerActivity.this, ServiceListActivity.class));
-                        finish();
-                    }
+                .withOnDrawerItemClickListener(() -> {
+                    startActivity(new Intent(BaseNavDrawerActivity.this, ServiceListActivity.class));
+                    finish();
                 })
                 .withTitle("Список");
 
         IDrawerItem itemOrders = new DrawerItem()
                 .withIconRes(R.drawable.ic_profile_white)
                 .withIconSelectedRes(R.drawable.ic_profile_accent)
-                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
-                    @Override
-                    public void onClick() {
-                        startActivity(new Intent(BaseNavDrawerActivity.this, OrderListActivity.class));
-                        finish();
-                    }
+                .withOnDrawerItemClickListener(() -> {
+                    startActivity(new Intent(BaseNavDrawerActivity.this, OrderListActivity.class));
+                    finish();
                 })
                 .withTitle("Мои записи");
 
         IDrawerItem itemExit = new DrawerItem()
                 .withIconRes(R.drawable.ic_close_white)
-                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
-                    @Override
-                    public void onClick() {
-                        accountService.logout();
-                        startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
-                        finish();
-                    }
+                .withOnDrawerItemClickListener(() -> {
+                    accountService.logout();
+                    startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
+                    finish();
                 })
                 .withTitle("Выход");
 
         IDrawerItem itemLogin = new DrawerItem()
                 .withIconRes(R.drawable.ic_profile_white)
-                .withOnDrawerItemClickListener(new DrawerItem.OnDrawerItemClickListener() {
-                    @Override
-                    public void onClick() {
-                        startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
-                        finish();
-                    }
+                .withOnDrawerItemClickListener(() -> {
+                    startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
+                    finish();
                 })
                 .withTitle("Авторизация");
 

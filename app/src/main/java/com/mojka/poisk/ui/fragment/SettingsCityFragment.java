@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +71,11 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
     }
 
     @Override
+    public SettingsCityContract.Presenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
     public void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getViewActivity()));
         recyclerView.setAdapter(presenter.getAdapter());
@@ -95,6 +103,22 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
 
     @Override
     public void setupUi() {
+        etCity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                presenter.onUserInputChanged(editable.toString());
+            }
+        });
+
+
         setupRecyclerView();
     }
 
@@ -106,6 +130,8 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
     @Override
     public void show() {
         rootView.setVisibility(View.VISIBLE);
+        presenter.fetchCities();
+        setCity("");
     }
 
     @Override
@@ -122,5 +148,11 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
     @OnClick(R.id.btn_save)
     public void save() {
         presenter.save(etCity.getText().toString());
+    }
+
+    @Override
+    @OnClick(R.id.root_view)
+    public void onBackgroundClick() {
+        hide();
     }
 }

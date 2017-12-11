@@ -88,6 +88,7 @@
     <string name="btn_add">Добавить</string>
     <string name="btn_add_car">Добавить авто</string>
     <string name="activity_car_add">Добавление авто</string>
+    <string name="activity_car_edit">Авто</string>
     <string name="toast_car_added">Авто успешно добавлено</string>
     <string name="toast_car_adding_error">Ошибка при добавлении авто</string>
     <string name="btn_add_photo">Добавить фото</string>
@@ -106,4 +107,7 @@
     <string name="btn_delete">Удалить</string>
     <string name="dialog_car_delete_title">Удалить авто?</string>
     <string name="dialog_car_delete_message">Это действие нельзя отменить. Вы уверены, что хотите удалить авто?</string>
+    <string name="activity_contact">Связь с нами</string>
+    <string name="toast_car_edited">Успех</string>
+    <string name="btn_update">Обновить</string>
 </resources>

@@ -81,7 +81,6 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:text="@{service.description}"
-                    android:textSize="160sp"
                     tools:text="Service description" />
 
                 <LinearLayout

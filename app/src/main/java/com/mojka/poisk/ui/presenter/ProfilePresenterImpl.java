@@ -56,11 +56,7 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
 
                     }
                 })
-                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-                    }
+                .addOnConnectionFailedListener(connectionResult -> {
                 })
                 .build();
 
@@ -71,42 +67,38 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
     @Override
     public void getUserCity() {
         locationProviderClient.getLastLocation()
-                .addOnSuccessListener(view.getViewActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location == null) {
-                            getUserCity();
-                            return;
-                        }
-
-                        String latLng = String.valueOf(location.getLatitude()).concat(",").concat(String.valueOf(location.getLongitude()));
-                        APIGeocoder.createService(GeocoderAPI.class).getFromLocation(
-                                latLng,
-                                true,
-                                "ru",
-                                view.getViewActivity().getString(R.string.key_geocoder))
-                                .enqueue(new Callback<GeocoderWrapper>() {
-                                    @Override
-                                    public void onResponse(Call<GeocoderWrapper> call, Response<GeocoderWrapper> response) {
-                                        if (response.body() == null)
-                                            return;
-
-                                        try {
-                                            view.setUserCity(response.body().getGeocoderResults().get(0).getAddressComponents().get(3).getShortName());
-                                            googleApiClient.disconnect();
-                                        } catch (Exception ex) {
-                                            Log.e(TAG, "onResponse: ", ex);
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<GeocoderWrapper> call, Throwable t) {
-
-                                    }
-                                });
+                .addOnSuccessListener(view.getViewActivity(), location -> {
+                    // Got last known location. In some rare situations this can be null.
+                    if (location == null) {
+                        getUserCity();
+                        return;
                     }
+
+                    String latLng = String.valueOf(location.getLatitude()).concat(",").concat(String.valueOf(location.getLongitude()));
+                    APIGeocoder.createService(GeocoderAPI.class).getFromLocation(
+                            latLng,
+                            true,
+                            "ru",
+                            view.getViewActivity().getString(R.string.key_geocoder))
+                            .enqueue(new Callback<GeocoderWrapper>() {
+                                @Override
+                                public void onResponse(Call<GeocoderWrapper> call, Response<GeocoderWrapper> response) {
+                                    if (response.body() == null)
+                                        return;
+
+                                    try {
+                                        view.setUserCity(response.body().getGeocoderResults().get(0).getAddressComponents().get(3).getShortName());
+                                        googleApiClient.disconnect();
+                                    } catch (Exception ex) {
+                                        Log.e(TAG, "onResponse: ", ex);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<GeocoderWrapper> call, Throwable t) {
+                                }
+                            });
                 });
     }
 }

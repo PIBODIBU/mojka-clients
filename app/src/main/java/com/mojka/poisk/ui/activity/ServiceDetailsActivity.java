@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -95,9 +96,17 @@ public class ServiceDetailsActivity extends BaseNavDrawerActivity implements Ser
     @Override
     @OnClick(R.id.btn_create_route)
     public void openCreateRouteActivity() {
-        startActivity(new Intent(ServiceDetailsActivity.this, RouteActivity.class)
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" +
+                String.valueOf(presenter.getService().getLat()) +
+                "," +
+                String.valueOf(presenter.getService().getLng()));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+
+        /*startActivity(new Intent(ServiceDetailsActivity.this, RouteActivity.class)
                 .putExtra(RouteActivity.KEY_LATITUDE, presenter.getService().getLat())
-                .putExtra(RouteActivity.KEY_LONGITUDE, presenter.getService().getLng()));
+                .putExtra(RouteActivity.KEY_LONGITUDE, presenter.getService().getLng()));*/
     }
 
     @Override

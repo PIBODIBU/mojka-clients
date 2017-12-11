@@ -11,6 +11,7 @@ import com.mojka.poisk.ui.adapter.OrderListActiveAdapter;
 import com.mojka.poisk.ui.adapter.OrderListHistoryAdapter;
 import com.mojka.poisk.ui.contract.OrderListContract;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,6 +63,7 @@ public class OrderListHistoryPresenterImpl implements OrderListContract.History.
                             if (order.getDone())
                                 orders.add(order);
 
+                        sortOrders(orders);
                         setupAdapter(orders);
                         view.setupUi();
                     }
@@ -76,5 +78,10 @@ public class OrderListHistoryPresenterImpl implements OrderListContract.History.
                         view.hideLoadingScreen();
                     }
                 });
+    }
+
+    @Override
+    public void sortOrders(List<Order> orders) {
+        Collections.sort(orders, (order, t1) -> t1.getDate().compareTo(order.getDate()));
     }
 }

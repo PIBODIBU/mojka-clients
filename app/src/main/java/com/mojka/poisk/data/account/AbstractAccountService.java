@@ -12,7 +12,7 @@ public abstract class AbstractAccountService {
     public static final String KEY_ID = "KEY_ID";
     public static final String KEY_NAME = "KEY_NAME";
     public static final String KEY_PHONE = "KEY_PHONE";
-    public static final String KEY_CAR = "KEY_CAR";
+    public static final String KEY_CAR = "KEY_CAR_ID";
     public static final String KEY_CITY = "KEY_CITY";
     public static final String KEY_TOKEN = "KEY_TOKEN";
 

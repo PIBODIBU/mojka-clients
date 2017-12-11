@@ -63,7 +63,7 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
                 APIGenerator.createService(UserAPI.class).getInfo(token).enqueue(new Callback<BaseDataWrapper<User>>() {
                     @Override
                     public void onError() {
-                        Log.d(TAG, "onError: ");
+                        view.showToast(R.string.error);
                     }
 
                     @Override
@@ -79,6 +79,12 @@ public class LoginPresenterImpl implements LoginContract.Presenter {
                     @Override
                     public void onSuccess(BaseDataWrapper<User> response) {
                         User user = response.getResponseObj();
+
+                        if (user == null) {
+                            onError();
+                            return;
+                        }
+
                         user.setToken(token);
 
                         new AccountService(view.getViewContext()).setAccount(response.getResponseObj());

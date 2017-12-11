@@ -1,5 +1,7 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.util.Log;
+
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
@@ -12,6 +14,7 @@ import com.mojka.poisk.data.model.City;
 import com.mojka.poisk.ui.adapter.SettingsCityAdapter;
 import com.mojka.poisk.ui.contract.SettingsCityContract;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class SettingsCityPresenterImpl implements SettingsCityContract.Presenter {
@@ -19,12 +22,14 @@ public class SettingsCityPresenterImpl implements SettingsCityContract.Presenter
 
     private SettingsCityContract.View view;
     private SettingsCityAdapter adapter = new SettingsCityAdapter();
+    private OnCityChangeListener onCityChangeListener;
+    private List<City> dataSet = new LinkedList<>();
 
     @Override
     public void start() {
         fetchCities();
         setupAdapter();
-        view.setupRecyclerView();
+        view.setupUi();
     }
 
     @Override
@@ -39,8 +44,11 @@ public class SettingsCityPresenterImpl implements SettingsCityContract.Presenter
                     return;
                 }
 
-                for (City city : response.getResponseObj())
-                    adapter.addItem(city);
+                dataSet.clear();
+                dataSet.addAll(response.getResponseObj());
+
+                adapter.clearDataSet();
+                adapter.add(dataSet);
             }
 
             @Override
@@ -55,13 +63,20 @@ public class SettingsCityPresenterImpl implements SettingsCityContract.Presenter
     }
 
     @Override
+    public void onUserInputChanged(String city) {
+        adapter.filter(dataSet, city);
+    }
+
+    @Override
     public void setupAdapter() {
-        adapter.setOnItemClickListener(new SettingsCityAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(City city) {
-                view.showToast(city.getName());
-            }
+        adapter.setOnItemClickListener(city -> {
+            view.setCity(city.getName());
         });
+    }
+
+    @Override
+    public void setOnCityChangeListener(OnCityChangeListener onCityChangeListener) {
+        this.onCityChangeListener = onCityChangeListener;
     }
 
     @Override
@@ -90,6 +105,11 @@ public class SettingsCityPresenterImpl implements SettingsCityContract.Presenter
 
                 new AccountService(view.getViewContext()).setParam(AccountService.KEY_CITY, city);
                 view.showToast(view.getViewActivity().getString(R.string.saved));
+                view.hide();
+
+                if (onCityChangeListener != null) {
+                    onCityChangeListener.onCityUpdated(new City(city));
+                }
             }
 
             @Override

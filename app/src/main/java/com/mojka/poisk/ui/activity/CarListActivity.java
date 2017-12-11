@@ -20,7 +20,8 @@ import butterknife.OnClick;
 
 public class CarListActivity extends BaseNavDrawerActivity implements CarListContract.View {
     private static final String TAG = "CarListActivity";
-    private static final int REQUEST_CAR_ADD = 0;
+    public static final int REQUEST_CAR_ADD = 0;
+    public static final int REQUEST_CAR_EDIT = 1;
 
     private CarListContract.Presenter presenter = new CarListPresenterImpl();
 
@@ -46,6 +47,12 @@ public class CarListActivity extends BaseNavDrawerActivity implements CarListCon
             case REQUEST_CAR_ADD:
                 if (resultCode == RESULT_OK)
                     showToast(R.string.toast_car_added);
+
+                presenter.fetchCarList();
+                return;
+            case REQUEST_CAR_EDIT:
+                if (resultCode == RESULT_OK)
+                    showToast(R.string.toast_car_edited);
 
                 presenter.fetchCarList();
                 return;

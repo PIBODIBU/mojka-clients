@@ -1,6 +1,7 @@
 package com.mojka.poisk.ui.presenter;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 
@@ -12,10 +13,13 @@ import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.BaseErrorResponse;
 import com.mojka.poisk.data.model.Order;
+import com.mojka.poisk.ui.activity.ServiceDetailsActivity;
 import com.mojka.poisk.ui.adapter.OrderListActiveAdapter;
 import com.mojka.poisk.ui.contract.OrderListContract;
 import com.mojka.poisk.ui.fragment.OrderListActiveFragment;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,32 +48,33 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
 
         adapter.setActionListener(new OrderListActiveAdapter.ActionListener() {
             @Override
+            public void onClick(Order order) {
+                view.getViewActivity().startActivity(new Intent(view.getViewActivity(), ServiceDetailsActivity.class)
+                        .putExtra(ServiceDetailsActivity.INTENT_KEY_SERVICE_ID, order.getService().getId()));
+            }
+
+            @Override
             public void onMoveOrder(final Order order) {
-                view.showDateTimeChooser(new OrderListActiveFragment.OnDateTimeChooseListener() {
+                view.showDateTimeChooser(dateTime -> APIGenerator.createService(OrderAPI.class).moveOrder(
+                        order.getId(),
+                        dateTime,
+                        new AccountService(view.getViewContext()).getToken()).enqueue(new Callback<BaseErrorResponse>() {
                     @Override
-                    public void onChoose(Long dateTime) {
-                        APIGenerator.createService(OrderAPI.class).moveOrder(
-                                order.getId(),
-                                dateTime,
-                                new AccountService(view.getViewContext()).getToken()).enqueue(new Callback<BaseErrorResponse>() {
-                            @Override
-                            public void onSuccess(BaseErrorResponse response) {
-                                if (response.getError()) {
-                                    onError();
-                                    return;
-                                }
+                    public void onSuccess(BaseErrorResponse response) {
+                        if (response.getError()) {
+                            onError();
+                            return;
+                        }
 
-                                view.showToast(R.string.order_move_success);
-                                fetchOrders();
-                            }
-
-                            @Override
-                            public void onError() {
-                                view.showToast(R.string.order_move_error);
-                            }
-                        });
+                        view.showToast(R.string.order_move_success);
+                        fetchOrders();
                     }
-                });
+
+                    @Override
+                    public void onError() {
+                        view.showToast(R.string.order_move_error);
+                    }
+                }));
             }
 
             @Override
@@ -135,13 +140,14 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
                             if (!order.getDone())
                                 orders.add(order);
 
+                        sortOrders(orders);
                         setupAdapter(orders);
                         view.setupUi();
                     }
 
                     @Override
                     public void onError() {
-                        view.showToast(R.string.toast_order_active_fetch_error);
+                        view.showToast(R.string.error);
                     }
 
                     @Override
@@ -149,5 +155,10 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
                         view.hideLoadingScreen();
                     }
                 });
+    }
+
+    @Override
+    public void sortOrders(List<Order> orders) {
+        Collections.sort(orders, (order, t1) -> t1.getDate().compareTo(order.getDate()));
     }
 }
