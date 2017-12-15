@@ -73,7 +73,7 @@ public class CarListPresenterImpl implements CarListContract.Presenter, CarListA
     @Override
     public void onItemEdit(Car car) {
         view.getViewActivity().startActivityForResult(new Intent(view.getViewContext(), CarEditActivity.class)
-                .putExtra(CarEditActivity.KEY_CAR_ID, car.getId()), CarListActivity.REQUEST_CAR_ADD);
+                .putExtra(CarEditActivity.KEY_CAR_ID, car.getId()), CarListActivity.REQUEST_CAR_EDIT);
     }
 
     @Override

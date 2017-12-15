@@ -49,6 +49,14 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     }
 
     @Override
+    public void onBackPressed() {
+        if (settingsMVP.isShowing())
+            settingsMVP.hide();
+        else
+            super.onBackPressed();
+    }
+
+    @Override
     int getLayoutId() {
         return R.layout.activity_profile;
     }

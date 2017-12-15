@@ -44,8 +44,8 @@
                 style="@style/AppTheme.TextView.Accent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="New York"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="New York" />
         </LinearLayout>
 
         <com.rey.material.widget.ImageButton
@@ -115,7 +115,7 @@
             android:layout_height="56dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/btn_accent"
-            android:text="@string/btn_order_history"
+            android:text="@string/btn_order_list"
             android:textSize="18sp"
             android:textStyle="bold"
             app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />

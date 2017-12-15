@@ -6,18 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,18 +40,16 @@ import com.mojka.poisk.ui.activity.ServiceDetailsActivity;
 import com.mojka.poisk.ui.contract.MapContract;
 import com.mojka.poisk.ui.support.map.CustomInfoWindow;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import retrofit2.Call;
 
 public class MapPresenterImpl implements MapContract.Presenter {
     private static final String TAG = "MapPresenterImpl";
+
+    private final int MARKER_HEIGHT = 61;
+    private final int MARKER_WIDTH = 36;
 
     private MapContract.View view;
     private GoogleMap map;
@@ -94,10 +89,10 @@ public class MapPresenterImpl implements MapContract.Presenter {
 
         view.getFilterMVP().getPresenter().setFilterListener((min1, max1) -> {
             for (Service service : services)
-                if (service.getPriceEnd() > max1 || service.getPriceStart() < min1)
-                    service.setVisible(false);
-                else
+                if (service.getPriceStart() >= min1 || service.getPriceEnd() <= max1)
                     service.setVisible(true);
+                else
+                    service.setVisible(false);
 
             map.clear();
 
@@ -280,11 +275,17 @@ public class MapPresenterImpl implements MapContract.Presenter {
     @Override
     public OnMapReadyCallback getOnMapReadyCallback() {
         return googleMap -> {
-            int markerHeight = 61;
-            int markerWidth = 36;
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker);
-            Bitmap b = bitmapDrawable.getBitmap();
-            final Bitmap smallMarker = Bitmap.createScaledBitmap(b, markerWidth, markerHeight, false);
+            final Bitmap bitmapMarkerWash = Bitmap.createScaledBitmap(
+                    (((BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker_blue)).getBitmap()),
+                    MARKER_WIDTH,
+                    MARKER_HEIGHT,
+                    false);
+
+            final Bitmap bitmapMarkerRepair = Bitmap.createScaledBitmap(
+                    (((BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker_yellow)).getBitmap()),
+                    MARKER_WIDTH,
+                    MARKER_HEIGHT,
+                    false);
 
             map = googleMap;
             map.setInfoWindowAdapter(new CustomInfoWindow(view.getViewActivity(), MapPresenterImpl.this));
@@ -317,8 +318,13 @@ public class MapPresenterImpl implements MapContract.Presenter {
                     if (!response.getError()) {
                         for (Service service : response.getResponseObj()) {
                             MarkerOptions markerOptions = new MarkerOptions()
-                                    .position(new LatLng(service.getLat(), service.getLng()))
-                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                                    .position(new LatLng(service.getLat(), service.getLng()));
+
+                            if (service.getType() == Service.TYPE_WASH)
+                                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmapMarkerWash));
+                            else
+                                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmapMarkerRepair));
+
                             Marker marker = map.addMarker(markerOptions);
 
                             service.setMarker(marker);

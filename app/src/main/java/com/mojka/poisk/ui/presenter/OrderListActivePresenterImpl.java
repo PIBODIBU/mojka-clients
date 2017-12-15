@@ -106,12 +106,7 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
                                     }
                                 });
                             }
-                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).create().show();
+                        }).setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).create().show();
             }
         });
 
@@ -159,6 +154,6 @@ public class OrderListActivePresenterImpl implements OrderListContract.Active.Pr
 
     @Override
     public void sortOrders(List<Order> orders) {
-        Collections.sort(orders, (order, t1) -> t1.getDate().compareTo(order.getDate()));
+        Collections.sort(orders, (order, t1) -> t1.getId().compareTo(order.getId()));
     }
 }

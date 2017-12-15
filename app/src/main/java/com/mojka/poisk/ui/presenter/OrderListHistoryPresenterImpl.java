@@ -82,6 +82,6 @@ public class OrderListHistoryPresenterImpl implements OrderListContract.History.
 
     @Override
     public void sortOrders(List<Order> orders) {
-        Collections.sort(orders, (order, t1) -> t1.getDate().compareTo(order.getDate()));
+        Collections.sort(orders, (order, t1) -> t1.getId().compareTo(order.getId()));
     }
 }

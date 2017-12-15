@@ -110,4 +110,6 @@
     <string name="activity_contact">Связь с нами</string>
     <string name="toast_car_edited">Успех</string>
     <string name="btn_update">Обновить</string>
+    <string name="btn_order_list">Мои записи</string>
+    <string name="error_not_logged">Пожалуйста, авторизируйтесь</string>
 </resources>

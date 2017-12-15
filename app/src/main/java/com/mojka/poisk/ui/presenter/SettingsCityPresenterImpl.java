@@ -93,6 +93,12 @@ public class SettingsCityPresenterImpl implements SettingsCityContract.Presenter
     public void save(final String city) {
         view.showProgressBar();
 
+        if (!new AccountService(view.getViewContext()).isLogged()) {
+            view.showToast(view.getViewActivity().getString(R.string.error_not_logged));
+            view.hideProgressBar();
+            return;
+        }
+
         APIGenerator.createService(UserAPI.class).updateCity(
                 new AccountService(view.getViewContext()).getToken(),
                 city).enqueue(new Callback<BaseErrorResponse>() {
