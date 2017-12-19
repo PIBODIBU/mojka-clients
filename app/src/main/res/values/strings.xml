@@ -112,4 +112,7 @@
     <string name="btn_update">Обновить</string>
     <string name="btn_order_list">Мои записи</string>
     <string name="error_not_logged">Пожалуйста, авторизируйтесь</string>
+    <string name="activity_feedback">Связь с нами</string>
+    <string name="btn_send">Отправить</string>
+    <string name="hint_feedback_text">Текст обращения</string>
 </resources>

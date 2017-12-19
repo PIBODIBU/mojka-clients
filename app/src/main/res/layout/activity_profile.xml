@@ -121,6 +121,7 @@
             app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
 
         <TextView
+            android:id="@+id/tv_feedback"
             style="@style/AppTheme.TextView.Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,6 +134,6 @@
         android:id="@+id/fragment_settings"
         android:name="com.mojka.poisk.ui.fragment.SettingsCityFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="350dp"
         android:layout_below="@+id/c_toolbar_secondary" />
 </RelativeLayout>

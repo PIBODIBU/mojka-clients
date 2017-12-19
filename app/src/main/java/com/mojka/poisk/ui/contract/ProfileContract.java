@@ -18,6 +18,8 @@ public interface ProfileContract {
         void showOrderHistory();
 
         void showMyCar();
+
+        void feedback();
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -150,6 +150,11 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     @Override
     @OnClick(R.id.btn_order_history)
     public void showOrderHistory() {
+        if (!new AccountService(this).isLogged()) {
+            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            return;
+        }
+
         startActivity(new Intent(ProfileActivity.this, OrderListActivity.class)
                 .putExtra(OrderListActivity.INTENT_KEY_PAGE, OrderListActivity.PAGE_ORDER_HISTORY));
         finish();
@@ -158,6 +163,11 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
     @Override
     @OnClick(R.id.btn_my_car)
     public void showMyCar() {
+        if (!new AccountService(this).isLogged()) {
+            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            return;
+        }
+
         startActivity(new Intent(ProfileActivity.this, CarListActivity.class));
         finish();
     }
@@ -176,5 +186,12 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
         settingsMVP = ((SettingsCityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_settings)).getMVPView();
         settingsMVP.hide();
         settingsMVP.getPresenter().setOnCityChangeListener(city -> tvCity.setText(city.getName()));
+    }
+
+    @Override
+    @OnClick(R.id.tv_feedback)
+    public void feedback() {
+        startActivity(new Intent(ProfileActivity.this, FeedbackActivity.class));
+        finish();
     }
 }

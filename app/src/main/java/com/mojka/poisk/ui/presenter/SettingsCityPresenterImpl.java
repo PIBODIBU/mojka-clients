@@ -1,7 +1,5 @@
 package com.mojka.poisk.ui.presenter;
 
-import android.util.Log;
-
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;

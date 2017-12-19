@@ -89,7 +89,7 @@ public class MapPresenterImpl implements MapContract.Presenter {
 
         view.getFilterMVP().getPresenter().setFilterListener((min1, max1) -> {
             for (Service service : services)
-                if (service.getPriceStart() >= min1 || service.getPriceEnd() <= max1)
+                if ((service.getPriceStart() >= min1 && service.getPriceStart() <= max1) || (service.getPriceEnd() >= min1 && service.getPriceEnd() <= max1))
                     service.setVisible(true);
                 else
                     service.setVisible(false);

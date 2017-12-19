@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -118,6 +119,15 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
             }
         });
 
+        etCity.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                save();
+                return true;
+            }
+
+            return false;
+        });
+
 
         setupRecyclerView();
     }
@@ -145,7 +155,7 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
     }
 
     @Override
-    @OnClick(R.id.btn_save)
+//    @OnClick(R.id.btn_save)
     public void save() {
         presenter.save(etCity.getText().toString());
     }
