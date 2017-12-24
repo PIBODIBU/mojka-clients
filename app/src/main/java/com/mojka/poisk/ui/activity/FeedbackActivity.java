@@ -4,22 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.mojka.poisk.R;
+import com.mojka.poisk.data.model.FeedbackSubject;
 import com.mojka.poisk.ui.contract.FeedbackContract;
 import com.mojka.poisk.ui.presenter.FeedbackPresenterImpl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
 public class FeedbackActivity extends BaseNavDrawerActivity implements FeedbackContract.View {
@@ -28,7 +24,14 @@ public class FeedbackActivity extends BaseNavDrawerActivity implements FeedbackC
     @BindView(R.id.spinner)
     public Spinner spinner;
 
+    @BindView(R.id.et_email)
+    public EditText etEmail;
+
+    @BindView(R.id.et_message)
+    public EditText etMessage;
+
     private FeedbackContract.Presenter presenter = new FeedbackPresenterImpl();
+    private String subject = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,14 +53,16 @@ public class FeedbackActivity extends BaseNavDrawerActivity implements FeedbackC
 
     @Override
     public void setupUi() {
-        List<String> subjects = new LinkedList<>();
-        subjects.add("Subject #1");
-        subjects.add("Subject #2");
-        subjects.add("Subject #3");
-        subjects.add("Subject #4");
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, subjects);
+    @Override
+    public void setSpinnerAdapter(ArrayAdapter<FeedbackSubject> adapter) {
         spinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void showToast(int text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -82,7 +87,16 @@ public class FeedbackActivity extends BaseNavDrawerActivity implements FeedbackC
 
     @Override
     @OnItemSelected(R.id.spinner)
-    public void onItemSelected(int index) {
-//        String string = ((String) adapterView.getItemAtPosition(i));
+    public void onItemSelected(Spinner spinner, int index) {
+        subject = ((String) spinner.getItemAtPosition(index));
+    }
+
+    @Override
+    @OnClick(R.id.btn_send)
+    public void send() {
+        presenter.send(
+                subject,
+                etMessage.getText().toString(),
+                etEmail.getText().toString());
     }
 }

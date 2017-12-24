@@ -115,4 +115,5 @@
     <string name="activity_feedback">Связь с нами</string>
     <string name="btn_send">Отправить</string>
     <string name="hint_feedback_text">Текст обращения</string>
+    <string name="sent">Отправлено</string>
 </resources>
