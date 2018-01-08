@@ -83,7 +83,6 @@ public class RegisterSecondStagePresenterImpl implements RegisterContract.Second
                         if (task.isSuccessful()) { // Sign in success
                             FirebaseUser user = task.getResult().getUser();
 
-
                             for (AuthCallback authCallback : authCallbacks)
                                 authCallback.onSuccess();
                         } else { // Sign in failed

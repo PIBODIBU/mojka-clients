@@ -128,7 +128,6 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
             return false;
         });
 
-
         setupRecyclerView();
     }
 
@@ -155,7 +154,7 @@ public class SettingsCityFragment extends BaseFragment implements SettingsCityCo
     }
 
     @Override
-//    @OnClick(R.id.btn_save)
+    @OnClick(R.id.btn_save)
     public void save() {
         presenter.save(etCity.getText().toString());
     }

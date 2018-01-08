@@ -132,6 +132,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         btnRegister.setClickable(true);
     }
 
+    @OnClick(R.id.tv_forgot_password)
+    @Override
+    public void forgotPassword() {
+        startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+    }
+
     @Override
     int getLayoutId() {
         return R.layout.activity_login;
@@ -144,11 +150,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     OnCloseButtonListener getOnCloseButtonListener() {
-        return new OnCloseButtonListener() {
-            @Override
-            public void onclick() {
-                finish();
-            }
-        };
+        return () -> finish();
     }
 }

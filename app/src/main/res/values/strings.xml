@@ -116,4 +116,7 @@
     <string name="btn_send">Отправить</string>
     <string name="hint_feedback_text">Текст обращения</string>
     <string name="sent">Отправлено</string>
+    <string name="activity_forgot_password">Восстановление пароля</string>
+    <string name="btn_get_code">Получить код</string>
+    <string name="password_changed">Пароль успешно изменен</string>
 </resources>

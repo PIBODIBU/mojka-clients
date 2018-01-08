@@ -76,6 +76,7 @@
             app:rd_style="@style/Material.Drawable.Ripple.Wave.Light" />
 
         <TextView
+            android:id="@+id/tv_forgot_password"
             style="@style/AppTheme.TextView.Dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,5 +1,8 @@
 package com.mojka.poisk.ui.presenter;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -8,11 +11,15 @@ import com.mojka.poisk.data.account.AccountService;
 import com.mojka.poisk.data.api.APIGenerator;
 import com.mojka.poisk.data.api.inrerfaces.OrderAPI;
 import com.mojka.poisk.data.api.inrerfaces.ServiceAPI;
+import com.mojka.poisk.data.broadcast.AlarmReceiver;
 import com.mojka.poisk.data.callback.Callback;
 import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.BaseErrorResponse;
+import com.mojka.poisk.data.model.OrderId;
 import com.mojka.poisk.data.model.Service;
 import com.mojka.poisk.ui.contract.ServiceDetailsContract;
+
+import java.util.Calendar;
 
 import static com.mojka.poisk.ui.activity.ServiceDetailsActivity.INTENT_KEY_SERVICE_ID;
 
@@ -88,9 +95,9 @@ public class ServiceDetailsPresenterImpl implements ServiceDetailsContract.Prese
                 service.getId(),
                 time,
                 new AccountService(view.getViewContext()).getToken()
-        ).enqueue(new Callback<BaseErrorResponse>() {
+        ).enqueue(new Callback<OrderId>() {
             @Override
-            public void onSuccess(BaseErrorResponse response) {
+            public void onSuccess(OrderId response) {
                 if (response.getError()) {
                     onError();
                     onDone();
@@ -98,6 +105,19 @@ public class ServiceDetailsPresenterImpl implements ServiceDetailsContract.Prese
                 }
 
                 view.showToast(R.string.toast_order_added);
+
+                // Set alarm
+                AlarmManager alarmManager = (AlarmManager) view.getViewActivity().getSystemService(Context.ALARM_SERVICE);
+                Intent alarmIntent = new Intent(view.getViewActivity(), AlarmReceiver.class);
+                alarmIntent.putExtra(AlarmReceiver.KEY_ORDER_ID, response.getOrderId());
+                alarmIntent.putExtra(AlarmReceiver.KEY_ORDER_DATE, time);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(view.getViewActivity(), response.getOrderId(), alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                Calendar date = Calendar.getInstance();
+                date.setTimeInMillis(time);
+                date.add(Calendar.HOUR, -2);
+
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), pendingIntent);
             }
 
             @Override

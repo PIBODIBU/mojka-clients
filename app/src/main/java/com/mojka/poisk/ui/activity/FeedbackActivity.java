@@ -53,6 +53,7 @@ public class FeedbackActivity extends BaseNavDrawerActivity implements FeedbackC
 
     @Override
     public void setupUi() {
+        presenter.fetchSubjects();
     }
 
     @Override
@@ -88,7 +89,7 @@ public class FeedbackActivity extends BaseNavDrawerActivity implements FeedbackC
     @Override
     @OnItemSelected(R.id.spinner)
     public void onItemSelected(Spinner spinner, int index) {
-        subject = ((String) spinner.getItemAtPosition(index));
+        subject = ((FeedbackSubject) spinner.getItemAtPosition(index)).getName();
     }
 
     @Override

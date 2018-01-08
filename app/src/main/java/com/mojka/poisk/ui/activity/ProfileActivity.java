@@ -2,6 +2,8 @@ package com.mojka.poisk.ui.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,17 +12,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.account.AccountService;
+import com.mojka.poisk.data.broadcast.AlarmReceiver;
 import com.mojka.poisk.ui.contract.ProfileContract;
 import com.mojka.poisk.ui.contract.SettingsCityContract;
 import com.mojka.poisk.ui.fragment.SettingsCityFragment;
 import com.mojka.poisk.ui.presenter.ProfilePresenterImpl;
 import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -106,6 +111,11 @@ public class ProfileActivity extends BaseNavDrawerActivity implements ProfileCon
         if (settingsMVP.isShowing()) {
             settingsMVP.hide();
         } else {
+            if (!new AccountService(this).isLogged()) {
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                return;
+            }
+
             settingsMVP.show();
         }
     }

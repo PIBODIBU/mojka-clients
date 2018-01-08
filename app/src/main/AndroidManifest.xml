@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -18,12 +19,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dccc6249b9f5f22c1094455248b274bbfc5781cc" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAXWOe7bpsr28UMnM21hhrXZtLujtn9LKk" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
 
         <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
@@ -32,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.ProfileActivity" />
@@ -43,9 +49,10 @@
         <activity android:name=".ui.activity.CarListActivity" />
         <activity android:name=".ui.activity.CarAddActivity" />
         <activity android:name=".ui.activity.RouteActivity" />
-        <activity android:name=".ContactActivity"></activity>
         <activity android:name=".ui.activity.CarEditActivity" />
         <activity android:name=".ui.activity.FeedbackActivity" />
-    </application>
+        <activity android:name=".ui.activity.ForgotPasswordActivity" />
 
+        <receiver android:name=".data.broadcast.AlarmReceiver" />
+    </application>
 </manifest>

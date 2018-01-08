@@ -49,7 +49,7 @@ public class MapPresenterImpl implements MapContract.Presenter {
     private static final String TAG = "MapPresenterImpl";
 
     private final int MARKER_HEIGHT = 61;
-    private final int MARKER_WIDTH = 36;
+    private final int MARKER_WIDTH = 61;
 
     private MapContract.View view;
     private GoogleMap map;
@@ -276,13 +276,13 @@ public class MapPresenterImpl implements MapContract.Presenter {
     public OnMapReadyCallback getOnMapReadyCallback() {
         return googleMap -> {
             final Bitmap bitmapMarkerWash = Bitmap.createScaledBitmap(
-                    (((BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker_blue)).getBitmap()),
+                    (((BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker_car_wash)).getBitmap()),
                     MARKER_WIDTH,
                     MARKER_HEIGHT,
                     false);
 
             final Bitmap bitmapMarkerRepair = Bitmap.createScaledBitmap(
-                    (((BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker_yellow)).getBitmap()),
+                    (((BitmapDrawable) view.getViewActivity().getResources().getDrawable(R.drawable.ic_map_marker_wheel)).getBitmap()),
                     MARKER_WIDTH,
                     MARKER_HEIGHT,
                     false);

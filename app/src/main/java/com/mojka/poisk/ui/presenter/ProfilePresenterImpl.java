@@ -1,17 +1,14 @@
 package com.mojka.poisk.ui.presenter;
 
 import android.annotation.SuppressLint;
-import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mojka.poisk.R;
 import com.mojka.poisk.data.api.inrerfaces.GeocoderAPI;
 import com.mojka.poisk.data.api.location.APIGeocoder;
@@ -30,6 +27,10 @@ public class ProfilePresenterImpl implements ProfileContract.Presenter {
 
     @Override
     public void start() {
+        String fcmToken = FirebaseInstanceId.getInstance().getToken();
+
+        Log.d(TAG, "start: " + fcmToken);
+
         view.setupUi();
         setupGoogleApi();
     }

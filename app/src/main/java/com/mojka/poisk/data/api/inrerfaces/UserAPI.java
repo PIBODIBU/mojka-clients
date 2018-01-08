@@ -20,4 +20,9 @@ public interface UserAPI {
     @POST("updateaccount")
     Call<BaseErrorResponse> updateCity(@Field("token") String token,
                                        @Field("city") String city);
+
+    @FormUrlEncoded
+    @POST("account/restore")
+    Call<BaseErrorResponse> restorePassword(@Field("phone") String phone,
+                                            @Field("new_password") String newPassword);
 }

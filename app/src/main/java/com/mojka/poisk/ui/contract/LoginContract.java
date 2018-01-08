@@ -30,6 +30,8 @@ public interface LoginContract {
         void freezeUI();
 
         void unfreezeUI();
+
+        void forgotPassword();
     }
 
     interface Presenter extends BasePresenter<View> {

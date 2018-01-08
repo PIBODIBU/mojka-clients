@@ -3,6 +3,7 @@ package com.mojka.poisk.data.api.inrerfaces;
 import com.mojka.poisk.data.model.BaseDataWrapper;
 import com.mojka.poisk.data.model.BaseErrorResponse;
 import com.mojka.poisk.data.model.Order;
+import com.mojka.poisk.data.model.OrderId;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ public interface OrderAPI {
 
     @FormUrlEncoded
     @POST("service/addorder")
-    Call<BaseErrorResponse> createOrder(@Field("service_id") Integer serviceId,
-                                        @Field("date") Long date,
-                                        @Field("token") String token);
+    Call<OrderId> createOrder(@Field("service_id") Integer serviceId,
+                              @Field("date") Long date,
+                              @Field("token") String token);
 
     @FormUrlEncoded
     @POST("service/moveorder")
